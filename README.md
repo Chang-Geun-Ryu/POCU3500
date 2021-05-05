@@ -1,1 +1,2 @@
-# POCU3500
+# COMP3500StarterPack
+Starter Pack for COMP3500
