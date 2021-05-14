@@ -29,8 +29,14 @@ public final class Queue {
     }
 
     public int dequeue() {
-        int data = LinkedList.getOrNull(root, index).getData();
-        root = LinkedList.removeAt(root, index);
+        int data = front.getData();
+        if (index == 0) {
+            root = null;
+            front = null;
+        } else {
+            front = LinkedList.getOrNull(root, index - 1);
+            front.setNext(root);
+        }
         --index;
         return data;
     }
