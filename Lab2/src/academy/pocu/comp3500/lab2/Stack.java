@@ -4,6 +4,7 @@ import academy.pocu.comp3500.lab2.datastructure.Node;
 
 public final class Stack {
     Node root;
+    Node top;
     int index;
 
     public Stack() {
@@ -13,16 +14,16 @@ public final class Stack {
 
     public void push(final int data) {
         ++index;
-        root = LinkedList.append(root, data);
+        root = LinkedList.insertAt(root, 0, data);
     }
 
     public int peek() {
-        return LinkedList.getOrNull(root, index).getData();
+        return LinkedList.getOrNull(root, 0).getData();
     }
 
     public int pop() {
-        int data = LinkedList.getOrNull(root, index).getData();
-        root = LinkedList.removeAt(root, index);
+        int data = LinkedList.getOrNull(root, 0).getData();
+        root = LinkedList.removeAt(root, 0);
         --index;
         return data;
     }

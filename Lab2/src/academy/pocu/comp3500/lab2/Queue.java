@@ -13,16 +13,16 @@ public final class Queue {
 
     public void enqueue(final int data) {
         ++index;
-        root = LinkedList.append(root, data);
+        root = LinkedList.insertAt(root,0, data);
     }
 
     public int peek() {
-        return LinkedList.getOrNull(root, 0).getData();
+        return LinkedList.getOrNull(root, index).getData();
     }
 
     public int dequeue() {
-        int data = LinkedList.getOrNull(root, 0).getData();
-        root = LinkedList.removeAt(root, 0);
+        int data = LinkedList.getOrNull(root, index).getData();
+        root = LinkedList.removeAt(root, index);
         --index;
         return data;
     }
