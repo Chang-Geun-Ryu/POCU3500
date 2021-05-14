@@ -4,12 +4,15 @@ import academy.pocu.comp3500.lab2.datastructure.Node;
 
 public final class Queue {
     Node root;
+    int index;
 
     public Queue() {
         root = null;
+        index = -1;
     }
 
     public void enqueue(final int data) {
+        ++index;
         root = LinkedList.append(root, data);
     }
 
@@ -20,14 +23,11 @@ public final class Queue {
     public int dequeue() {
         int data = LinkedList.getOrNull(root, 0).getData();
         root = LinkedList.removeAt(root, 0);
+        --index;
         return data;
     }
 
     public int getSize() {
-        int index = 0;
-        while (LinkedList.getOrNull(root, index) != null) {
-            ++index;
-        }
-        return index;
+        return index + 1;
     }
 }
