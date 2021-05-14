@@ -19,8 +19,7 @@ public final class Queue {
 
         if (index == 0) {
             front = node;
-        } else if (index == 1) {
-            front.setNext(node);
+            tail = node;
         } else {
             tail.setNext(node);
             tail = tail.getNextOrNull();
