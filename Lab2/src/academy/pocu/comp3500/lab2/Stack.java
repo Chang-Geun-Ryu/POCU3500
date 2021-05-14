@@ -4,7 +4,6 @@ import academy.pocu.comp3500.lab2.datastructure.Node;
 
 public final class Stack {
     Node root;
-    Node top;
     int index;
 
     public Stack() {
