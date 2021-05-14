@@ -3,39 +3,41 @@ package academy.pocu.comp3500.lab2;
 import academy.pocu.comp3500.lab2.datastructure.Node;
 
 public final class Queue {
-    Node root;
+    Node tail;
     Node front;
     int index;
 
     public Queue() {
-        root = null;
+        tail = null;
         front = null;
         index = -1;
     }
 
     public void enqueue(final int data) {
         ++index;
-        root = LinkedList.prepend(root, data);
+        Node node = LinkedList.prepend(null, data);
+
         if (index == 0) {
-            front = root;
+            front = node;
+        } else if (index == 1) {
+            front.setNext(node);
         } else {
-            front.setNext(root);
+            tail.setNext(node);
+            tail = tail.getNextOrNull();
         }
     }
 
     public int peek() {
-//        return LinkedList.getOrNull(root, index).getData();
         return front.getData();
     }
 
     public int dequeue() {
         int data = front.getData();
         if (index == 0) {
-            root = null;
+            tail = null;
             front = null;
         } else {
-            front = LinkedList.getOrNull(root, index - 1);
-            front.setNext(root);
+            front = front.getNextOrNull();
         }
         --index;
         return data;
