@@ -20,31 +20,23 @@ public final class MissionControl {
             return 0;
         }
 
-        int max = Integer.MIN_VALUE;
         int maxIndex = 0;
         int left = 0;
         int right = altitudes.length - 1;
         int mid = (left + right) / 2;
 
-        if (altitudes[mid] > altitudes[left] && altitudes[mid] > altitudes[right]) {
-            while (left < right) {
-                int temp = mid + 1 <= right ? mid + 1 : right;
+        while (left < right) {
+            int temp = mid + 1 <= right ? mid + 1 : right;
 
-                if (altitudes[mid + 1] > altitudes[mid]) {
-                    left = mid + 1;
-                    mid = (left + right) / 2;
-                    maxIndex = mid;
-                } else {
-                    right = mid;
-                    mid = (left + right) / 2;
-                    maxIndex = mid;
-                }
+            if (altitudes[temp] > altitudes[mid]) {
+                left = mid + 1;
+                mid = (left + right) / 2;
+                maxIndex = mid;
+            } else {
+                right = mid;
+                mid = (left + right) / 2;
+                maxIndex = mid;
             }
-
-        } else if (altitudes[left] > altitudes[right]) {
-            return 0;
-        } else if (altitudes[right] > altitudes[left]) {
-            return altitudes.length - 1;
         }
 
         return maxIndex;
