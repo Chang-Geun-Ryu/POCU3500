@@ -17,6 +17,30 @@ public class Program {
         }
 
         {
+            final int[] altitudes = new int[] { 1, 2, 3, 4, 5, 6, 7};
+
+            final int maxAltitudeTime = MissionControl.findMaxAltitudeTime(altitudes);
+
+            assert (maxAltitudeTime == 6);
+        }
+
+        {
+            final int[] altitudes = new int[] { 7,6,5,4,3,2,1};
+
+            final int maxAltitudeTime = MissionControl.findMaxAltitudeTime(altitudes);
+
+            assert (maxAltitudeTime == 0);
+        }
+
+        {
+            final int[] altitudes = new int[] { 7};
+
+            final int maxAltitudeTime = MissionControl.findMaxAltitudeTime(altitudes);
+
+            assert (maxAltitudeTime == 0);
+        }
+
+        {
             final int[] altitudes = new int[] { 1, 2, 3, 4, 5, 6, 7, 4, 3, 2 };
 
             ArrayList<Integer> bounds = MissionControl.findAltitudeTimes(altitudes, 2);
