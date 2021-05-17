@@ -62,27 +62,4 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java</url>
-          <line>68</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="altitudes[left]" language="JAVA" />
-        <watch expression="altitudes[right]" language="JAVA" />
-        <watch expression="altitudes[mid]" language="JAVA" />
-      </configuration>
-    </watches-manager>
-  </component>
 </project>

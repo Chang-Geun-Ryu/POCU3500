@@ -28,7 +28,9 @@ public final class MissionControl {
 
         if (altitudes[mid] > altitudes[left] && altitudes[mid] > altitudes[right]) {
             while (left < right) {
-                if (altitudes[mid + 1] >= altitudes[mid]) {
+                int temp = mid + 1 <= right ? mid + 1 : right;
+
+                if (altitudes[mid + 1] > altitudes[mid]) {
                     left = mid + 1;
                     mid = (left + right) / 2;
                     maxIndex = mid;
@@ -50,11 +52,11 @@ public final class MissionControl {
 
     public static ArrayList<Integer> findAltitudeTimes(final int[] altitudes, final int targetAltitude) {
         ArrayList<Integer> bounds = new ArrayList<>();
-            for (int index = 0; index < altitudes.length; index++) {
-                if (targetAltitude == altitudes[index]) {
-                    bounds.add(index);
-                }
+        for (int index = 0; index < altitudes.length; index++) {
+            if (targetAltitude == altitudes[index]) {
+                bounds.add(index);
             }
+        }
         return bounds;
     }
 }
