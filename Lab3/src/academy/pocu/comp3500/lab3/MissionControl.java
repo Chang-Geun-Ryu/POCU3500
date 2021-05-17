@@ -29,7 +29,7 @@ public final class MissionControl {
             int temp = mid + 1 <= right ? mid + 1 : right;
 
             if (altitudes[temp] > altitudes[mid]) {
-                left = mid + 1;
+                left = temp;
                 mid = (left + right) / 2;
                 maxIndex = mid;
             } else {
