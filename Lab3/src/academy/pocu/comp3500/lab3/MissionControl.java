@@ -44,11 +44,64 @@ public final class MissionControl {
 
     public static ArrayList<Integer> findAltitudeTimes(final int[] altitudes, final int targetAltitude) {
         ArrayList<Integer> bounds = new ArrayList<>();
-        for (int index = 0; index < altitudes.length; index++) {
-            if (targetAltitude == altitudes[index]) {
+        int maxIndex = findMaxAltitudeTime(altitudes);
+
+        if (maxIndex == 0) {
+            int index = findAltitudeTime(altitudes, targetAltitude, 0, altitudes.length - 1, false);
+            if (index != -1) {
                 bounds.add(index);
             }
+        } else if (maxIndex == altitudes.length - 1) {
+            int index = findAltitudeTime(altitudes, targetAltitude, 0, altitudes.length - 1, true);
+            if (index != -1) {
+                bounds.add(index);
+            }
+        } else {
+            int index = findAltitudeTime(altitudes, targetAltitude, 0, maxIndex, true);
+            int index2 = findAltitudeTime(altitudes, targetAltitude, maxIndex + 1, altitudes.length - 1, false);
+
+            if (index != -1) {
+                bounds.add(index);
+            }
+            if (index2 != -1) {
+                bounds.add(index2);
+            }
         }
+
+//        for (int index = 0; index < altitudes.length; index++) {
+//            if (targetAltitude == altitudes[index]) {
+//                bounds.add(index);
+//            }
+//        }
         return bounds;
+    }
+
+    public static int findAltitudeTime(final int[] altitudes, final int targetAltitude, int left, int right, boolean ascending) {
+//        int left = 0;
+//        int right = altitudes.length - 1;
+        int index = (left + right) / 2;
+
+        while (left < right) {
+            if (targetAltitude == altitudes[index]) {
+                return index;
+            } else {
+                if (ascending) {
+                    if (targetAltitude > altitudes[index]) {
+                        left = index + 1;
+                    } else {
+                        right = index;
+                    }
+                } else {
+                    if (targetAltitude < altitudes[index]) {
+                        left = index + 1;
+                    } else {
+                        right = index;
+                    }
+                }
+                index = (left + right) / 2;
+            }
+        }
+
+        return targetAltitude == altitudes[index] ? index : -1;
     }
 }

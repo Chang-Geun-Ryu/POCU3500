@@ -8,11 +8,26 @@ public class Program {
 
     public static void main(String[] args) {
 	    // write your code here
+
+        {
+            final int[] altitudes = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            int a = MissionControl.findAltitudeTime(altitudes, 1, 0, altitudes.length - 1, true);
+            assert (a == 0);
+
+            final int[] altitudes3 = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+            int aa = MissionControl.findAltitudeTime(altitudes3, 10, 0, altitudes.length - 1, false);
+            assert (aa == 0);
+
+            final int[] altitudes9 = new int[]{5};
+            final int maxAltitudeTime9 = MissionControl.findAltitudeTime(altitudes9, 0, 0, altitudes9.length - 1, true);
+            assert (maxAltitudeTime9 == -1);
+        }
         {
             final int[] altitudes = new int[]{1, 2, 3, 4, 5, 6, 7, 4, 3, 2};
             final int maxAltitudeTime = MissionControl.findMaxAltitudeTime(altitudes);
             assert (maxAltitudeTime == 6);
             final int[] altitudes2 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
             final int maxAltitudeTime2 = MissionControl.findMaxAltitudeTime(altitudes2);
             assert (maxAltitudeTime2 == 9);
             final int[] altitudes3 = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
