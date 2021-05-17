@@ -8,12 +8,14 @@ public final class MissionControl {
 
     public static int findMaxAltitudeTime(final int[] altitudes) {
         int max = Integer.MIN_VALUE;
+        int maxIndex = -1;
         for (int index = 0; index < altitudes.length; ++index) {
             if (max < altitudes[index]) {
-                max = index;
+                maxIndex = index;
+                max = altitudes[index];
             }
         }
-        return max;
+        return maxIndex;
     }
 
     public static ArrayList<Integer> findAltitudeTimes(final int[] altitudes, final int targetAltitude) {
