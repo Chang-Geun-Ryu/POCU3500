@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="762f39db-2c87-4f00-a8c9-eaebd2eda5ef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/MissionControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/MissionControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,18 +67,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java</url>
-          <line>31</line>
+          <line>60</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/app/Program.java</url>
-          <line>39</line>
+          <line>68</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab3/MissionControl.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

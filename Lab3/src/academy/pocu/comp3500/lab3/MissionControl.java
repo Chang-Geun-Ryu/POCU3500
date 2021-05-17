@@ -6,6 +6,13 @@ public final class MissionControl {
     private MissionControl() {
     }
 
+//    private static int findMaxRecursive(final int[] altitudes, int left, int right) {
+//        if (left >= right) {
+//            return
+//        }
+//        return findMaxRecursive()
+//    }
+
     public static int findMaxAltitudeTime(final int[] altitudes) {
         if (altitudes.length == 0) {
             return -1;
@@ -21,7 +28,7 @@ public final class MissionControl {
 
         if (altitudes[mid] > altitudes[left] && altitudes[mid] > altitudes[right]) {
             while (left < right) {
-                if (altitudes[mid + 1] > altitudes[mid]) {
+                if (altitudes[mid + 1] >= altitudes[mid]) {
                     left = mid + 1;
                     mid = (left + right) / 2;
                     maxIndex = mid;
