@@ -73,32 +73,23 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="16" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
+          <line>264</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
-          <line>144</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
-          <line>141</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
+          <line>295</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="players[i].getPassesPerGame() * players[i].getAssistsPerGame()" language="JAVA" />
+        <watch expression="pivot.getPassesPerGame() * pivot.getAssistsPerGame()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

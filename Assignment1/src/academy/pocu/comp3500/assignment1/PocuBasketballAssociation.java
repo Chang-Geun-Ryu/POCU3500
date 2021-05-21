@@ -34,7 +34,7 @@ public final class PocuBasketballAssociation {
                 outPlayers[playerIndex].setPointsPerGame(totalPoint / gameCount);
                 outPlayers[playerIndex].setAssistsPerGame(totalAssist / gameCount);
                 outPlayers[playerIndex].setPassesPerGame(totalPass / gameCount);
-                outPlayers[playerIndex++].setShootingPercentage(100 * totalGoal / totalGoalAttemp);
+                outPlayers[playerIndex++].setShootingPercentage((100 * totalGoal) / totalGoalAttemp);
 
                 name = gameStats[i].getPlayerName();
                 totalPoint = gameStats[i].getPoints();
@@ -50,7 +50,7 @@ public final class PocuBasketballAssociation {
                 outPlayers[playerIndex].setPointsPerGame(totalPoint / gameCount);
                 outPlayers[playerIndex].setAssistsPerGame(totalAssist / gameCount);
                 outPlayers[playerIndex].setPassesPerGame(totalAssist / gameCount);
-                outPlayers[playerIndex++].setShootingPercentage(100 * totalGoal / totalGoalAttemp);
+                outPlayers[playerIndex++].setShootingPercentage((100 * totalGoal) / totalGoalAttemp);
             }
         }
     }
@@ -59,32 +59,6 @@ public final class PocuBasketballAssociation {
         if (players.length < 1) {
             return null;
         }
-
-//        int left = 0;
-//        int right = players.length - 1;
-//        int findIndex = (left + right) / 2;
-//        Player p = players[findIndex];
-//
-//        while (left < right) {
-//            if (targetPoints == players[findIndex].getPointsPerGame()) {
-//                return players[findIndex];
-//            } else if (targetPoints < players[findIndex].getPointsPerGame()) {
-//                right = findIndex - 1;
-//                p = players[findIndex];
-//                findIndex = (left + right) / 2;
-//            } else {
-//                left = findIndex + 1;
-//                findIndex = (left + right) / 2;
-//            }
-//        }
-//
-//        int i = Math.abs(players[findIndex].getPointsPerGame() - targetPoints);
-//        int j = Math.abs(p.getPointsPerGame() - targetPoints);
-//
-//        if (i >= j) {
-//            return p;
-//        }
-
         return findPlayer(players, targetPoints, true);
     }
 
@@ -92,20 +66,106 @@ public final class PocuBasketballAssociation {
         if (players.length < 1) {
             return null;
         }
-
         return findPlayer(players, targetShootingPercentage, false);
     }
 
     public static long find3ManDreamTeam(final Player[] players, final Player[] outPlayers, final Player[] scratch) {
-        return -1;
+//        long maxTeamwork = -1;
+//        quickSortPlayer(players);
+//
+//        for (int i = 0; i < players.length; ++i) {
+//            long teamwork = 0;
+//            long totalPasses = 0;
+//            long minAssissts = Integer.MAX_VALUE;
+//
+//            for (int j = 0; j < outPlayers.length; ++j) {
+//                totalPasses += players[(i + j) % players.length].getPassesPerGame();
+//                if (minAssissts > players[(i + j) % players.length].getAssistsPerGame()) {
+//                    minAssissts = players[(i + j) % players.length].getAssistsPerGame();
+//                }
+//            }
+//
+//            teamwork = totalPasses * minAssissts;
+//
+//            if (maxTeamwork < teamwork) {
+//                maxTeamwork = teamwork;
+//                for (int j = 0; j < outPlayers.length; ++j) {
+//                    outPlayers[j] = players[(i + j) % players.length];
+//                }
+//            }
+//        }
+//        quickSortPlayer(players);
+        return findDreamTeam(players, 3, outPlayers, scratch);
     }
 
     public static long findDreamTeam(final Player[] players, int k, final Player[] outPlayers, final Player[] scratch) {
-        return -1;
+        long maxTeamwork = -1;
+        int n = players.length;
+        int combo = (1 << k) - 1;
+        int counting = 0;
+
+//        quickSortPlayer(players);
+//
+//        System.out.println("///////////////////// 선수  ///////////////////");
+//        for (Player p: players) {
+//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + p.getAssistsPerGame()*p.getPassesPerGame());
+//        }
+//        System.out.println("///////////////////// 선수 ^^^^  ///////////////////");
+        while (combo < 1<<n) {
+//            System.out.print("counting: " + counting++ + " ");
+            long totalPasses = 0;
+            long minAssissts = Integer.MAX_VALUE;
+            int index = 0;
+            for (int i = 0; i < n; ++i) {
+                if (((combo >> i) & 1) > 0) {
+                    totalPasses += players[i].getPassesPerGame();
+                    if (minAssissts > players[i].getAssistsPerGame()) {
+                        minAssissts = players[i].getAssistsPerGame();
+                    }
+//                    System.out.print(players[i].getName() + ", ");
+                    scratch[index++] = players[i];
+                    if (index == k) {
+//                        System.out.print(", teamwork: " + totalPasses * minAssissts);
+                        if (maxTeamwork < totalPasses * minAssissts) {
+                            maxTeamwork = totalPasses * minAssissts;
+                            for (int j = 0; j < k; ++j) {
+                                outPlayers[j] = scratch[j];
+                            }
+                        }
+                    }
+                }
+            }
+//            System.out.println("");
+
+            int x = combo & -combo;
+            int y = combo + x;
+            int z = (combo & ~y);
+            combo = z / x;
+            combo >>= 1;
+            combo |= y;
+        }
+
+
+
+        return maxTeamwork;
     }
 
     public static int findDreamTeamSize(final Player[] players, final Player[] scratch) {
-        return -1;
+        quickSortPlayer(players);
+
+        int totalPasses = 0;
+        int maxTeamwork = -1;
+        int maxPlayer = 1;
+        for (Player p: players) {
+            totalPasses += p.getPassesPerGame();
+
+//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + totalPasses * p.getAssistsPerGame());
+            if (maxTeamwork < totalPasses * p.getAssistsPerGame()) {
+                maxTeamwork = totalPasses * p.getAssistsPerGame();
+                ++maxPlayer;
+            }
+        }
+        return maxPlayer;
     }
 
     private static Player findPlayer(final Player[] players, int target, boolean findPoint) {
@@ -143,6 +203,54 @@ public final class PocuBasketballAssociation {
         }
 
         return players[findIndex];
+    }
+
+    private static void quickSortPlayer(Player[] player) {
+        quickSortPlayerRecursive(player, 0, player.length - 1);
+    }
+
+    private static void quickSortPlayerRecursive(Player[] players, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pivotPos = getPlayerPivotPos(players, left, right);
+
+        quickSortPlayerRecursive(players, left, pivotPos - 1);
+        quickSortPlayerRecursive(players, pivotPos + 1, right);
+    }
+
+    private static int getPlayerPivotPos(Player[] players, int left, int right) {
+        Player pivot = players[right];
+        int index = left - 1;
+
+        for (int i = left; i < right; ++i) {
+//            if (players[i].getPassesPerGame() * players[i].getAssistsPerGame() > pivot.getPassesPerGame() * pivot.getAssistsPerGame()) {
+            if (players[i].getAssistsPerGame() > pivot.getAssistsPerGame()) {
+//            if (players[i].getPointsPerGame() > pivot.getPointsPerGame()) {
+                ++index;
+                swapPlayer(players, index, i);
+//            } else if (players[i].getPointsPerGame() == pivot.getPointsPerGame()) {
+            } else if (players[i].getAssistsPerGame() == pivot.getAssistsPerGame()) {
+//            } else if (players[i].getPassesPerGame() * players[i].getAssistsPerGame() == pivot.getPassesPerGame() * pivot.getAssistsPerGame()) {
+                if (players[i].getPassesPerGame() > pivot.getPassesPerGame()) {
+                    ++index;
+                    swapPlayer(players, index, i);
+                }
+            }
+        }
+
+        index += 1;
+
+        swapPlayer(players, index, right);
+
+        return index;
+    }
+
+    private static void swapPlayer(Player[] stat, int pos1, int pos2) {
+        Player temp = stat[pos1];
+        stat[pos1] = stat[pos2];
+        stat[pos2] = temp;
     }
 
     private static int getValue(final Player p, boolean findPoint) {
