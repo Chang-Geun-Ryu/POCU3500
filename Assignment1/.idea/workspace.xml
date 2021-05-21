@@ -74,11 +74,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
-          <line>264</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
           <line>295</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>

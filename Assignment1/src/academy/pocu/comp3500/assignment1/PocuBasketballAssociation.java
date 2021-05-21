@@ -107,11 +107,11 @@ public final class PocuBasketballAssociation {
 //        quickSortPlayer(players);
 //
 //        System.out.println("///////////////////// 선수  ///////////////////");
-//        for (Player p: players) {
+//        for (Player p : players) {
 //            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + p.getAssistsPerGame()*p.getPassesPerGame());
 //        }
 //        System.out.println("///////////////////// 선수 ^^^^  ///////////////////");
-        while (combo < 1<<n) {
+        while (combo < 1 << n) {
 //            System.out.print("counting: " + counting++ + " ");
             long totalPasses = 0;
             long minAssissts = Integer.MAX_VALUE;
@@ -156,7 +156,7 @@ public final class PocuBasketballAssociation {
         int totalPasses = 0;
         int maxTeamwork = -1;
         int maxPlayer = 1;
-        for (Player p: players) {
+        for (Player p : players) {
             totalPasses += p.getPassesPerGame();
 
 //            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + totalPasses * p.getAssistsPerGame());
