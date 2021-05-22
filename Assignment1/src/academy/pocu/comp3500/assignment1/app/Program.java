@@ -623,7 +623,7 @@ public class Program {
 
         k = PocuBasketballAssociation.findDreamTeamSize(players, tempPlayers);
 
-//        assert (k == 1);
+        assert (k == 1);
 
         // my test 2
         players = new Player[]{
@@ -634,7 +634,7 @@ public class Program {
 
         k = PocuBasketballAssociation.findDreamTeamSize(players, tempPlayers);
 
-//        assert (k == 1);
+        assert (k == 1);
 
     }
 

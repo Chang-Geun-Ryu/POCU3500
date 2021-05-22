@@ -165,72 +165,25 @@ public final class PocuBasketballAssociation {
         return maxTeamwork;
     }
 
-    public static long findDreamTeam1(final Player[] players, int k, final Player[] outPlayers, final Player[] scratch) {
-        long maxTeamwork = -1;
-        int n = players.length;
-        int combo = (1 << k) - 1;
-        int counting = 0;
-
-        quickSortPlayer(players);
-//
-//        System.out.println("///////////////////// 선수  ///////////////////");
-//        for (Player p : players) {
-//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + p.getAssistsPerGame()*p.getPassesPerGame());
-//        }
-//        System.out.println("///////////////////// 선수 ^^^^  ///////////////////");
-        while (combo < 1 << n) {
-//            System.out.print("counting: " + counting++ + " ");
-            long totalPasses = 0;
-            long minAssissts = Integer.MAX_VALUE;
-            int index = 0;
-            for (int i = 0; i < n; ++i) {
-                if (((combo >> i) & 1) > 0) {
-                    totalPasses += players[i].getPassesPerGame();
-                    if (minAssissts > players[i].getAssistsPerGame()) {
-                        minAssissts = players[i].getAssistsPerGame();
-                    }
-//                    System.out.print(players[i].getName() + ", ");
-                    scratch[index++] = players[i];
-                    if (index == k) {
-//                        System.out.print(", teamwork: " + totalPasses * minAssissts);
-                        if (maxTeamwork < totalPasses * minAssissts) {
-                            maxTeamwork = totalPasses * minAssissts;
-                            for (int j = 0; j < k; ++j) {
-                                outPlayers[j] = scratch[j];
-                            }
-                        }
-                    }
-                }
-            }
-//            System.out.println("");
-
-            int x = combo & -combo;
-            int y = combo + x;
-            int z = (combo & ~y);
-            combo = z / x;
-            combo >>= 1;
-            combo |= y;
-        }
-
-
-        return maxTeamwork;
-    }
-
     public static int findDreamTeamSize(final Player[] players, final Player[] scratch) {
         quickSortPlayer(players);
 
         int totalPasses = 0;
         int maxTeamwork = -1;
-        int maxPlayer = 1;
-        for (Player p : players) {
-            totalPasses += p.getPassesPerGame();
+        int maxPlayer = 0;
 
-//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + totalPasses * p.getAssistsPerGame());
-            if (maxTeamwork < totalPasses * p.getAssistsPerGame()) {
-                maxTeamwork = totalPasses * p.getAssistsPerGame();
-                ++maxPlayer;
+        for (int i = 0; i < players.length; ++i) {
+
+            scratch[i] = players[i];
+            totalPasses += players[i].getPassesPerGame();
+
+            int teamwork = players[i].getAssistsPerGame() * totalPasses;
+            if (maxTeamwork < teamwork) {
+                maxTeamwork = teamwork;
+                maxPlayer = i + 1;
             }
         }
+
         return maxPlayer;
     }
 
@@ -358,34 +311,5 @@ public final class PocuBasketballAssociation {
         GameStat temp = stat[pos1];
         stat[pos1] = stat[pos2];
         stat[pos2] = temp;
-    }
-
-    public static long find3ManDreamTeamfail(final Player[] players, final Player[] outPlayers, final Player[] scratch) {
-//        long maxTeamwork = -1;
-//        quickSortPlayer(players);
-//
-//        for (int i = 0; i < players.length; ++i) {
-//            long teamwork = 0;
-//            long totalPasses = 0;
-//            long minAssissts = Integer.MAX_VALUE;
-//
-//            for (int j = 0; j < outPlayers.length; ++j) {
-//                totalPasses += players[(i + j) % players.length].getPassesPerGame();
-//                if (minAssissts > players[(i + j) % players.length].getAssistsPerGame()) {
-//                    minAssissts = players[(i + j) % players.length].getAssistsPerGame();
-//                }
-//            }
-//
-//            teamwork = totalPasses * minAssissts;
-//
-//            if (maxTeamwork < teamwork) {
-//                maxTeamwork = teamwork;
-//                for (int j = 0; j < outPlayers.length; ++j) {
-//                    outPlayers[j] = players[(i + j) % players.length];
-//                }
-//            }
-//        }
-//        quickSortPlayer(players);
-        return findDreamTeam(players, 3, outPlayers, scratch);
     }
 }
