@@ -70,41 +70,108 @@ public final class PocuBasketballAssociation {
     }
 
     public static long find3ManDreamTeam(final Player[] players, final Player[] outPlayers, final Player[] scratch) {
-//        long maxTeamwork = -1;
-//        quickSortPlayer(players);
-//
-//        for (int i = 0; i < players.length; ++i) {
-//            long teamwork = 0;
-//            long totalPasses = 0;
-//            long minAssissts = Integer.MAX_VALUE;
-//
-//            for (int j = 0; j < outPlayers.length; ++j) {
-//                totalPasses += players[(i + j) % players.length].getPassesPerGame();
-//                if (minAssissts > players[(i + j) % players.length].getAssistsPerGame()) {
-//                    minAssissts = players[(i + j) % players.length].getAssistsPerGame();
-//                }
-//            }
-//
-//            teamwork = totalPasses * minAssissts;
-//
-//            if (maxTeamwork < teamwork) {
-//                maxTeamwork = teamwork;
-//                for (int j = 0; j < outPlayers.length; ++j) {
-//                    outPlayers[j] = players[(i + j) % players.length];
-//                }
-//            }
+        long maxTeamwork = -1;
+        quickSortPlayer(players);
+//        System.out.println("///////////////////// 선수  ///////////////////");
+//        for (Player p : players) {
+//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + p.getAssistsPerGame()*p.getPassesPerGame());
 //        }
-//        quickSortPlayer(players);
-        return findDreamTeam(players, 3, outPlayers, scratch);
+//        System.out.println("///////////////////// 선수 ^^^^  ///////////////////");
+
+        // maxTeamwork: 219, outPlayers: [ Player 4, Player 2, Player 3 ]
+        int totalPasses = 0;
+        int minPasses = Integer.MAX_VALUE;
+        int minPassesIndex = -1;
+        for (int i = 0; i < players.length; ++i) {
+            int teamwork = 0;
+            if (i < 3) {
+                scratch[i] = players[i];
+                outPlayers[i] = players[i];
+                totalPasses += scratch[i].getPassesPerGame();
+                if (minPasses > scratch[i].getPassesPerGame()) {
+                    minPasses = scratch[i].getPassesPerGame();
+                    minPassesIndex = i;
+                }
+                maxTeamwork = totalPasses * scratch[i].getAssistsPerGame();
+            } else {
+                scratch[minPassesIndex] = players[i];
+                totalPasses = 0;
+                minPasses = Integer.MAX_VALUE;
+                for (int j = 0; j < 3; ++j) {
+                    totalPasses += scratch[j].getPassesPerGame();
+                    if (minPasses > scratch[j].getPassesPerGame()) {
+                        minPasses = scratch[j].getPassesPerGame();
+                        minPassesIndex = j;
+                    }
+                }
+
+                teamwork = totalPasses * players[i].getAssistsPerGame();
+                if (maxTeamwork < teamwork) {
+                    for (int k = 0; k < 3; ++k) {
+                        outPlayers[k] = scratch[k];
+                    }
+                    maxTeamwork = teamwork;
+                }
+            }
+        }
+        return maxTeamwork;
     }
 
     public static long findDreamTeam(final Player[] players, int k, final Player[] outPlayers, final Player[] scratch) {
+        long maxTeamwork = -1;
+        quickSortPlayer(players);
+//        System.out.println("///////////////////// 선수  ///////////////////");
+//        for (Player p : players) {
+//            System.out.println("getName" + p.getName() + ", Assists: " +p.getAssistsPerGame() + ", Passe: " + p.getPassesPerGame() + ", score: " + p.getAssistsPerGame()*p.getPassesPerGame());
+//        }
+//        System.out.println("///////////////////// 선수 ^^^^  ///////////////////");
+
+        // maxTeamwork: 219, outPlayers: [ Player 4, Player 2, Player 3 ]
+        int totalPasses = 0;
+        int minPasses = Integer.MAX_VALUE;
+        int minPassesIndex = -1;
+        for (int i = 0; i < players.length; ++i) {
+            int teamwork = 0;
+            if (i < k) {
+                scratch[i] = players[i];
+                outPlayers[i] = players[i];
+                totalPasses += scratch[i].getPassesPerGame();
+                if (minPasses > scratch[i].getPassesPerGame()) {
+                    minPasses = scratch[i].getPassesPerGame();
+                    minPassesIndex = i;
+                }
+                maxTeamwork = totalPasses * scratch[i].getAssistsPerGame();
+            } else {
+                scratch[minPassesIndex] = players[i];
+                totalPasses = 0;
+                minPasses = Integer.MAX_VALUE;
+                for (int j = 0; j < k; ++j) {
+                    totalPasses += scratch[j].getPassesPerGame();
+                    if (minPasses > scratch[j].getPassesPerGame()) {
+                        minPasses = scratch[j].getPassesPerGame();
+                        minPassesIndex = j;
+                    }
+                }
+
+                teamwork = totalPasses * players[i].getAssistsPerGame();
+                if (maxTeamwork < teamwork) {
+                    for (int j = 0; j < k; ++j) {
+                        outPlayers[j] = scratch[j];
+                    }
+                    maxTeamwork = teamwork;
+                }
+            }
+        }
+        return maxTeamwork;
+    }
+
+    public static long findDreamTeam1(final Player[] players, int k, final Player[] outPlayers, final Player[] scratch) {
         long maxTeamwork = -1;
         int n = players.length;
         int combo = (1 << k) - 1;
         int counting = 0;
 
-//        quickSortPlayer(players);
+        quickSortPlayer(players);
 //
 //        System.out.println("///////////////////// 선수  ///////////////////");
 //        for (Player p : players) {
@@ -144,7 +211,6 @@ public final class PocuBasketballAssociation {
             combo >>= 1;
             combo |= y;
         }
-
 
 
         return maxTeamwork;
@@ -198,43 +264,6 @@ public final class PocuBasketballAssociation {
                     return players[right];
                 }
             }
-        }
-
-        return players[findIndex];
-    }
-
-    private static Player findPlayer1(final Player[] players, int target, boolean findPoint) {
-        int left = 0;
-        int right = players.length - 1;
-        int findIndex = (left + right) / 2;
-        Player p = players[findIndex];
-        int current = 0;
-
-        while (left < right) {
-            current = getValue(players[findIndex], findPoint);
-
-            if (target == current) {
-                return players[findIndex];
-            } else if (target < current) {
-                right = findIndex - 1;
-                if (Math.abs(findPoint ? p.getPointsPerGame() - target : p.getShootingPercentage() - target) > Math.abs(current - target)) {
-                    p = players[findIndex];
-                }
-                findIndex = (left + right) / 2;
-            } else {
-                left = findIndex + 1;
-                if (Math.abs(findPoint ? p.getPointsPerGame() - target : p.getShootingPercentage() - target) > Math.abs(current - target)) {
-                    p = players[findIndex];
-                }
-                findIndex = (left + right) / 2;
-            }
-        }
-
-        int i = Math.abs(findPoint ? players[findIndex].getPointsPerGame() - target : players[findIndex].getShootingPercentage() - target);
-        int j = Math.abs(findPoint ? p.getPointsPerGame() - target : p.getShootingPercentage() - target);
-
-        if (i >= j) {
-            return p;
         }
 
         return players[findIndex];
@@ -329,5 +358,34 @@ public final class PocuBasketballAssociation {
         GameStat temp = stat[pos1];
         stat[pos1] = stat[pos2];
         stat[pos2] = temp;
+    }
+
+    public static long find3ManDreamTeamfail(final Player[] players, final Player[] outPlayers, final Player[] scratch) {
+//        long maxTeamwork = -1;
+//        quickSortPlayer(players);
+//
+//        for (int i = 0; i < players.length; ++i) {
+//            long teamwork = 0;
+//            long totalPasses = 0;
+//            long minAssissts = Integer.MAX_VALUE;
+//
+//            for (int j = 0; j < outPlayers.length; ++j) {
+//                totalPasses += players[(i + j) % players.length].getPassesPerGame();
+//                if (minAssissts > players[(i + j) % players.length].getAssistsPerGame()) {
+//                    minAssissts = players[(i + j) % players.length].getAssistsPerGame();
+//                }
+//            }
+//
+//            teamwork = totalPasses * minAssissts;
+//
+//            if (maxTeamwork < teamwork) {
+//                maxTeamwork = teamwork;
+//                for (int j = 0; j < outPlayers.length; ++j) {
+//                    outPlayers[j] = players[(i + j) % players.length];
+//                }
+//            }
+//        }
+//        quickSortPlayer(players);
+        return findDreamTeam(players, 3, outPlayers, scratch);
     }
 }
