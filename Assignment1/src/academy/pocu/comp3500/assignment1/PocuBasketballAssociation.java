@@ -34,7 +34,7 @@ public final class PocuBasketballAssociation {
                 outPlayers[playerIndex].setPointsPerGame(totalPoint / gameCount);
                 outPlayers[playerIndex].setAssistsPerGame(totalAssist / gameCount);
                 outPlayers[playerIndex].setPassesPerGame(totalPass / gameCount);
-                outPlayers[playerIndex++].setShootingPercentage((100 * totalGoal) / totalGoalAttemp);
+                outPlayers[playerIndex++].setShootingPercentage((100 * totalGoal) / (totalGoalAttemp));
 
                 name = gameStats[i].getPlayerName();
                 totalPoint = gameStats[i].getPoints();
@@ -45,7 +45,7 @@ public final class PocuBasketballAssociation {
                 gameCount = 1;
             }
 
-            if (outPlayers.length - 1 == playerIndex) {
+            if (gameStats.length - 1 == i) {
                 outPlayers[playerIndex].setName(name);
                 outPlayers[playerIndex].setPointsPerGame(totalPoint / gameCount);
                 outPlayers[playerIndex].setAssistsPerGame(totalAssist / gameCount);

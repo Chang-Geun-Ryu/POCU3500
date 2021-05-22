@@ -74,8 +74,33 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
-          <line>295</line>
+          <line>317</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/app/Program.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
