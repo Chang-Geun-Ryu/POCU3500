@@ -172,6 +172,41 @@ public final class PocuBasketballAssociation {
         int left = 0;
         int right = players.length - 1;
         int findIndex = (left + right) / 2;
+        int current = 0;
+
+        while (left < right) {
+            current = getValue(players[findIndex], findPoint);
+
+            if (target == current) {
+                return players[findIndex];
+            } else if (target < current) {
+                right = findIndex;
+                findIndex = (left + right) / 2;
+            } else {
+                left = findIndex;
+                findIndex = (left + right) / 2;
+            }
+
+            if (findIndex == left) {
+                int leftVelue = getValue(players[left], findPoint);
+                int rightVelue = getValue(players[right], findPoint);
+                if (Math.abs(leftVelue - target) == Math.abs(rightVelue - target)) {
+                    return players[right];
+                } else if (Math.abs(leftVelue - target) < Math.abs(rightVelue - target)) {
+                    return players[left];
+                } else {
+                    return players[right];
+                }
+            }
+        }
+
+        return players[findIndex];
+    }
+
+    private static Player findPlayer1(final Player[] players, int target, boolean findPoint) {
+        int left = 0;
+        int right = players.length - 1;
+        int findIndex = (left + right) / 2;
         Player p = players[findIndex];
         int current = 0;
 
