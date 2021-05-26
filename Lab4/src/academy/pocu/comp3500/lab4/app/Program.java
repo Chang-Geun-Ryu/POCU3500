@@ -55,7 +55,8 @@ public class Program {
         {
             User[] userTable = new User[]{
                     new User("001", normalUser1, "2418662205"),
-                    new User("004", email, "632000577"),
+//                    new User("004", email, "632000577"),
+                    new User("004", email, "asdfasdfasdfasdfasdf"),
                     new User("011", normalUser2, "477404077")
             };
 

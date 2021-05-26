@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d52a4587-8b2f-4303-962d-a1cf8b3eb250" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/Cracker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/app/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,16 +80,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/Cracker.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/Cracker.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/app/Program.java</url>
           <line>95</line>
           <option name="timeStamp" value="8" />
@@ -101,11 +88,6 @@
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/app/Program.java</url>
           <line>80</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab4/Cracker.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

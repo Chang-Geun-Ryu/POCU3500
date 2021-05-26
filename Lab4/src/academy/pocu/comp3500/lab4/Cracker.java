@@ -59,7 +59,7 @@ public final class Cracker {
     }
 
     public String[] run(final RainbowTable[] rainbowTables) {
-        if (hashAlgorismIndex >= rainbowTables.length) {
+        if (hashAlgorismIndex >= rainbowTables.length || hashAlgorismIndex == -1) {
             return this.plainTexts;
         }
 
