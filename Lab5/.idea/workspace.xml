@@ -11,6 +11,7 @@
       <change beforePath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab4/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab4/src/academy/pocu/comp3500/lab4/Cracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab4/src/academy/pocu/comp3500/lab4/Cracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab5/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab5/Bank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,9 +82,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab5/app/Program.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab5/Bank.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -95,6 +96,7 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="number.compareTo(prime)" language="JAVA" />
+        <watch expression="toResult.compareTo(new BigInteger(longMax.toString()))" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

@@ -1,6 +1,7 @@
 package academy.pocu.comp3500.lab5;
 
 import javax.crypto.Cipher;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -11,11 +12,11 @@ import java.util.Base64;
 import java.util.HashMap;
 
 public class Bank {
-    private HashMap<String, Integer> pubKeyHash = new HashMap<>();
+    private HashMap<String, Long> pubKeyHash = new HashMap<>();
 
     public Bank(byte[][] pubKeys, final long[] amounts) {
         for (int i = 0; i < amounts.length; ++i) {
-            pubKeyHash.put(Base64.getEncoder().encodeToString(pubKeys[i]), Math.toIntExact(amounts[i]));
+            pubKeyHash.put(Base64.getEncoder().encodeToString(pubKeys[i]), amounts[i]);
         }
     }
 
@@ -23,11 +24,11 @@ public class Bank {
         if (pubKey == null) {
             return 0;
         }
-        Integer integer = pubKeyHash.get(Base64.getEncoder().encodeToString(pubKey));
-        if (integer == null) {
+        Long l = pubKeyHash.get(Base64.getEncoder().encodeToString(pubKey));
+        if (l == null) {
             return 0;
         }
-        return integer;
+        return l;
     }
 
     public boolean transfer(final byte[] from, byte[] to, final long amount, final byte[] signature) {
@@ -60,13 +61,15 @@ public class Bank {
                 String fromBase64 = Base64.getEncoder().encodeToString(from);
                 String toBase64 = Base64.getEncoder().encodeToString(to);
 
-                if (decryptSignature.hashCode() == fromToAmountShaString.hashCode() && pubKeyHash.containsKey(fromBase64) && pubKeyHash.containsKey(toBase64)) {
-
-                    Integer fromCoin = pubKeyHash.get(fromBase64);
-                    Integer toCoin = pubKeyHash.get(toBase64);
-                    if (fromCoin != null && toCoin != null && fromCoin.longValue() >= amount) {
-                        pubKeyHash.put(fromBase64, Math.toIntExact(fromCoin.longValue() - amount));
-                        pubKeyHash.put(toBase64, Math.toIntExact(toCoin.longValue() + amount));
+                if (decryptSignature.hashCode() == fromToAmountShaString.hashCode()) {
+                    Long fromCoin = pubKeyHash.get(fromBase64);
+                    Long toCoin = pubKeyHash.get(toBase64);
+                    Long amountLong = amount;
+                    Long longMax = Long.MAX_VALUE;
+                    BigInteger toResult = new BigInteger(toCoin.toString()).add(new BigInteger(amountLong.toString()));
+                    if (fromCoin != null && toCoin != null && fromCoin >= amount && toResult.compareTo(new BigInteger(longMax.toString())) <= 0) {
+                        pubKeyHash.put(fromBase64, (fromCoin - amount));
+                        pubKeyHash.put(toBase64, (toCoin + amount));
                         return true;
                     }
                 }
