@@ -34,7 +34,7 @@ public class Bank {
     public boolean transfer(final byte[] from, byte[] to, final long amount, final byte[] signature) {
         if (amount <= 0) {
             return false;
-        } else if (from.length > 0 && to.length > 0 && signature.length > 0) {
+        } else { //if (from.length > 0 && to.length > 0 && signature.length > 0) {
 
             ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
             buffer.putLong(amount);
