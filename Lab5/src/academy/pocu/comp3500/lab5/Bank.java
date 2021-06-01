@@ -61,18 +61,19 @@ public class Bank {
                 String fromBase64 = Base64.getEncoder().encodeToString(from);
                 String toBase64 = Base64.getEncoder().encodeToString(to);
 
-                if (pubKeyHash.containsKey(fromBase64.hashCode()) == false || pubKeyHash.containsKey(toBase64.hashCode()) == false) {
-                    return false;
-                }
+//                if (pubKeyHash.containsKey(fromBase64.hashCode()) == false || pubKeyHash.containsKey(toBase64.hashCode()) == false) {
+//                    return false;
+//                }
 
                 if (decryptSignature.hashCode() == fromToAmountShaString.hashCode()) {
                     Long fromCoin = pubKeyHash.get(fromBase64.hashCode());
-                    Long toCoin = pubKeyHash.get(toBase64.hashCode());
+                    Long toCoin = getBalance(to);//pubKeyHash.get(toBase64.hashCode());
                     Long amountLong = amount;
                     Long longMax = Long.MAX_VALUE;
                     BigInteger toResult = new BigInteger(toCoin.toString()).add(new BigInteger(amountLong.toString()));
 
-                    if (fromCoin != null && toCoin != null && fromCoin >= amount && toResult.compareTo(new BigInteger(longMax.toString())) <= 0) {
+//                    if (fromCoin != null && toCoin != null && fromCoin >= amount && toResult.compareTo(new BigInteger(longMax.toString())) <= 0) {
+                    if (fromCoin != null && fromCoin >= amount && toResult.compareTo(new BigInteger(longMax.toString())) <= 0) {
                         pubKeyHash.put(fromBase64.hashCode(), (fromCoin - amount));
                         pubKeyHash.put(toBase64.hashCode(), (toCoin + amount));
                         return true;
