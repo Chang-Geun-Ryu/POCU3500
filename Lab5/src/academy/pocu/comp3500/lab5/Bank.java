@@ -12,11 +12,11 @@ import java.util.Base64;
 import java.util.HashMap;
 
 public class Bank {
-    private HashMap<String, Long> pubKeyHash = new HashMap<>();
+    private HashMap<Integer, Long> pubKeyHash = new HashMap<>();
 
     public Bank(byte[][] pubKeys, final long[] amounts) {
         for (int i = 0; i < amounts.length; ++i) {
-            pubKeyHash.put(Base64.getEncoder().encodeToString(pubKeys[i]), amounts[i]);
+            pubKeyHash.put(Base64.getEncoder().encodeToString(pubKeys[i]).hashCode(), amounts[i]);
         }
     }
 
@@ -24,7 +24,7 @@ public class Bank {
         if (pubKey == null) {
             return 0;
         }
-        Long l = pubKeyHash.get(Base64.getEncoder().encodeToString(pubKey));
+        Long l = pubKeyHash.get(Base64.getEncoder().encodeToString(pubKey).hashCode());
         if (l == null) {
             return 0;
         }
@@ -61,19 +61,20 @@ public class Bank {
                 String fromBase64 = Base64.getEncoder().encodeToString(from);
                 String toBase64 = Base64.getEncoder().encodeToString(to);
 
-                if (pubKeyHash.containsKey(fromBase64) == false || pubKeyHash.containsKey(toBase64) == false) {
+                if (pubKeyHash.containsKey(fromBase64.hashCode()) == false || pubKeyHash.containsKey(toBase64.hashCode()) == false) {
                     return false;
                 }
 
                 if (decryptSignature.hashCode() == fromToAmountShaString.hashCode()) {
-                    Long fromCoin = pubKeyHash.get(fromBase64);
-                    Long toCoin = pubKeyHash.get(toBase64);
+                    Long fromCoin = pubKeyHash.get(fromBase64.hashCode());
+                    Long toCoin = pubKeyHash.get(toBase64.hashCode());
                     Long amountLong = amount;
                     Long longMax = Long.MAX_VALUE;
                     BigInteger toResult = new BigInteger(toCoin.toString()).add(new BigInteger(amountLong.toString()));
+
                     if (fromCoin != null && toCoin != null && fromCoin >= amount && toResult.compareTo(new BigInteger(longMax.toString())) <= 0) {
-                        pubKeyHash.put(fromBase64, (fromCoin - amount));
-                        pubKeyHash.put(toBase64, (toCoin + amount));
+                        pubKeyHash.put(fromBase64.hashCode(), (fromCoin - amount));
+                        pubKeyHash.put(toBase64.hashCode(), (toCoin + amount));
                         return true;
                     }
                 }
