@@ -32,7 +32,7 @@ public class Bank {
     }
 
     public boolean transfer(final byte[] from, byte[] to, final long amount, final byte[] signature) {
-        if (amount < 0) {
+        if (amount <= 0) {
             return false;
         } else if (from.length > 0 && to.length > 0 && signature.length > 0) {
 
@@ -60,6 +60,10 @@ public class Bank {
                 String decryptSignature = new String(decrypt, StandardCharsets.UTF_8);
                 String fromBase64 = Base64.getEncoder().encodeToString(from);
                 String toBase64 = Base64.getEncoder().encodeToString(to);
+
+                if (pubKeyHash.containsKey(fromBase64) == false || pubKeyHash.containsKey(toBase64) == false) {
+                    return false;
+                }
 
                 if (decryptSignature.hashCode() == fromToAmountShaString.hashCode()) {
                     Long fromCoin = pubKeyHash.get(fromBase64);
