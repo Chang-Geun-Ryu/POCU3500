@@ -67,8 +67,8 @@ public class Bank {
                     if (fromCoin != null && toCoin != null && fromCoin.longValue() >= amount) {
                         pubKeyHash.put(fromBase64, Math.toIntExact(fromCoin.longValue() - amount));
                         pubKeyHash.put(toBase64, Math.toIntExact(toCoin.longValue() + amount));
+                        return true;
                     }
-                    return true;
                 }
             } catch (Exception e) {
                 return false;
