@@ -57,10 +57,11 @@ public class Bank {
                 rsa.init(Cipher.DECRYPT_MODE, privKey);
                 byte[] decrypt = rsa.doFinal(signature);
                 String decryptSignature = new String(decrypt, StandardCharsets.UTF_8);
+                String fromBase64 = Base64.getEncoder().encodeToString(from);
+                String toBase64 = Base64.getEncoder().encodeToString(to);
 
-                if (decryptSignature.hashCode() == fromToAmountShaString.hashCode()) {
-                    String fromBase64 = Base64.getEncoder().encodeToString(from);
-                    String toBase64 = Base64.getEncoder().encodeToString(to);
+                if (decryptSignature.hashCode() == fromToAmountShaString.hashCode() && pubKeyHash.containsKey(fromBase64) && pubKeyHash.containsKey(toBase64)) {
+
                     Integer fromCoin = pubKeyHash.get(fromBase64);
                     Integer toCoin = pubKeyHash.get(toBase64);
                     if (fromCoin != null && toCoin != null && fromCoin.longValue() >= amount) {
