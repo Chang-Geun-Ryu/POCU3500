@@ -12,6 +12,138 @@ import static academy.pocu.comp3500.assignment2.Logger.log;
 public class Program {
 
     public static void main(String[] args) throws IOException {
+
+        {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("yourLog4.log"));
+            Logger.indent();
+            Logger.log("LOG");
+            Logger.unindent();
+            Logger.log("LOG2");
+            Logger.printTo(writer);
+            writer.close();
+        }
+        {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("yourLog3.log"));
+            Indent indent1;
+            Indent indent2;
+            Indent indent3;
+            Indent indent4;
+            log("this");
+            Logger.indent();
+            {
+                log("will");
+                indent1 = Logger.indent();
+                {
+                    log("(invisible1)");
+                    log("(invisible2)");
+                    log("(invisible3)");
+                    Logger.indent();
+                    {
+                        log("be");
+                        Logger.indent();
+                        {
+                            log("enough");
+                            Logger.indent();
+                            {
+                                log("to");
+                                indent2 = Logger.indent();
+                                {
+                                    log("(invisible1)");
+                                    log("(invisible2)");
+                                    log("(invisible3)");
+                                }
+                                Logger.unindent();
+                                log("deepLogs");
+                                Logger.indent();
+                                {
+                                    log("case");
+                                    indent3 = Logger.indent();
+                                    {
+                                        log("(invisible1)");
+                                        log("(invisible2)");
+                                        log("(invisible3)");
+                                    }
+                                    Logger.unindent();
+                                    log("am I");
+                                }
+                                Logger.unindent();
+                                log("right?");
+                            }
+                            Logger.unindent();
+                            log("12345678");
+                            indent4 = Logger.indent();
+                            {
+                                Logger.indent();
+                                {
+                                    Logger.indent();
+                                    {
+                                        log("XX");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            indent1.discard();
+            indent2.discard();
+            indent3.discard();
+            indent4.discard();
+            Logger.printTo(writer);
+            writer.close();
+        }
+        {
+            {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("yourLog2.log"));
+                log("out 1");
+                Indent indent = Logger.indent();
+                {
+                    log("in 1-in");
+                    Logger.indent();
+                    {
+                        log("in 2-in");
+                        Logger.indent();
+                        {
+                            log("in 3");
+                        }
+                        Logger.unindent();
+                        log("in 2-out");
+                    }
+                    Logger.unindent();
+                    log("in 1-out1");
+                    indent.discard();
+                    log("in 1-out2");
+                }
+                Logger.unindent();
+                log("out 2");
+                Logger.printTo(writer);
+
+                writer.close();
+            }
+        }
+        {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("yourLog.log"));
+            log("first level 1");
+            Indent indent1 =Logger.indent();
+            {
+                log("second level 1");
+                Indent indent2 =Logger.indent();
+                {
+                    log("third level 1");
+                    Indent indent3 =Logger.indent();
+                    {
+                        log("fourth level 1");
+                    }
+                    Logger.unindent();
+                }
+                Logger.unindent();
+            }
+            Logger.unindent();
+            indent1.discard();
+            log("first level 2");
+            Logger.printTo(writer);
+            writer.close();
+        }
         {
             BufferedWriter writer = new BufferedWriter(new FileWriter("1.log"));
 
