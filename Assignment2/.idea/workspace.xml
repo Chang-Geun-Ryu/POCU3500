@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Indent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Indent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab3/.idea/workspace.xml" afterDir="false" />
@@ -73,36 +75,32 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/app/Program.java</url>
+          <line>161</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/Logger.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="17" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment2/app/Program.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="logArray.get(i)" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment2$Program.ic" NAME="Program Coverage Results" MODIFIED="1622277438079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
