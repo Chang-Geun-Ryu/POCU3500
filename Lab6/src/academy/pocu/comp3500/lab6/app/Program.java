@@ -290,5 +290,137 @@ public class Program {
                 assert (league3.leave(player6) == false);
             }
         }
+
+        {
+            {
+                Player player100 = new Player(100, "player100", 6);
+                Player player101 = new Player(101, "player101", 6);
+                Player player102 = new Player(102, "player102", 6);
+                Player player103 = new Player(103, "player103", 6);
+                Player player104 = new Player(104, "player104", 6);
+                League league = new League(new Player[]{
+                        player100, player101, player102, player103, player104
+                }, true);
+                System.out.println("G03");
+                boolean leaveSuccess = league.leave(player100);
+                assert (leaveSuccess);
+                leaveSuccess = league.leave(player100);
+                assert (!leaveSuccess);
+                leaveSuccess = league.leave(player101);
+                assert (leaveSuccess);
+                leaveSuccess = league.leave(player101);
+                assert (!leaveSuccess);
+                leaveSuccess = league.leave(player102);
+                assert (leaveSuccess);
+                leaveSuccess = league.leave(player102);
+                assert (!leaveSuccess);
+                leaveSuccess = league.leave(player103);
+                assert (leaveSuccess);
+                leaveSuccess = league.leave(player103);
+                assert (!leaveSuccess);
+                leaveSuccess = league.leave(player104);
+                assert (leaveSuccess);
+                leaveSuccess = league.leave(player104);
+                assert (!leaveSuccess);
+                leaveSuccess = league.leave(player104);
+                assert (!leaveSuccess);
+                Player m = league.findMatchOrNull(player111111);
+                assert (m == null);
+            }
+            {
+                {
+                    Player player001 = new Player(1, "player1", 4);
+                    Player player002 = new Player(2, "player2", 4);
+                    Player player003 = new Player(3, "player3", 5);
+                    Player player004 = new Player(4, "player4", 6);
+                    Player player005 = new Player(5, "player5", 6);
+                    Player player006 = new Player(6, "player6", 5);
+                    League league01 = new League(new Player[]{
+                            player001, player002, player003, player004, player005,
+                            player006
+                    }, false);
+                    assert (league01.leave(player006));
+                    assert (!league01.join(player003));
+                    assert (!league01.leave(player006));
+                    Player m = league01.findMatchOrNull(player003);
+                    assert (m != null && (m.getId() == player004.getId() || m.getId() == player005.getId()));
+                }
+                {
+                    Player player001 = new Player(1, "player1", 4);
+                    Player player002 = new Player(2, "player2", 4);
+                    Player player003 = new Player(3, "player3", 5);
+                    Player player004 = new Player(4, "player4", 6);
+                    Player player005 = new Player(5, "player5", 6);
+                    Player player006 = new Player(6, "player6", 5);
+                    League league01 = new League(new Player[]{
+                            player001, player002, player003, player004, player005,
+                            player006
+                    }, false);
+                    assert (league01.leave(player003));
+                    assert (!league01.join(player006));
+                    assert (!league01.leave(player003));
+                    Player m = league01.findMatchOrNull(player006);
+                    assert (m != null && (m.getId() == player004.getId() || m.getId() == player005.getId()));
+                }
+                {
+                    Player player001 = new Player(1, "player1", 4);
+                    Player player002 = new Player(2, "player2", 4);
+                    Player player003 = new Player(3, "player3", 5);
+                    Player player004 = new Player(4, "player4", 6);
+                    Player player005 = new Player(5, "player5", 6);
+                    Player player006 = new Player(6, "player6", 5);
+                    League league01 = new League(new Player[]{
+                            player001, player002, player003, player004, player005,
+                            player006
+                    }, false);
+                    assert (league01.leave(player001)); assert (!league01.leave(player001));
+                    Player m = league01.findMatchOrNull(player002);
+                    assert (m != null && (m.getId() == player003.getId() || m.getId() == player006.getId()));
+                    assert (league01.leave(player004)); assert (!league01.leave(player004));
+                    m = league01.findMatchOrNull(player005);
+                    assert (m != null && (m.getId() == player003.getId() || m.getId() == player006.getId()));
+                    assert (league01.leave(player003)); assert (!league01.leave(player003));
+                    m = league01.findMatchOrNull(player006);
+                    assert (m != null && (m.getId() == player005.getId()) || m.getId() == player006.getId());
+                    assert (league01.leave(player002)); assert (!league01.leave(player002));
+                    m = league01.findMatchOrNull(player005);
+                    assert (m != null && (m.getId() == player006.getId()));
+                    assert (league01.leave(player005)); assert (!league01.leave(player005));
+                    m = league01.findMatchOrNull(player006);
+                    assert (m == null);
+                }
+                {
+                    Player player001 = new Player(1, "player1", 4); //
+                    Player player002 = new Player(2, "player2", 4); //
+                    Player player003 = new Player(3, "player3", 5);
+                    Player player004 = new Player(4, "player4", 6); //
+                    Player player005 = new Player(5, "player5", 6); //
+                    Player player006 = new Player(6, "player6", 5);
+                    League league01 = new League(new Player[]{
+                            player001, player002, player003, player004, player005,
+                            player006
+                    }, false);
+                    assert (league01.leave(player004)); assert (!league01.leave(player004));
+                    Player m = league01.findMatchOrNull(player005);
+                    assert (m != null && (m.getId() == player003.getId() || m.getId() == player006.getId()));
+                    assert (league01.leave(player001)); assert (!league01.leave(player001));
+                    m = league01.findMatchOrNull(player003);
+                    assert (m != null && (m.getId() == player006.getId()));
+                    assert (league01.leave(player005)); assert (!league01.leave(player005));
+                    m = league01.findMatchOrNull(player003);
+                    assert (m != null && (m.getId() == player006.getId()));
+                    m = league01.findMatchOrNull(player006);
+                    assert (m != null && (m.getId() == player003.getId()));
+                    assert (league01.leave(player002)); assert (!league01.leave(player002));
+                    m = league01.findMatchOrNull(player003);
+                    assert (m != null && (m.getId() == player006.getId()));
+                    m = league01.findMatchOrNull(player006);
+                    assert (m != null && (m.getId() == player003.getId()));
+                    assert (league01.leave(player003)); assert (!league01.leave(player003));
+                    m = league01.findMatchOrNull(player006);
+                    assert (m == null);
+                }
+            }
+        }
     }
 }

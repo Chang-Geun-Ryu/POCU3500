@@ -4,14 +4,14 @@ import academy.pocu.comp3500.lab6.leagueofpocu.Player;
 
 
 public class League {
-    private BST bst;
+    private NewBST bst;
 
     public League() {
-        bst = new BST();
+        bst = new NewBST();
     }
 
     public League(final Player[] players, final boolean isSorted) {
-        bst = new BST();
+        bst = new NewBST();
 
         if (isSorted == false) {
             QuickSort.sort(players);
