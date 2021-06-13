@@ -183,6 +183,10 @@ final public class BST {
             }
         }
 
+        if (listPlayer.size() >= count) {
+            return;
+        }
+
         getBottomRecursive(node.getRight(), count, listPlayer);
     }
 

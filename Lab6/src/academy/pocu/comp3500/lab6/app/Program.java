@@ -9,6 +9,7 @@ import java.util.Stack;
 public class Program {
 
     public static void main(String[] args) {
+//        {
         // write your code here
         Player player111111 = new Player(1, "player1", 9);
         HashMap<Integer, Player> hashMap = new HashMap<>();
@@ -23,7 +24,8 @@ public class Program {
         }
         League leagueTest = new League(players, true);
 
-        Player player3Match1 = leagueTest.findMatchOrNull(players[555]);
+//        Player player3Match1 = leagueTest.findMatchOrNull(players[555]);
+//        }
         {
             Player player1 = new Player(1, "player1", 9);
             Player player2 = new Player(2, "player2", 10);
@@ -173,6 +175,23 @@ public class Program {
             assert (leaveSuccess);
             leaveSuccess = league1.leave(player5);
             assert (leaveSuccess);
+        }
+
+        {
+            {
+                Player player001 = new Player(1, "player1", 4);
+                Player player002 = new Player(2, "player2", 4);
+                Player player003 = new Player(3, "player3", 5);
+                Player player004 = new Player(4, "player4", 6);
+                Player player005 = new Player(5, "player5", 6);
+                Player player006 = new Player(6, "player6", 5);
+                League league01 = new League(new Player[]{
+                        player001, player002, player003, player004, player005,
+                        player006
+                }, false);
+                Player m = league01.findMatchOrNull(player006);
+                assert (m.getId() == player003.getId());
+            }
         }
     }
 }

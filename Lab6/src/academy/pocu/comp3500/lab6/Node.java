@@ -2,14 +2,11 @@ package academy.pocu.comp3500.lab6;
 
 import academy.pocu.comp3500.lab6.leagueofpocu.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 final public class Node {
     private Node left = null;
     private Node right = null;
-//    private ArrayList<Player> players = new ArrayList<>();
     private HashMap<Integer, Player> playerHashMap = new HashMap<>();
     private int rating;
 
