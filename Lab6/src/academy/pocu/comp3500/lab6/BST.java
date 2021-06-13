@@ -29,7 +29,8 @@ final public class BST {
         int rightEnd = mid;
 
         if (mid > start) {
-            for (int i = mid - 1; i >= start; --i) {
+            int i = mid - 1;
+            for (i = mid - 1; i >= start; --i) {
                 if (players[mid].getRating() == players[i].getRating()) {
                     node.addPlayer(players[i]);
                 } else {
@@ -37,16 +38,24 @@ final public class BST {
                     break;
                 }
             }
+            if (i < start) {
+                leftEnd = start;
+            }
         }
 
         if (mid < end) {
-            for (int i = mid + 1; i <= end; ++i) {
+            int i = mid + 1;
+            for (i = mid + 1; i <= end; ++i) {
                 if (players[mid].getRating() == players[i].getRating()) {
                     node.addPlayer(players[i]);
                 } else {
                     rightEnd = i - 1;
                     break;
                 }
+            }
+
+            if (i > end) {
+                rightEnd = end;
             }
         }
 
@@ -237,7 +246,6 @@ final public class BST {
             return false;
         }
 
-
         Node deleteNodeParent = findParentNodeRecursive(root, root, player);
 
         if (deleteNodeParent == null) {
@@ -262,7 +270,7 @@ final public class BST {
 
         Node deleteNode;
         boolean isRight = false;
-        if (deleteNodeParent.getLeft() != null && deleteNodeParent.getRating() == player.getRating()) {
+        if (deleteNodeParent.getLeft() != null && deleteNodeParent.getLeft().getRating() == player.getRating()) {
             deleteNode = deleteNodeParent.getLeft();
         } else {
             deleteNode = deleteNodeParent.getRight();

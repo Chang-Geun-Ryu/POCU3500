@@ -19,10 +19,22 @@ public class Program {
 
         Player[] players = new Player[1000];
 
-        for (int i = 0; i < players.length; ++i) {
+        for (int i = 10; i < players.length ; ++i) {
             players[i] = new Player(i, String.format("p %d", i), i * 2);
         }
+
+        for (int i = 0; i < 10 ; ++i) {
+            players[i] = new Player(i, String.format("p %d", i), 5);
+        }
         League leagueTest = new League(players, true);
+
+        {
+            Player[] a = leagueTest.getBottom(5);
+
+            for (int i = 0; i < a.length; ++i) {
+                System.out.println(a[i].toString());
+            }
+        }
 
 //        Player player3Match1 = leagueTest.findMatchOrNull(players[555]);
 //        }
@@ -191,6 +203,91 @@ public class Program {
                 }, false);
                 Player m = league01.findMatchOrNull(player006);
                 assert (m.getId() == player003.getId());
+            }
+        }
+
+        {
+            {
+                Player player1 = new Player(1, "player1", 10);
+                Player player2 = new Player(2, "player2", 7);
+                Player player3 = new Player(3, "player3", 9);
+                Player player4 = new Player(4, "player4", 8);
+
+                League league1 = new League();
+
+                assert (league1.join(player1) == true);
+                assert (league1.join(player2) == true);
+                assert (league1.join(player3) == true);
+                assert (league1.join(player4) == true);
+
+                assert (league1.leave(player2) == true);
+                assert (league1.leave(player3) == true);
+                assert (league1.leave(player4) == true);
+                assert (league1.leave(player1) == true);
+
+                assert (league1.join(player1) == true);
+                assert (league1.join(player2) == true);
+                assert (league1.join(player3) == true);
+                assert (league1.join(player4) == true);
+
+                assert (league1.leave(player3) == true);
+                assert (league1.leave(player1) == true);
+                assert (league1.leave(player2) == true);
+                assert (league1.leave(player4) == true);
+
+                int n = 0;
+            }
+
+// leave same rating
+            {
+                Player player1 = new Player(1, "player1", 77);
+                Player player2 = new Player(2, "player2", 77);
+                Player player3 = new Player(3, "player3", 77);
+                Player player4 = new Player(4, "player4", 77);
+                Player player5 = new Player(5, "player5", 77);
+                Player player6 = new Player(6, "player6", 77);
+                League league1 = new League(new Player[]{player1, player2, player3, player4, player5, player6}, true);
+                League league2 = new League(new Player[]{player1, player2, player3, player4, player5, player6}, false);
+                League league3 = new League(new Player[]{player6, player4, player1, player2, player5, player3}, false);
+
+                //assert (league1.leave(player1) == true);
+                //assert (league1.leave(player1) == false);
+                //assert (league1.leave(player2) == true);
+                //assert (league1.leave(player2) == false);
+                //assert (league1.leave(player3) == true);
+                //assert (league1.leave(player3) == false);
+                //assert (league1.leave(player4) == true);
+                //assert (league1.leave(player4) == false);
+                assert (league1.leave(player5) == true);
+                assert (league1.leave(player5) == false);
+                assert (league1.leave(player6) == true);
+                assert (league1.leave(player6) == false);
+
+                assert (league2.leave(player1) == true);
+                assert (league2.leave(player1) == false);
+                assert (league2.leave(player2) == true);
+                assert (league2.leave(player2) == false);
+                assert (league2.leave(player3) == true);
+                assert (league2.leave(player3) == false);
+                assert (league2.leave(player4) == true);
+                assert (league2.leave(player4) == false);
+                assert (league2.leave(player5) == true);
+                assert (league2.leave(player5) == false);
+                assert (league2.leave(player6) == true);
+                assert (league2.leave(player6) == false);
+
+                assert (league3.leave(player1) == true);
+                assert (league3.leave(player1) == false);
+                assert (league3.leave(player2) == true);
+                assert (league3.leave(player2) == false);
+                assert (league3.leave(player3) == true);
+                assert (league3.leave(player3) == false);
+                assert (league3.leave(player4) == true);
+                assert (league3.leave(player4) == false);
+                assert (league3.leave(player5) == true);
+                assert (league3.leave(player5) == false);
+                assert (league3.leave(player6) == true);
+                assert (league3.leave(player6) == false);
             }
         }
     }
