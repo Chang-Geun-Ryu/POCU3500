@@ -242,14 +242,10 @@ public final class PocuBasketballAssociation {
         int index = left - 1;
 
         for (int i = left; i < right; ++i) {
-//            if (players[i].getPassesPerGame() * players[i].getAssistsPerGame() > pivot.getPassesPerGame() * pivot.getAssistsPerGame()) {
             if (players[i].getAssistsPerGame() > pivot.getAssistsPerGame()) {
-//            if (players[i].getPointsPerGame() > pivot.getPointsPerGame()) {
                 ++index;
                 swapPlayer(players, index, i);
-//            } else if (players[i].getPointsPerGame() == pivot.getPointsPerGame()) {
             } else if (players[i].getAssistsPerGame() == pivot.getAssistsPerGame()) {
-//            } else if (players[i].getPassesPerGame() * players[i].getAssistsPerGame() == pivot.getPassesPerGame() * pivot.getAssistsPerGame()) {
                 if (players[i].getPassesPerGame() > pivot.getPassesPerGame()) {
                     ++index;
                     swapPlayer(players, index, i);

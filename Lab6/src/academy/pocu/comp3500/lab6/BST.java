@@ -242,12 +242,6 @@ final public class BST {
     }
 
     public boolean leave(Player player) {
-
-
-        return false;
-    }
-
-    public boolean leave1(Player player) {
         if (root == null) {
             return false;
         }

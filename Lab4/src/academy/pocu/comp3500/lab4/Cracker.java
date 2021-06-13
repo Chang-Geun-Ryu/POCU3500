@@ -3,6 +3,7 @@ package academy.pocu.comp3500.lab4;
 import academy.pocu.comp3500.lab4.pocuhacker.RainbowTable;
 import academy.pocu.comp3500.lab4.pocuhacker.User;
 
+import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Base64;

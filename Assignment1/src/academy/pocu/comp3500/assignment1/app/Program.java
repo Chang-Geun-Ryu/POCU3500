@@ -4,6 +4,8 @@ import academy.pocu.comp3500.assignment1.PocuBasketballAssociation;
 import academy.pocu.comp3500.assignment1.pba.Player;
 import academy.pocu.comp3500.assignment1.pba.GameStat;
 
+import java.util.HashMap;
+
 public class Program {
 
     public static void main(String[] args) {
@@ -100,6 +102,19 @@ public class Program {
 ////            System.out.println("playerName: " + player.getName() + " , pointperGame: " + player.getShootingPercentage());
 //        }
 //
+
+        {
+            Player player111111 = new Player("Player 2", 5, 12, 14, 50);
+            HashMap<String, Player> hashMap = new HashMap<>();
+            hashMap.put(player111111.getName(), player111111);
+
+            Player p = hashMap.remove(player111111.getName());
+
+
+            if (p != null) {
+                int i = 0;
+            }
+        }
         {
             Player[] players = new Player[] {
                     new Player("Player 2", 5, 12, 14, 50),
