@@ -61,16 +61,25 @@ final public class BST {
             return null;
         }
 
+        if (root.getLeft() == null && root.getRight() == null) {
+            for (Player p : root.getHashmap().values()) {
+                if (p.getId() != player.getId()) {
+                    return p;
+                }
+            }
+            return null;
+        }
+
         Stack<Player> finder = new Stack<>();
 
         Node node = findPlayerRecursive(root, finder, player);
 
         if (node == null) {
             return null;
-        } else if (node.getPlayers().size() > 1) {
-            for (int i = 0; i < node.getPlayers().size(); ++i) {
-                if (node.getPlayers().get(i).getId() != player.getId()) {
-                    return node.getPlayers().get(i);
+        } else if (node.getPlayersSize() > 1) {
+            for (Player p : node.getHashmap().values()) {
+                if (p.getId() != player.getId()) {
+                    return p;
                 }
             }
         } else {
@@ -88,36 +97,21 @@ final public class BST {
             return null;
         }
 
-        int nodeRating = node.getPlayers().get(0).getRating();
+        int nodeRating = node.getRating();
         int playerRating = player.getRating();
 
         if (finder.size() == 0) {
-            if (node.getPlayers().size() > 1) {
-                for (int i = 0; i < node.getPlayers().size(); ++i) {
-                    if (node.getPlayers().get(i).getId() != player.getId()) {
-                        finder.push(node.getPlayers().get(i));
-                    }
+            for (Player p : node.getHashmap().values()) {
+                if (p.getId() != player.getId()) {
+                    finder.push(p);
+                    break;
                 }
-            } else if (node.getPlayers().get(0).getId() != player.getId()) {
-                finder.push(node.getPlayers().get(0));
             }
         } else {
             int finderRating = finder.peek().getRating();
             int diffFinder = Math.abs(finderRating - playerRating);
             int diffNode = Math.abs(nodeRating - playerRating);
-            if (node.getPlayers().size() > 1) {
-                for (int i = 0; i < node.getPlayers().size(); ++i) {
-                    Player p = node.getPlayers().get(i);
-                    if (p.getId() != player.getId()) {
-                        if (diffNode < diffFinder) {
-                            finder.push(p);
-                        } else if (diffNode == diffFinder && nodeRating > finderRating) {
-                            finder.push(p);
-                        }
-                    }
-                }
-            } else {
-                Player p = node.getPlayers().get(0);
+            for (Player p : node.getHashmap().values()) {
                 if (p.getId() != player.getId()) {
                     if (diffNode < diffFinder) {
                         finder.push(p);
@@ -129,13 +123,11 @@ final public class BST {
         }
 
         if (playerRating == nodeRating) {
-            for (int i = 0; i < node.getPlayers().size(); ++i) {
-                Player p = node.getPlayers().get(i);
+            for (Player p : node.getHashmap().values()) {
                 if (p.getId() == player.getId()) {
                     return node;
                 }
             }
-
             return null;
         } else if (playerRating < nodeRating) {
             return findPlayerRecursive(node.getLeft(), finder, player);
@@ -158,9 +150,9 @@ final public class BST {
 
         getTopRecursive(node.getRight(), count, listPlayer);
 
-        for (int i = 0; i < node.getPlayers().size(); ++i) {
+        for (Player p : node.getHashmap().values()) {
             if (listPlayer.size() < count) {
-                listPlayer.add(node.getPlayers().get(i));
+                listPlayer.add(p);
             } else {
                 return;
             }
@@ -183,9 +175,9 @@ final public class BST {
 
         getBottomRecursive(node.getLeft(), count, listPlayer);
 
-        for (int i = 0; i < node.getPlayers().size(); ++i) {
+        for (Player p : node.getHashmap().values()) {
             if (listPlayer.size() < count) {
-                listPlayer.add(node.getPlayers().get(i));
+                listPlayer.add(p);
             } else {
                 return;
             }
@@ -205,15 +197,15 @@ final public class BST {
     }
 
     private boolean joinRecursive(Node node, Player player) {
-        if (node.getPlayers().get(0).getRating() == player.getRating()) {
-            for (int i = 0; i < node.getPlayers().size(); ++i) {
-                if (node.getPlayers().get(i).getId() == player.getId()) {
+        if (node.getRating() == player.getRating()) {
+            for (Player p : node.getHashmap().values()) {
+                if (p.getId() == player.getId()) {
                     return false;
                 }
             }
             node.addPlayer(player);
             return true;
-        } else if (node.getPlayers().get(0).getRating() > player.getRating()) {
+        } else if (node.getRating() > player.getRating()) {
             if (node.getLeft() != null) {
                 boolean b = joinRecursive(node.getLeft(), player);
                 return b;
@@ -248,18 +240,10 @@ final public class BST {
             return false;
         }
 
-        if (deleteNodeParent.getPlayers().get(0).getRating() == player.getRating()) {
-            ArrayList<Player> players = root.getPlayers();
-            boolean result = false;
-            for (int i = 0; i < players.size(); ++i) {
-                if (players.get(i).getId() == player.getId()) {
-                    players.remove(i);
-                    result = true;
-                    break;
-                }
-            }
+        if (deleteNodeParent.getRating() == player.getRating()) {
+            boolean result = root.removePlayer(player) != null ? true : false;
 
-            if (players.size() == 0) {
+            if (root.getPlayersSize() == 0) {
                 if (root.getRight() != null) {
                     swapNodeRecursive(root, root, root.getRight(), true);
                 } else if (root.getLeft() != null) {
@@ -274,24 +258,17 @@ final public class BST {
 
         Node deleteNode;
         boolean isRight = false;
-        if (deleteNodeParent.getLeft() != null && deleteNodeParent.getLeft().getPlayers().get(0).getRating() == player.getRating()) {
+        if (deleteNodeParent.getLeft() != null && deleteNodeParent.getRating() == player.getRating()) {
             deleteNode = deleteNodeParent.getLeft();
         } else {
             deleteNode = deleteNodeParent.getRight();
             isRight = true;
         }
 
-        if (deleteNode.getPlayers().get(0).getRating() == player.getRating()) {
-            ArrayList<Player> players = deleteNode.getPlayers();
-            boolean result = false;
-            for (int i = 0; i < players.size(); ++i) {
-                if (players.get(i).getId() == player.getId()) {
-                    players.remove(i);
-                    result = true;
-                }
-            }
+        if (deleteNode.getRating() == player.getRating()) {
+            boolean result = deleteNode.removePlayer(player) != null ? true : false;
 
-            if (players.size() == 0) {
+            if (deleteNode.getPlayersSize() == 0) {
                 if (deleteNode.getRight() != null) {
                     swapNodeRecursive(deleteNode, deleteNode, deleteNode.getRight(), isRight);
                 } else if (deleteNode.getLeft() != null) {
@@ -320,9 +297,9 @@ final public class BST {
             return null;
         }
 
-        if (node.getPlayers().get(0).getRating() == player.getRating()) {
+        if (node.getRating() == player.getRating()) {
             return parent;
-        } else if (node.getPlayers().get(0).getRating() > player.getRating()) {
+        } else if (node.getRating() > player.getRating()) {
             return findParentNodeRecursive(node, node.getLeft(), player);
         } else {
             return findParentNodeRecursive(node, node.getRight(), player);
@@ -332,7 +309,7 @@ final public class BST {
     private void swapNodeRecursive(Node deletedNode, Node parentNode, Node node, boolean isRight) {
 
         if (node.getLeft() == null && node.getRight() == null) {
-            for (Player p : node.getPlayers()) {
+            for (Player p : node.getHashmap().values()) {
                 deletedNode.addPlayer(p);
             }
 
@@ -343,7 +320,7 @@ final public class BST {
             }
             return;
         } else if (node.getLeft() == null && node.getRight() != null) {
-            for (Player p : node.getPlayers()) {
+            for (Player p : node.getHashmap().values()) {
                 deletedNode.addPlayer(p);
             }
 

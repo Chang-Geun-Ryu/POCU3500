@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51ee3809-a193-4ce4-bb0d-00a1ab15e948" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/League.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/QuickSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/BST.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/PocuBasketballAssociation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/src/academy/pocu/comp3500/assignment1/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab10/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab10/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab10/.idea/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab10/.idea/description.html" afterDir="false" />
@@ -40,17 +37,9 @@
       <change beforePath="$PROJECT_DIR$/../Lab4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab4/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab4/src/academy/pocu/comp3500/lab4/Cracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab4/src/academy/pocu/comp3500/lab4/Cracker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab5/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/description.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-template.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Program.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Program.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab6.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab6.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab7/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab7/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab7/.idea/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab7/.idea/description.html" afterDir="false" />
@@ -158,48 +147,43 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>240</line>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>247</line>
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>251</line>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>311</line>
+          <line>288</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>314</line>
+          <line>291</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>295</line>
+          <line>272</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>333</line>
+          <line>310</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/app/Program.java</url>
-          <line>163</line>
+          <line>172</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/BST.java</url>
-          <line>293</line>
+          <line>270</line>
           <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/app/Program.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab6/app/Program.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

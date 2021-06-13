@@ -3,12 +3,18 @@ package academy.pocu.comp3500.lab6.app;
 import academy.pocu.comp3500.lab6.League;
 import academy.pocu.comp3500.lab6.leagueofpocu.Player;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class Program {
 
     public static void main(String[] args) {
         // write your code here
+        Player player111111 = new Player(1, "player1", 9);
+        HashMap<Integer, Player> hashMap = new HashMap<>();
+        hashMap.put(player111111.getId(), player111111);
+
+        Player p = hashMap.remove(player111111.getId());
 
         Player[] players = new Player[1000];
 
@@ -41,6 +47,9 @@ public class Program {
 
             League league1 = new League(new Player[]{player1, player2, player3, player4, player5, player6, player7, player8, player9, player10}, true);
             League league2 = new League(new Player[]{player4, player1, player3, player2}, false);
+            League league11 = new League(new Player[]{player4}, false);
+            Player player3Match = league11.findMatchOrNull(player4);
+
         }
         {
             Player player1 = new Player(1, "player1", 9);
