@@ -5,8 +5,10 @@ import java.util.HashMap;
 
 public class Decryptor {
     private HashMap<Integer, ArrayList<String>> hashMap = new HashMap<>();
-
+//    private HashMap<Integer, Integer> primeMap = new HashMap<>();
+    private int[] primes = {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103};
     public Decryptor(final String[] codeWords) {
+
         for (String str : codeWords) {
             int value = getSumAscii(str);
             if (hashMap.containsKey(value)) {
@@ -33,11 +35,12 @@ public class Decryptor {
             return new String[]{};
         }
     }
-
+//    입력 'iiidinieaede'의 결과 수가 잘못되었습니다. 예상 : iiidinieaede, 실제 : [iiidinieaede, naeenenaeiia]
     private int getSumAscii(String str) {
         int asciiSum = 0;
         for (int i = 0; i < str.length(); i++) {
-            asciiSum += str.charAt(i);
+            int ascii = str.charAt(i);
+            asciiSum += ascii + primes[ascii % 97];
         }
         return asciiSum;
     }

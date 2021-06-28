@@ -5,7 +5,7 @@ import academy.pocu.comp3500.lab7.Decryptor;
 public class Program {
 
     public static void main(String[] args) {
-        String[] codeWords = new String[]{"cat", "cats", "acts", "scan", "acre", "ants"};
+        String[] codeWords = new String[]{"cat", "cats", "acts", "scan", "acre", "ants", "iiidinieaede", "naeenenaeiia"};
 
         Decryptor decryptor = new Decryptor(codeWords);
 
@@ -43,5 +43,11 @@ public class Program {
         assert (candidates.length == 2);
         assert (candidates[0].equals("cats") || candidates[0].equals("acts"));
         assert (candidates[1].equals("cats") || candidates[1].equals("acts"));
+
+
+        candidates = decryptor.findCandidates("iiidinieaede");
+
+
+        assert (candidates.length == 1);
     }
 }
