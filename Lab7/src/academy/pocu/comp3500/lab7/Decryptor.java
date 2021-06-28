@@ -37,7 +37,7 @@ public class Decryptor {
     private int getSumAscii(String str) {
         int asciiSum = 0;
         for (int i = 0; i < str.length(); i++) {
-            asciiSum += (int) str.charAt(i);
+            asciiSum += str.charAt(i);
         }
         return asciiSum;
     }
