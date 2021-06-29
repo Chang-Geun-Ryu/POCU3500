@@ -1,10 +1,8 @@
 package academy.pocu.comp3500.lab7.app;
 
 import academy.pocu.comp3500.lab7.Decryptor;
-import academy.pocu.comp3500.lab7.TrieNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class Program {

@@ -8,7 +8,116 @@ import java.util.HashMap;
 
 public class Program {
 
+    public static void quickSort(int[] arr) {
+        quickSortRecursive(arr, 0, arr.length - 1);
+    }
+
+    public static void quickSortRecursive(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pos = pivotPos(arr, left, right);
+
+        quickSortRecursive(arr, left, pos - 1);
+        quickSortRecursive(arr, pos + 1, right);
+    }
+
+    public static int pivotPos(int[] arr, int left, int right) {
+        int pivot = right;
+        int i = left;
+
+        for (int index = left; index < right; ++index) {
+            if (arr[pivot] > arr[index]) {
+                int temp = arr[index];
+                arr[index] = arr[i];
+                arr[i++] = temp;
+            }
+        }
+
+        int temp = arr[pivot];
+        arr[pivot] = arr[i];
+        arr[i] = temp;
+
+        return i;
+    }
+
+    public static void insertSort(int[] arr) {
+        for (int i = 0; i < arr.length; ++i) {
+            int index = i;
+
+            while (index > 0 && arr[index - 1] > arr[index]) {
+                    int temp = arr[index];
+                    arr[index] = arr[index - 1];
+                    arr[index - 1] = temp;
+                    index -= 1;
+            }
+        }
+    }
+
+    public static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; ++i) {
+            for (int j = 0; j < arr.length - i - 1; ++j) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                }
+            }
+        }
+    }
+
+    public static void selectSort(int[] arr) {
+        for (int i = 0; i < arr.length; ++i) {
+            int swapIndex = i;
+            for (int j = i; j < arr.length; ++j) {
+                if (arr[swapIndex] > arr[j]) {
+                    swapIndex = j;
+                }
+            }
+            swap(arr, swapIndex, i);
+        }
+    }
+
+    public static void swap(int[] arr, int pos1, int pos2) {
+        int temp = arr[pos1];
+        arr[pos1] = arr[pos2];
+        arr[pos2] = temp;
+    }
+
+    public static void sort(int[] nums) {
+
+    	for (int i = 0; i < nums.length; ++i) {
+
+    		int swapIndex = i;
+
+    		for (int j = i; j < nums.length; ++j) {
+
+    			if (nums[swapIndex] > nums[j]) {
+
+    				swapIndex = j;
+
+    			}
+
+    		}
+
+    		int temp = nums[i];
+
+    		nums[i] = nums[swapIndex];
+
+    		nums[swapIndex] = temp;
+
+    	}
+
+    }
+
     public static void main(String[] args) {
+        int[] arr = { 12, 8, 3, 4, 9, 1, 7};
+
+        insertSort(arr);
+//        quickSort(arr);
+//        bubbleSort(arr);
+//        selectSort(arr);
+//        sort(arr);
+        System.out.println(arr);
 
 //        {
 //            {

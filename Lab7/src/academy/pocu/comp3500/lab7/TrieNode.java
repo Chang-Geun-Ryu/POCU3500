@@ -8,7 +8,7 @@ public class TrieNode {
     HashMap<Character, TrieNode> childMap = new HashMap<>();
     private boolean endWord;
     private Character value;
-    HashSet<String> words = new HashSet<>();
+    HashMap<String, String> words = new HashMap<>();
 
     public TrieNode(char value, boolean endWord) {
         this.value = value;
@@ -28,7 +28,7 @@ public class TrieNode {
     }
 
     public void addWord(String words) {
-        this.words.add(words);
+        this.words.put(words, words);
     }
 
     public TrieNode getChild(char value) {
