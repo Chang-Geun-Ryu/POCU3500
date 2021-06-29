@@ -63,7 +63,7 @@ public class DecryptorTest {
         }
 
         char value = words.charAt(index);
-        TrieNode child =  node.childMap.get(value);
+        TrieNode child = node.childMap.get(value);
         if (child == null) {
             return null;
         }
