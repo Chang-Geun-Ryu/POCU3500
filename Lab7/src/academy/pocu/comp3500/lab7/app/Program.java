@@ -1,6 +1,7 @@
 package academy.pocu.comp3500.lab7.app;
 
 import academy.pocu.comp3500.lab7.Decryptor;
+import academy.pocu.comp3500.lab7.DecryptorFirst;
 
 import java.util.ArrayList;
 import java.util.Random;

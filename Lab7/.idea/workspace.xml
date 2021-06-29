@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="06034a90-5231-4a28-adcb-4fc0ccb8f52b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/Decryptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/Decryptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/DecryptorHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/DecryptorHash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/DecryptorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab7/DecryptorTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="06034a90-5231-4a28-adcb-4fc0ccb8f52b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
