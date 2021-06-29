@@ -13,9 +13,10 @@ public class Program {
 
     public static void main(String[] args) {
         mainTest();
-        for (int a = 0; a < 1000; ++a) {
-            randTest();
-        }
+        test2();
+//        for (int a = 0; a < 1000; ++a) {
+//            randTest();
+//        }
 
     }
 
@@ -38,7 +39,7 @@ public class Program {
     }
 
     private static void mainTest() {
-        String[] codeWords = new String[]{"cat", "cats", "acts", "scan", "acre", "ants", "test blank", "bAAaCdE", "iiidinieaede", "naeenenaeiia"};
+        String[] codeWords = new String[]{"cat", "CATS", "AcTS", "SCAN", "acre", "aNTS"};
 
         Decryptor decryptor = new Decryptor(codeWords);
 
@@ -46,11 +47,6 @@ public class Program {
 
         assert (candidates.length == 1);
         assert (candidates[0].equals("cat"));
-
-        candidates = decryptor.findCandidates("naeenenaeiia");
-
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("naeenenaeiia"));
 
         candidates = decryptor.findCandidates("race");
 
@@ -65,7 +61,7 @@ public class Program {
 
         assert (candidates.length == 0);
 
-        candidates = decryptor.findCandidates("act");
+        candidates = decryptor.findCandidates("ACT");
 
         assert (candidates.length == 1);
         assert (candidates[0].equals("cat"));
@@ -76,27 +72,51 @@ public class Program {
         assert (candidates[0].equals("cats") || candidates[0].equals("acts"));
         assert (candidates[1].equals("cats") || candidates[1].equals("acts"));
 
-        candidates = decryptor.findCandidates("scat");
+        candidates = decryptor.findCandidates("SCAt");
+
+        assert (candidates.length == 2);
+        assert (candidates[0].equals("cats") || candidates[0].equals("acts"));
+        assert (candidates[1].equals("cats") || candidates[1].equals("acts"));
+    }
+
+    public static void test2() {
+        String[] codeWords = new String[]{"cat", "CATS", "AcTS", "SCAN", "acre", "aNTS"};
+
+        Decryptor decryptor = new Decryptor(codeWords);
+
+        String[] candidates = decryptor.findCandidates("cat");
+
+        assert (candidates.length == 1);
+        assert (candidates[0].equals("cat"));
+
+        candidates = decryptor.findCandidates("race");
+
+        assert (candidates.length == 1);
+        assert (candidates[0].equals("acre"));
+
+        candidates = decryptor.findCandidates("ca");
+
+        assert (candidates.length == 0);
+
+        candidates = decryptor.findCandidates("span");
+
+        assert (candidates.length == 0);
+
+        candidates = decryptor.findCandidates("ACT");
+
+        assert (candidates.length == 1);
+        assert (candidates[0].equals("cat"));
+
+        candidates = decryptor.findCandidates("cats");
 
         assert (candidates.length == 2);
         assert (candidates[0].equals("cats") || candidates[0].equals("acts"));
         assert (candidates[1].equals("cats") || candidates[1].equals("acts"));
 
-        candidates = decryptor.findCandidates("test blank");
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("test blank"));
-        candidates = decryptor.findCandidates("testblank ");
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("test blank"));
-        candidates = decryptor.findCandidates(" testblank");
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("test blank"));
-        candidates = decryptor.findCandidates("t estblank");
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("test blank"));
+        candidates = decryptor.findCandidates("SCAt");
 
-        candidates = decryptor.findCandidates("bAAaCdE");
-        assert (candidates.length == 1);
-        assert (candidates[0].equals("bAAaCdE"));
+        assert (candidates.length == 2);
+        assert (candidates[0].equals("cats") || candidates[0].equals("acts"));
+        assert (candidates[1].equals("cats") || candidates[1].equals("acts"));
     }
 }

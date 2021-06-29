@@ -8,6 +8,7 @@ public class Decryptor {
 
     public Decryptor(final String[] codeWords) {
         for (String str : codeWords) {
+            str = str.toLowerCase();
             String sortWord = quickSort(str);
 
             if (hashMap.containsKey(sortWord)) {
@@ -25,7 +26,7 @@ public class Decryptor {
             return new String[]{};
         }
 
-        String sortWord = quickSort(word);
+        String sortWord = quickSort(word.toLowerCase());
 
         if (hashMap.containsKey(sortWord)) {
             ArrayList<String> arrString = hashMap.get(sortWord);

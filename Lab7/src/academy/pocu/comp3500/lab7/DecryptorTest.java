@@ -9,6 +9,7 @@ public class DecryptorTest {
     public DecryptorTest(final String[] codeWords) {
 
         for (String str : codeWords) {
+            str = str.toLowerCase();
             String sortedWord = quickSort(str);
 
             int index = 0;

@@ -1,8 +1,6 @@
 package academy.pocu.comp3500.lab7;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class TrieNode {
     HashMap<Character, TrieNode> childMap = new HashMap<>();
