@@ -11,7 +11,6 @@ public class DecryptorFirst {
 
     public String[] findCandidates(final String word) {
 
-            return new String[]{};
-
+        return new String[]{};
     }
 }
