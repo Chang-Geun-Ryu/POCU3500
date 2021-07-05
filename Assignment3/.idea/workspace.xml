@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf3a79f5-3bee-41ae-a331-6c3973b3b9c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,11 +77,35 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java</url>
-          <line>86</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>114</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="enemyPos" language="JAVA" />
+        <watch expression="myPos" language="JAVA" />
+        <watch expression="isWhite" language="JAVA" />
+        <watch expression="enemyPos.keySet()" language="JAVA" />
+        <watch expression="myPos.keySet()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

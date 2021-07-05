@@ -89,6 +89,9 @@ final class Game {
         this.lastMove.toX = nextMove.toX;
         this.lastMove.toY = nextMove.toY;
 
+        System.out.println("end: " + end + " start: " + start);
+        System.out.println("time: " + duration);
+
         if (player.getMaxMoveTimeMilliseconds() != Integer.MAX_VALUE && duration > this.maxMoveTimeoutInMilliseconds) {
             this.winner = this.currentTurn % 2 != 0 ? 'B' : 'W';
             this.isGameOver = true;
@@ -362,6 +365,13 @@ final class Game {
     }
 
     private static boolean isBishopMoveValid(char[][] board, Move move) {
+        char fromPiece = board[move.fromY][move.fromX];
+        char toPiece = board[move.toY][move.toX];
+
+        if (toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
+            return false;
+        }
+
         if (Math.abs(move.fromX - move.toX) != Math.abs(move.fromY - move.toY)) {
             return false;
         }
@@ -385,13 +395,20 @@ final class Game {
     }
 
     private static boolean isRookMoveValid(char[][] board, Move move) {
-        if(move.fromX == move.toX) {
+        char fromPiece = board[move.fromY][move.fromX];
+        char toPiece = board[move.toY][move.toX];
+
+        if (toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
+            return false;
+        }
+
+        if (move.fromX == move.toX) {
             int yIncrement = move.fromY < move.toY ? 1 : -1;
 
             int y = move.fromY + yIncrement;
 
             while (y != move.toY) {
-                if(board[y][move.fromX] != 0) {
+                if (board[y][move.fromX] != 0) {
                     return false;
                 }
 
@@ -400,13 +417,13 @@ final class Game {
 
             return true;
 
-        } else if(move.fromY == move.toY) {
+        } else if (move.fromY == move.toY) {
             int xIncrement = move.fromX < move.toX ? 1 : -1;
 
             int x = move.fromX + xIncrement;
 
             while (x != move.toX) {
-                if(board[move.fromY][x] != 0) {
+                if (board[move.fromY][x] != 0) {
                     return false;
                 }
 
@@ -423,12 +440,12 @@ final class Game {
         char fromPiece = board[move.fromY][move.fromX];
         char toPiece = board[move.toY][move.toX];
 
-        if(toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
+        if (toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
             return false;
         }
 
-        for(int i = 0; i < knightMoveOffsets.length; ++i) {
-            if(move.fromX + knightMoveOffsets[i][0] == move.toX && move.fromY + knightMoveOffsets[i][1] == move.toY) {
+        for (int i = 0; i < knightMoveOffsets.length; ++i) {
+            if (move.fromX + knightMoveOffsets[i][0] == move.toX && move.fromY + knightMoveOffsets[i][1] == move.toY) {
                 return true;
             }
         }
@@ -444,12 +461,12 @@ final class Game {
         char fromPiece = board[move.fromY][move.fromX];
         char toPiece = board[move.toY][move.toX];
 
-        if(toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
+        if (toPiece != 0 && Character.isLowerCase(fromPiece) == Character.isLowerCase(toPiece)) {
             return false;
         }
 
-        for(int i = 0; i < kingMoveOffsets.length; ++i) {
-            if(move.fromX + kingMoveOffsets[i][0] == move.toX && move.fromY + kingMoveOffsets[i][1] == move.toY) {
+        for (int i = 0; i < kingMoveOffsets.length; ++i) {
+            if (move.fromX + kingMoveOffsets[i][0] == move.toX && move.fromY + kingMoveOffsets[i][1] == move.toY) {
                 return true;
             }
         }
