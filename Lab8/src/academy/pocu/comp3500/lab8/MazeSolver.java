@@ -3,6 +3,7 @@ package academy.pocu.comp3500.lab8;
 import academy.pocu.comp3500.lab8.maze.Point;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class MazeSolver {
@@ -18,9 +19,9 @@ public final class MazeSolver {
         return findPathRecursive(maze, start.getX(), start.getY());
     }
 
-    private static List<Point> findPathRecursive(char[][] maze, int posX, int posY) {
+    private static LinkedList<Point> findPathRecursive(char[][] maze, int posX, int posY) {
         if (maze[posY][posX] == 'E') {
-            ArrayList<Point> find = new ArrayList<>();
+            LinkedList<Point> find = new LinkedList<>();
             find.add(new Point(posX, posY));
             return find;
         }
@@ -39,44 +40,13 @@ public final class MazeSolver {
                 continue;
             }
 
-            List<Point> p = findPathRecursive(maze, x, y);
+            LinkedList<Point> p = findPathRecursive(maze, x, y);
             if (p.size() > 0) {
-                p.add(0, new Point(posX, posY));
+                p.addFirst(new Point(posX, posY));
                 return p;
             }
         }
 
-        return new ArrayList<>();
-    }
-
-    private static List<Point> findPathRecursive1(char[][] maze, Node node) {
-        if (maze[node.point.getY()][node.point.getX()] == 'E') {
-            return node.path;
-        }
-
-        maze[node.point.getY()][node.point.getX()] = 'O';
-
-        for (int i = 0; i < MOVE.length; ++i) {
-            int x = MOVE[i][0] + node.point.getX();
-            int y = MOVE[i][1] + node.point.getY();
-
-            if (x < 0 || y < 0 || x >= maze[0].length || y >= maze.length) {
-                continue;
-            }
-
-            if (maze[y][x] == 'x' || maze[y][x] == 'O') {
-                continue;
-            }
-
-            Node n = new Node(new Point(x, y), node.path);
-            node.children.add(n);
-
-            List<Point> path = findPathRecursive1(maze, n);
-            if (path.size() > 0) {
-                return path;
-            }
-        }
-
-        return new ArrayList<>();
+        return new LinkedList<>();
     }
 }
