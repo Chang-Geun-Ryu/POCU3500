@@ -15,16 +15,14 @@ public final class MazeSolver {
     };
 
     public static List<Point> findPath(final char[][] maze, final Point start) {
-        ArrayList<Point> path = new ArrayList<>();
-        path.add(start);
-        return findPathRecursive(maze, path);
+        return findPathRecursive(maze, start.getX(), start.getY());
     }
 
-    private static List<Point> findPathRecursive(char[][] maze, ArrayList<Point> path) {
-        int posX = path.get(path.size() - 1).getX();
-        int posY = path.get(path.size() - 1).getY();
+    private static List<Point> findPathRecursive(char[][] maze, int posX, int posY) {
         if (maze[posY][posX] == 'E') {
-            return path;
+            ArrayList<Point> find = new ArrayList<>();
+            find.add(new Point(posX, posY));
+            return find;
         }
 
         maze[posY][posX] = 'O';
@@ -41,10 +39,9 @@ public final class MazeSolver {
                 continue;
             }
 
-            ArrayList<Point> pathList = new ArrayList<>(path);
-            pathList.add(new Point(x, y));
-            List<Point> p = findPathRecursive(maze, pathList);
+            List<Point> p = findPathRecursive(maze, x, y);
             if (p.size() > 0) {
+                p.add(0, new Point(posX, posY));
                 return p;
             }
         }
