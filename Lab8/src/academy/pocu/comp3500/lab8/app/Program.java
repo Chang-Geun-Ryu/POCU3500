@@ -38,12 +38,12 @@ public class Program {
         {
 
             char[][] maze3x3 = new char[][]{
-                    {'x', 'x', 'x'},
-                    {'x', 'E', 'x'},
-                    {'x', 'x', 'x'}
+                    {' '},
+//                    {'x', 'E', 'x'},
+//                    {'x', 'x', 'x'}
             };
 
-            List<Point> result; //= MazeSolver.findPath(maze3x3, new Point(1, 1));
+            List<Point> result = MazeSolver.findPath(maze3x3, new Point(0, 0));
 
 //            assert (result.size() == 1);
 //            assert (result.get(0).getX() == 1 && result.get(0).getY() == 1);

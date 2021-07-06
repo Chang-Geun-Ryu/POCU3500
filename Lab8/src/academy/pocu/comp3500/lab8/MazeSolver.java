@@ -20,7 +20,7 @@ public final class MazeSolver {
 
     private static List<Point> findPathRecursive(char[][] maze, Node node) {
         if (node == null) {
-            return null;
+            return new ArrayList<>();
         }
 
         if (maze[node.point.getY()][node.point.getX()] == 'E') {
@@ -41,16 +41,15 @@ public final class MazeSolver {
                 continue;
             }
 
-            node.children.add(new Node(new Point(x, y), node.path));
-        }
+            Node n = new Node(new Point(x, y), node.path);
+            node.children.add(n);
 
-        for (Node n : node.children) {
             List<Point> path = findPathRecursive(maze, n);
-            if (path != null) {
+            if (path.size() > 0) {
                 return path;
             }
         }
 
-        return null;
+        return new ArrayList<>();
     }
 }
