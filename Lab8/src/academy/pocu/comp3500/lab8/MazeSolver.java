@@ -23,7 +23,6 @@ public final class MazeSolver {
             return null;
         }
 
-        System.out.println(node.point.getX() + " " + node.point.getY());
         if (maze[node.point.getY()][node.point.getX()] == 'E') {
             return node.path;
         }
