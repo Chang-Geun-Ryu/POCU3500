@@ -15,27 +15,24 @@ public final class MazeSolver {
     };
 
     public static List<Point> findPath(final char[][] maze, final Point start) {
-        List<Point> list = new ArrayList<>();
-
-        return findPathRecursive(maze, start, list);
+        return findPathRecursive(maze, new Node(start, new ArrayList<>()));
     }
 
-    private static List<Point> findPathRecursive(char[][] maze, Point point, List<Point> list) {
-        if (point == null) {
+    private static List<Point> findPathRecursive(char[][] maze, Node node) {
+        if (node == null) {
             return null;
         }
 
-        list.add(point);
-
-        if (maze[point.getY()][point.getX()] == 'E') {
-            return list;
+        System.out.println(node.point.getX() + " " + node.point.getY());
+        if (maze[node.point.getY()][node.point.getX()] == 'E') {
+            return node.path;
         }
 
-        maze[point.getY()][point.getX()] = 'O';
+        maze[node.point.getY()][node.point.getX()] = 'O';
 
         for (int i = 0; i < MOVE.length; ++i) {
-            int x = MOVE[i][0] + point.getX();
-            int y = MOVE[i][1] + point.getY();
+            int x = MOVE[i][0] + node.point.getX();
+            int y = MOVE[i][1] + node.point.getY();
 
             if (x < 0 || y < 0 || x >= maze[0].length || y >= maze.length) {
                 continue;
@@ -45,10 +42,13 @@ public final class MazeSolver {
                 continue;
             }
 
-            List<Point> tempList = findPathRecursive(maze, new Point(x, y), list);
+            node.children.add(new Node(new Point(x, y), node.path));
+        }
 
-            if (tempList != null && maze[tempList.get(tempList.size() - 1).getY()][tempList.get(tempList.size() - 1).getX()] == 'E') {
-                return tempList;
+        for (Node n : node.children) {
+            List<Point> path = findPathRecursive(maze, n);
+            if (path != null) {
+                return path;
             }
         }
 

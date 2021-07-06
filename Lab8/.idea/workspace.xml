@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a1fd023-6a16-4926-bd99-03738595af4f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment3/src/academy/pocu/comp3500/assignment3/Player2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/MazeSolver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/maze/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment3/src/academy/pocu/comp3500/assignment3/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment3/src/academy/pocu/comp3500/assignment3/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment3/src/academy/pocu/comp3500/assignment3/Player2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment3/src/academy/pocu/comp3500/assignment3/Player2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/MazeSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/MazeSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/app/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,10 +76,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/MazeSolver.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="9" />
+          <line>51</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab8/MazeSolver.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="maze[node.point.getX()][node.point.getY()]" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
