@@ -89,8 +89,8 @@ final class Game {
         this.lastMove.toX = nextMove.toX;
         this.lastMove.toY = nextMove.toY;
 
-        System.out.println("end: " + end + " start: " + start);
-        System.out.println("time: " + duration);
+//        System.out.println("end: " + end + " start: " + start);
+//        System.out.println("time: " + duration);
 
         if (player.getMaxMoveTimeMilliseconds() != Integer.MAX_VALUE && duration > this.maxMoveTimeoutInMilliseconds) {
             this.winner = this.currentTurn % 2 != 0 ? 'B' : 'W';
