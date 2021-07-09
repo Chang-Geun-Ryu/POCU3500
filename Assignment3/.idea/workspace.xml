@@ -4,8 +4,6 @@
     <list default="true" id="bf3a79f5-3bee-41ae-a331-6c3973b3b9c1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/src/academy/pocu/comp3500/lab8/MazeSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/src/academy/pocu/comp3500/lab8/MazeSolver.java" afterDir="false" />
     </list>
@@ -79,23 +77,28 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
-          <line>157</line>
+          <line>172</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
-          <line>255</line>
+          <line>278</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
-          <line>112</line>
+          <line>113</line>
           <option name="timeStamp" value="136" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
-          <line>72</line>
+          <line>69</line>
           <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>505</line>
+          <option name="timeStamp" value="160" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

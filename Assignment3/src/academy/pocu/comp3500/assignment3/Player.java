@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 public class Player extends PlayerBase {
     private short round = 0;
-//    private ArrayList<Position> whitePos;// = new ArrayList<>();
-//    private ArrayList<Position> blackPos;// = new ArrayList<>();
-//    private Position currentPos = new Position(-1, -1);
+    private final short DEPTH = 8;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -19,7 +17,6 @@ public class Player extends PlayerBase {
     @Override
     public Move getNextMove(char[][] board) {
         if (round++ == 0) {
-//            setFirstPosition(board, null);
         }
 
         if (isWhite()) {
@@ -43,20 +40,20 @@ public class Player extends PlayerBase {
 
         }
 
-//        if (round <= 2) {
-//            if (isWhite()) {
-//                if (round == 2) {
-//
-//                    return movePos(3, 4, 2, 3);
-//                }
-//            } else {
-//                if (round == 1) {
-//                    return movePos(2, 1, 2, 3);
-//                } else {
-//                    return movePos(3, 1, 3, 2);
-//                }
-//            }
-//        }
+        if (round <= 2) {
+            if (isWhite()) {
+                if (round == 2) {
+
+                    return movePos(3, 4, 2, 3);
+                }
+            } else {
+                if (round == 1) {
+                    return movePos(2, 1, 2, 3);
+                } else {
+                    return movePos(3, 1, 3, 2);
+                }
+            }
+        }
 
         Move move = getMove(board);
 
@@ -69,7 +66,7 @@ public class Player extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, 4, a, b, true, result);
+        int move = getMoveScoreRecursive(board, DEPTH, a, b, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
@@ -204,20 +201,6 @@ public class Player extends PlayerBase {
             }
 
             int temp = getScore(board, x, y);
-//
-//            if (isMax) {
-//                if (temp > score) {
-//                    score = temp;
-//                    bestX = x;
-//                    bestY = y;
-//                }
-//            } else {
-//                if (temp < score) {
-//                    score = temp;
-//                    bestX = x;
-//                    bestY = y;
-//                }
-//            }
             if (isMax) {
                 a = Math.max(a, temp);
             } else {
@@ -229,7 +212,7 @@ public class Player extends PlayerBase {
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
@@ -239,29 +222,6 @@ public class Player extends PlayerBase {
             }
             restore(board, bestX, bestY, posX, posY, c);
         }
-
-//        if (bestX == -1 || bestY == -1) {
-//            return score;
-//        }
-
-
-
-//        if (isMax) {
-//            a = Math.max(a, score);
-//        } else {
-//            b = Math.min(b, score);
-//        }
-//        char c = move(board, posX, posY, bestX, bestY);
-//        score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
-//
-//        if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
-//            result.score = score;
-//            result.fromX = posX;
-//            result.fromY = posY;
-//            result.toX = bestX;
-//            result.toY = bestY;
-//        }
-//        restore(board, bestX, bestY, posX, posY, c);
 
         return score;
     }
@@ -296,7 +256,7 @@ public class Player extends PlayerBase {
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
@@ -350,7 +310,7 @@ public class Player extends PlayerBase {
                 char c = move(board, posX, posY, bestX, bestY);
                 temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-                if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                     result.score = score;
                     result.fromX = posX;
                     result.fromY = posY;
@@ -411,7 +371,7 @@ public class Player extends PlayerBase {
                 char c = move(board, posX, posY, bestX, bestY);
                 temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-                if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                     result.score = score;
                     result.fromX = posX;
                     result.fromY = posY;
@@ -463,7 +423,7 @@ public class Player extends PlayerBase {
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
@@ -520,13 +480,4 @@ public class Player extends PlayerBase {
 2. 나(max) -> 상대(min) -> 나(max) -> 상대(min) -> -> ->
 3. 해당 말들의 한턴당 이동가능 자리 탐색
 4. 이동할 자리 점수 계산
- */
-
-/*
-
-// Swift // // Add this to the header of your file, e.g. in ViewController.swift
-import FBSDKLoginKit // Add this to the body
-class ViewController: UIViewController { override func viewDidLoad()
-{ super.viewDidLoad() let loginButton = FBLoginButton() loginButton.center = view.center view.addSubview(loginButton) } }
-
  */
