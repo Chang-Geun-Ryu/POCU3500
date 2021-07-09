@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Player extends PlayerBase {
     private short round = 0;
     private final short DEPTH = 4;
+    static private int count = 0;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -18,7 +19,10 @@ public class Player extends PlayerBase {
     public Move getNextMove(char[][] board) {
         if (round++ == 0) {
         }
+        count = 0;
         Move move = getMove(board);
+
+        System.out.println("count: " + count++);
         return move;
     }
 
@@ -27,8 +31,10 @@ public class Player extends PlayerBase {
         if (round++ == 0) {
 
         }
+        count = 0;
         Move move = getMove(board);
 
+        System.out.println("count: " + count++);
         return move;
     }
 
@@ -85,23 +91,24 @@ public class Player extends PlayerBase {
                     }
                 }
             }
-
-            max = Integer.MIN_VALUE;
-            MoveScore move = null;
-            for (MoveScore m : minimax) {
-                if (m.score > max) {
-                    max = m.score;
-                    move = m;
+            if (minimax.size() > 0) {
+                max = Integer.MIN_VALUE;
+                MoveScore move = null;
+                for (MoveScore m : minimax) {
+                    if (m.score > max) {
+                        max = m.score;
+                        move = m;
+                    }
                 }
+
+                result.fromX = move.fromX;
+                result.fromY = move.fromY;
+                result.toX = move.toX;
+                result.toY = move.toY;
+                result.score = move.score;
             }
 
-            result.fromX = move.fromX;
-            result.fromY = move.fromY;
-            result.toX = move.toX;
-            result.toY = move.toY;
-            result.score = move.score;
-
-            return move.score;
+            return score;
         } else {
             int min = Integer.MAX_VALUE;
             for (int x = 0; x < 8; ++x) {
@@ -134,26 +141,29 @@ public class Player extends PlayerBase {
                             getKingMove(board, x, y, min, minimax, depth, isMax, result);
                             break;
                         default:
-                            return Integer.MAX_VALUE;
+                            return Integer.MIN_VALUE;
                     }
                 }
             }
 
-            min = Integer.MAX_VALUE;
-            MoveScore move = null;
-            for (MoveScore m : minimax) {
-                if (m.score < min) {
-                    min = m.score;
-                    move = m;
+            if (minimax.size() > 0) {
+                min = Integer.MAX_VALUE;
+                MoveScore move = null;
+                for (MoveScore m : minimax) {
+                    if (m.score < min) {
+                        min = m.score;
+                        move = m;
+                    }
                 }
+                result.fromX = move.fromX;
+                result.fromY = move.fromY;
+                result.toX = move.toX;
+                result.toY = move.toY;
+                result.score = move.score;
+                return move.score;
             }
-            result.fromX = move.fromX;
-            result.fromY = move.fromY;
-            result.toX = move.toX;
-            result.toY = move.toY;
-            result.score = move.score;
 
-            return move.score;
+            return score;
         }
     }
 
@@ -193,7 +203,7 @@ public class Player extends PlayerBase {
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
             list.add(new MoveScore(posX, posY, x, y, temp));
-
+            count++;
             restore(board, x, y, posX, posY, c);
 
             if (isMax) {
@@ -228,12 +238,13 @@ public class Player extends PlayerBase {
                 continue;
             }
 
-            int temp = getScore(board, x, y);
+            int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
             bestX = x;
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
+            count++;
 
             list.add(new MoveScore(posX, posY, x, y, temp));
 
@@ -253,7 +264,7 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getBishopMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list,  int depth, boolean isMax, MoveScore result) {
+    private int getBishopMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 1;
 //        int score = isMax ? a : b;
@@ -280,7 +291,7 @@ public class Player extends PlayerBase {
                     break;
                 }
 
-                int temp = getScore(board, x, y);
+                int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
                 bestX = x;
                 bestY = y;
@@ -288,6 +299,7 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
                 list.add(new MoveScore(posX, posY, x, y, temp));
+                count++;
 
                 restore(board, bestX, bestY, posX, posY, c);
 
@@ -312,7 +324,7 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getRookMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list,  int depth, boolean isMax, MoveScore result) {
+    private int getRookMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 0;
 //        int score = isMax ? a : b;
@@ -339,7 +351,7 @@ public class Player extends PlayerBase {
                     break;
                 }
 
-                int temp = getScore(board, x, y);
+                int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
                 bestX = x;
                 bestY = y;
@@ -347,6 +359,7 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
                 list.add(new MoveScore(posX, posY, x, y, temp));
+                count++;
 
                 restore(board, bestX, bestY, posX, posY, c);
 
@@ -372,7 +385,7 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getKingMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list,  int depth, boolean isMax, MoveScore result) {
+    private int getKingMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
@@ -389,7 +402,7 @@ public class Player extends PlayerBase {
                 continue;
             }
 
-            int temp = getScore(board, x, y);
+            int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
             bestX = x;
             bestY = y;
@@ -397,6 +410,7 @@ public class Player extends PlayerBase {
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
             list.add(new MoveScore(posX, posY, x, y, temp));
+            count++;
 
             restore(board, bestX, bestY, posX, posY, c);
 
