@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 8;
+    private final short DEPTH = 10;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -19,19 +19,21 @@ public class Player extends PlayerBase {
         if (round++ == 0) {
         }
 
-        if (isWhite()) {
-            int isKingPosX = 3;
-            for (int i = 0; i < 8; ++i) {
-                if (board[7][i] == 'k') {
-                    isKingPosX = i;
-                    break;
-                }
-            }
-
-            return movePos(isKingPosX, 6, isKingPosX, 4);
-        } else {
-            return movePos(3, 1, 3, 3);
-        }
+//        if (isWhite()) {
+//            int isKingPosX = 3;
+//            for (int i = 0; i < 8; ++i) {
+//                if (board[7][i] == 'k') {
+//                    isKingPosX = i;
+//                    break;
+//                }
+//            }
+//
+//            return movePos(isKingPosX, 6, isKingPosX, 4);
+//        } else {
+//            return movePos(3, 1, 3, 3);
+//        }
+        Move move = getMove(board);
+        return move;
     }
 
     @Override
@@ -39,21 +41,20 @@ public class Player extends PlayerBase {
         if (round++ == 0) {
 
         }
-
-        if (round <= 2) {
-            if (isWhite()) {
-                if (round == 2) {
-
-                    return movePos(3, 4, 2, 3);
-                }
-            } else {
-                if (round == 1) {
-                    return movePos(2, 1, 2, 3);
-                } else {
-                    return movePos(3, 1, 3, 2);
-                }
-            }
-        }
+//        if (round <= 2) {
+//            if (isWhite()) {
+//                if (round == 2) {
+//
+//                    return movePos(3, 4, 2, 3);
+//                }
+//            } else {
+//                if (round == 1) {
+//                    return movePos(2, 1, 2, 3);
+//                } else {
+//                    return movePos(3, 1, 3, 2);
+//                }
+//            }
+//        }
 
         Move move = getMove(board);
 
@@ -182,9 +183,12 @@ public class Player extends PlayerBase {
         while (i < Position.PWAN.length) {
             int x = Position.PWAN[i][0] + posX;
             int y = sign * Position.PWAN[i][1] + posY;
-            ++i;
-
+            i++;
             if (x < 0 || y < 0 || x >= board[0].length || y >= board.length) {
+                continue;
+            }
+
+            if (i == 1 && board[posY + sign][x] != 0) {
                 continue;
             }
 
@@ -221,6 +225,7 @@ public class Player extends PlayerBase {
                 score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
+
         }
 
         return score;

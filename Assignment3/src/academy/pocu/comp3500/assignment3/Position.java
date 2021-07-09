@@ -31,29 +31,4 @@ final public class Position {
             {2, -1},
             {2, 1}
     };
-
-
-    public int posX;
-    public int posY;
-
-    public Position(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
-
-    public void setPosition(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        Position position = (Position) o;
-        return posX == position.posX && posY == position.posY;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(posX, posY);
-    }
 }
