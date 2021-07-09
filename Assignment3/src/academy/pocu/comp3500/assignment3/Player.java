@@ -217,12 +217,12 @@ public class Player extends PlayerBase {
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
             if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                score = temp;
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
                 result.toX = bestX;
                 result.toY = bestY;
-                score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
 
@@ -262,12 +262,12 @@ public class Player extends PlayerBase {
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
             if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                score = temp;
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
                 result.toX = bestX;
                 result.toY = bestY;
-                score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
         }
@@ -316,12 +316,12 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
                 if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                    score = temp;
                     result.score = score;
                     result.fromX = posX;
                     result.fromY = posY;
                     result.toX = bestX;
                     result.toY = bestY;
-                    score = temp;
                 }
                 restore(board, bestX, bestY, posX, posY, c);
 
