@@ -324,6 +324,9 @@ final class Game {
     private static char[][] createNewBoard() {
         final char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
 
+//        test
+//        board[4][4] = 'k';
+//        board[3][3] = 'K';
         // White pieces
         int y = BOARD_SIZE - 1;
         board[y][0] = 'r';

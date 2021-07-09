@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 10;
+    private final short DEPTH = 4;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -73,7 +73,12 @@ public class Player extends PlayerBase {
 
     private int getMoveScoreRecursive(char[][] board, int depth, int a, int b, boolean isMax, MoveScore result) {
         if (depth <= 0) {
-            return isMax ? b : a;
+
+            if (isMax) {
+                return a > b ? a : b;
+            } else {
+                return a > b ? b : a;
+            }
         }
 
         if (isMax) {
@@ -216,6 +221,10 @@ public class Player extends PlayerBase {
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
+            if (depth == DEPTH) {
+                int cc = 0;
+            }
+
             if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 score = temp;
                 result.score = score;
@@ -260,6 +269,7 @@ public class Player extends PlayerBase {
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+
 
             if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 score = temp;
@@ -377,12 +387,12 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
                 if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                    score = temp;
                     result.score = score;
                     result.fromX = posX;
                     result.fromY = posY;
                     result.toX = bestX;
                     result.toY = bestY;
-                    score = temp;
                 }
                 restore(board, bestX, bestY, posX, posY, c);
 
@@ -399,7 +409,7 @@ public class Player extends PlayerBase {
     }
 
     private int getKingMove(char[][] board, int posX, int posY, int a, int b, int depth, boolean isMax, MoveScore result) {
-        int score = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
 
@@ -423,21 +433,44 @@ public class Player extends PlayerBase {
                 b = Math.min(b, temp);
             }
 
+            if (x == 3 && y == 3) {
+                int aaa = 0;
+            }
+
             bestX = x;
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
+
+            if (depth == DEPTH) {
+                System.out.print("=====>");
+            }
+            System.out.println("depth:" + depth + ", x,y: (" + x + "," + y + "), a: " + a + ", b:" + b + ", temp:" + temp);
+
             if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                score = temp;
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
                 result.toX = bestX;
                 result.toY = bestY;
-                score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
+
+            if (isMax) {
+                if (score < temp) {
+                    score = temp;
+                }
+            } else {
+                if (score > temp) {
+                    score = temp;
+                }
+            }
         }
+
+        System.out.print("=====>");
+        System.out.println("isMax:" + isMax + ",  depth:" + depth + ", a: " + a + ", b:" + b + ", score:" + score);
         return score;
     }
 
