@@ -43,20 +43,20 @@ public class Player extends PlayerBase {
 
         }
 
-        if (round <= 2) {
-            if (isWhite()) {
-                if (round == 2) {
-
-                    return movePos(3, 4, 2, 3);
-                }
-            } else {
-                if (round == 1) {
-                    return movePos(2, 1, 2, 3);
-                } else {
-                    return movePos(3, 1, 3, 2);
-                }
-            }
-        }
+//        if (round <= 2) {
+//            if (isWhite()) {
+//                if (round == 2) {
+//
+//                    return movePos(3, 4, 2, 3);
+//                }
+//            } else {
+//                if (round == 1) {
+//                    return movePos(2, 1, 2, 3);
+//                } else {
+//                    return movePos(3, 1, 3, 2);
+//                }
+//            }
+//        }
 
         Move move = getMove(board);
 
@@ -224,15 +224,18 @@ public class Player extends PlayerBase {
                 b = Math.min(b, temp);
             }
 
+            bestX = x;
+            bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
-            score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+            temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-            if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
+            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
                 result.toX = bestX;
                 result.toY = bestY;
+                score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
         }
@@ -288,40 +291,21 @@ public class Player extends PlayerBase {
                 b = Math.min(b, temp);
             }
 
+            bestX = x;
+            bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
-            score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+            temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
 
-            if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
+            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
                 result.score = score;
                 result.fromX = posX;
                 result.fromY = posY;
                 result.toX = bestX;
                 result.toY = bestY;
+                score = temp;
             }
             restore(board, bestX, bestY, posX, posY, c);
         }
-//        if (bestX == -1 || bestY == -1) {
-//            return score;
-//        }
-//        if (isMax) {
-//            a = Math.max(a, score);
-//        } else {
-//            b = Math.min(b, score);
-//        }
-//
-//        char c = move(board, posX, posY, bestX, bestY);
-//
-//        score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
-//
-//        if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
-//            result.score = score;
-//            result.fromX = posX;
-//            result.fromY = posY;
-//            result.toX = bestX;
-//            result.toY = bestY;
-//        }
-//
-//        restore(board, bestX, bestY, posX, posY, c);
 
         return score;
     }
@@ -356,18 +340,25 @@ public class Player extends PlayerBase {
                 int temp = getScore(board, x, y);
 
                 if (isMax) {
-                    if (temp > score) {
-                        score = temp;
-                        bestX = x;
-                        bestY = y;
-                    }
+                    a = Math.max(a, temp);
                 } else {
-                    if (temp < score) {
-                        score = temp;
-                        bestX = x;
-                        bestY = y;
-                    }
+                    b = Math.min(b, temp);
                 }
+
+                bestX = x;
+                bestY = y;
+                char c = move(board, posX, posY, bestX, bestY);
+                temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+
+                if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                    result.score = score;
+                    result.fromX = posX;
+                    result.fromY = posY;
+                    result.toX = bestX;
+                    result.toY = bestY;
+                    score = temp;
+                }
+                restore(board, bestX, bestY, posX, posY, c);
 
                 if (board[y][x] != 0) {
                     break;
@@ -377,31 +368,6 @@ public class Player extends PlayerBase {
                 y += yIncrement;
             }
         }
-
-        if (bestX == -1 || bestY == -1) {
-            return score;
-        }
-
-        if (isMax) {
-            a = Math.max(a, score);
-        } else {
-            b = Math.min(b, score);
-        }
-
-        char c = move(board, posX, posY, bestX, bestY);
-
-        score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
-
-        if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
-            result.score = score;
-            result.fromX = posX;
-            result.fromY = posY;
-            result.toX = bestX;
-            result.toY = bestY;
-        }
-
-        restore(board, bestX, bestY, posX, posY, c);
-
         return score;
     }
 
@@ -435,18 +401,25 @@ public class Player extends PlayerBase {
                 int temp = getScore(board, x, y);
 
                 if (isMax) {
-                    if (temp > score) {
-                        score = temp;
-                        bestX = x;
-                        bestY = y;
-                    }
+                    a = Math.max(a, temp);
                 } else {
-                    if (temp < score) {
-                        score = temp;
-                        bestX = x;
-                        bestY = y;
-                    }
+                    b = Math.min(b, temp);
                 }
+
+                bestX = x;
+                bestY = y;
+                char c = move(board, posX, posY, bestX, bestY);
+                temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+
+                if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                    result.score = score;
+                    result.fromX = posX;
+                    result.fromY = posY;
+                    result.toX = bestX;
+                    result.toY = bestY;
+                    score = temp;
+                }
+                restore(board, bestX, bestY, posX, posY, c);
 
                 if (board[y][x] != 0) {
                     break;
@@ -456,30 +429,6 @@ public class Player extends PlayerBase {
                 y += yIncrement;
             }
         }
-
-        if (bestX == -1 || bestY == -1) {
-            return score;
-        }
-
-        if (isMax) {
-            a = Math.max(a, score);
-        } else {
-            b = Math.min(b, score);
-        }
-
-        char c = move(board, posX, posY, bestX, bestY);
-
-        score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
-
-        if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
-            result.score = score;
-            result.fromX = posX;
-            result.fromY = posY;
-            result.toX = bestX;
-            result.toY = bestY;
-        }
-
-        restore(board, bestX, bestY, posX, posY, c);
 
         return score;
     }
@@ -504,43 +453,26 @@ public class Player extends PlayerBase {
             int temp = getScore(board, x, y);
 
             if (isMax) {
-                if (temp > score) {
-                    score = temp;
-                    bestX = x;
-                    bestY = y;
-                }
+                a = Math.max(a, temp);
             } else {
-                if (temp < score) {
-                    score = temp;
-                    bestX = x;
-                    bestY = y;
-                }
+                b = Math.min(b, temp);
             }
+
+            bestX = x;
+            bestY = y;
+            char c = move(board, posX, posY, bestX, bestY);
+            temp = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
+
+            if (depth == 4 && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
+                result.score = score;
+                result.fromX = posX;
+                result.fromY = posY;
+                result.toX = bestX;
+                result.toY = bestY;
+                score = temp;
+            }
+            restore(board, bestX, bestY, posX, posY, c);
         }
-        if (bestX == -1 || bestY == -1) {
-            return score;
-        }
-
-        if (isMax) {
-            a = Math.max(a, score);
-        } else {
-            b = Math.min(b, score);
-        }
-
-        char c = move(board, posX, posY, bestX, bestY);
-
-        score = getMoveScoreRecursive(board, depth - 1, a, b, !isMax, result);
-
-        if (depth == 4 && result.score < score && (posX - bestX != 0 || posY - bestY != 0)) {
-            result.score = score;
-            result.fromX = posX;
-            result.fromY = posY;
-            result.toX = bestX;
-            result.toY = bestY;
-        }
-
-        restore(board, bestX, bestY, posX, posY, c);
-
         return score;
     }
 
@@ -550,6 +482,7 @@ public class Player extends PlayerBase {
     }
 
     private char move(char[][] board, int fromX, int fromY, int toX, int toY) {
+//        System.out.println(fromX + "," + fromY + "," + toX + "," + toY);
         char c = board[toY][toX];
         board[toY][toX] = board[fromY][fromX];
         board[fromY][fromX] = 0;
