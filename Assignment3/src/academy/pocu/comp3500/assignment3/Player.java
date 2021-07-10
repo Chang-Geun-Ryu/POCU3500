@@ -22,7 +22,7 @@ public class Player extends PlayerBase {
             count = 0;
             for (int x = 0; x < 8; ++x) {
                 for (int y = 0; y < 8; ++y) {
-                    if (Character.toLowerCase(board[y][x]) == 0) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
                         ++count;
                     }
                 }
@@ -53,7 +53,7 @@ public class Player extends PlayerBase {
             count = 0;
             for (int x = 0; x < 8; ++x) {
                 for (int y = 0; y < 8; ++y) {
-                    if (Character.toLowerCase(board[y][x]) == 0) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
                         ++count;
                     }
                 }
@@ -110,7 +110,7 @@ public class Player extends PlayerBase {
                         break;
                     }
                 }
-                return new Move(isKnight, 7, isKnight -1, 5);
+                return new Move(isKnight, 7, isKnight - 1, 5);
             }
         } else {
             if (round == 1) {
