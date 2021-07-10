@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 4;
+    private short dep = 4;
     static private int count = 0;
+    private boolean isFull = false;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -18,24 +19,143 @@ public class Player extends PlayerBase {
     @Override
     public Move getNextMove(char[][] board) {
         if (round++ == 0) {
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
         }
-        count = 0;
-        Move move = getMove(board);
+        if (isFull) {
+            int isQ = 3;
+            for (int i = 0; i < 8; ++i) {
+                if (Character.toLowerCase(board[7][i]) == 'k') {
+                    isQ = i;
+                    break;
+                }
+            }
 
-        System.out.println("count: " + count++);
+            return new Move(isQ, 6, isQ, 4);
+        }
+
+        Move move = getMove(board);
         return move;
     }
 
     @Override
     public Move getNextMove(char[][] board, Move opponentMove) {
         if (round++ == 0) {
-
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
         }
-        count = 0;
-        Move move = getMove(board);
 
-        System.out.println("count: " + count++);
+        if (isFull) {
+            Move move = getMoveOpening(board);
+            if (move != null) {
+                return move;
+            }
+        }
+
+        if (isWhite()) {
+            if (round == 25) {
+                dep = 2;
+            }
+        } else {
+            if (round == 25) {
+                dep = 1;
+            }
+        }
+
+
+        Move move = getMove(board);
         return move;
+    }
+
+    private Move getMoveOpening(char[][] board) {
+
+        if (isWhite()) {
+            if (round == 2) {
+                int knight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        knight = i;
+                        break;
+                    }
+                }
+                return new Move(knight, 7, knight + 1, 5);
+            } else if (round == 3) {
+                int bishop = 1;
+                int isDir = 0;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'b') {
+                        bishop = i;
+                        if (board[6][i - 1] == 0) {
+                            isDir = -1;
+                            break;
+                        } else if (board[6][i + 1] == 0) {
+                            isDir = 1;
+                            break;
+                        }
+                    }
+                }
+                return new Move(bishop, 7, bishop + isDir * 4, 3);
+            } else if (round == 4) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 7, isKnight - 1, 5);
+            }
+        } else {
+            if (round == 1) {
+                int p = 4;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[4][i]) == 'p') {
+                        p = i;
+                        break;
+                    }
+                }
+
+                return new Move(p, 1, p, 3);
+            } else if (round == 2) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight + 1, 2);
+            } else if (round == 3) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight - 1, 2);
+            }
+        }
+        isFull = false;
+        return null;
     }
 
     private Move getMove(char[][] board) {
@@ -44,7 +164,7 @@ public class Player extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, DEPTH, 0, true, result);
+        int move = getMoveScoreRecursive(board, dep, 0, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
@@ -106,7 +226,6 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
                 }
 
                 return score;
@@ -218,7 +337,6 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
                 }
 
                 return score;
@@ -282,7 +400,8 @@ public class Player extends PlayerBase {
     }
 
     // a < v < b
-    private int getPawnMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
+    private int getPawnMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
+                            boolean isMax, MoveScore result) {
         boolean hasMoved = Character.isLowerCase(board[posY][posX]) ? posY != 6 : posY != 1;
         int sign = Character.isLowerCase(board[posY][posX]) ? -1 : 1;
         int i = hasMoved ? 1 : 0;
@@ -335,7 +454,8 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getKnightMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
+    private int getKnightMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
+                              boolean isMax, MoveScore result) {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
@@ -378,7 +498,8 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getBishopMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
+    private int getBishopMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
+                              boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 1;
 //        int score = isMax ? a : b;
@@ -438,7 +559,8 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getRookMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
+    private int getRookMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
+                            boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 0;
 //        int score = isMax ? a : b;
@@ -499,7 +621,8 @@ public class Player extends PlayerBase {
         return score;
     }
 
-    private int getKingMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
+    private int getKingMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
+                            boolean isMax, MoveScore result) {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
