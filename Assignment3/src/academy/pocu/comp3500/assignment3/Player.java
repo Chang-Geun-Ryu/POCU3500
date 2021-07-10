@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private short dep = 5;
+    private short dep = 4;
     static private int count = 0;
     private boolean isFull = false;
     private long start = 0;
@@ -420,10 +420,10 @@ public class Player extends PlayerBase {
         boolean hasMoved = Character.isLowerCase(board[posY][posX]) ? posY != 6 : posY != 1;
         int sign = Character.isLowerCase(board[posY][posX]) ? -1 : 1;
         int i = hasMoved ? 1 : 0;
-
-        if (depth == dep) {
-            depth -= 1;
-        }
+//
+//        if (depth == dep) {
+//            depth -= 1;
+//        }
 
         while (i < Position.PWAN.length) {
             int x = Position.PWAN[i][0] + posX;
@@ -480,9 +480,9 @@ public class Player extends PlayerBase {
         int bestY = -1;
 
 
-        if (depth == dep) {
-            depth -= 1;
-        }
+//        if (depth == dep) {
+//            depth -= 1;
+//        }
 
         for (int i = 0; i < Position.KNIGHT.length; ++i) {
             int x = Position.KNIGHT[i][0] + posX;
@@ -530,9 +530,9 @@ public class Player extends PlayerBase {
         int bestX = -1;
         int bestY = -1;
 
-        if (depth == dep) {
-            depth -= 1;
-        }
+//        if (depth == dep) {
+//            depth -= 1;
+//        }
 
         for (int d = 0; d < 4; ++d) {
             if (d == 1) {
