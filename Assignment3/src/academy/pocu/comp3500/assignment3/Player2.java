@@ -4,10 +4,16 @@ import academy.pocu.comp3500.assignment3.chess.Move;
 import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Player2 extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 4;
+    private final short DEPTH = 6;
+    static private int count = 0;
+    private boolean isFull = false;
+    private long start = 0;
+    private long end = 0;
+//    private long duration = //TimeUnit.MILLISECONDS.convert(end - start, TimeUnit.NANOSECONDS);
 
     public Player2(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -16,49 +22,135 @@ public class Player2 extends PlayerBase {
 
     @Override
     public Move getNextMove(char[][] board) {
+        start = System.nanoTime();
         if (round++ == 0) {
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
+        }
+        if (isFull) {
+            int isQ = 3;
+            for (int i = 0; i < 8; ++i) {
+                if (Character.toLowerCase(board[7][i]) == 'k') {
+                    isQ = i;
+                    break;
+                }
+            }
+
+            return new Move(isQ, 6, isQ, 4);
         }
 
-//        if (isWhite()) {
-//            int isKingPosX = 3;
-//            for (int i = 0; i < 8; ++i) {
-//                if (board[7][i] == 'k') {
-//                    isKingPosX = i;
-//                    break;
-//                }
-//            }
-//
-//            return movePos(isKingPosX, 6, isKingPosX, 4);
-//        } else {
-//            return movePos(3, 1, 3, 3);
-//        }
         Move move = getMove(board);
         return move;
     }
 
     @Override
     public Move getNextMove(char[][] board, Move opponentMove) {
+        start = System.nanoTime();
         if (round++ == 0) {
-
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
         }
-//        if (round <= 2) {
-//            if (isWhite()) {
-//                if (round == 2) {
-//
-//                    return movePos(3, 4, 2, 3);
-//                }
-//            } else {
-//                if (round == 1) {
-//                    return movePos(2, 1, 2, 3);
-//                } else {
-//                    return movePos(3, 1, 3, 2);
-//                }
-//            }
-//        }
+
+        if (isFull) {
+            Move move = getMoveOpening(board);
+            if (move != null) {
+                return move;
+            }
+        }
 
         Move move = getMove(board);
-
         return move;
+    }
+
+    private Move getMoveOpening(char[][] board) {
+
+        if (isWhite()) {
+            if (round == 2) {
+                int knight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        knight = i;
+                        break;
+                    }
+                }
+                return new Move(knight, 7, knight + 1, 5);
+            } else if (round == 3) {
+                int bishop = 1;
+                int isDir = 0;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'b') {
+                        bishop = i;
+                        if (board[6][i - 1] == 0) {
+                            isDir = -1;
+                            break;
+                        } else if (board[6][i + 1] == 0) {
+                            isDir = 1;
+                            break;
+                        }
+                    }
+                }
+                return new Move(bishop, 7, bishop + isDir * 4, 3);
+            } else if (round == 4) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 7, isKnight - 1, 5);
+            }
+        } else {
+            if (round == 1) {
+                int p = 4;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[4][i]) == 'p') {
+                        p = i;
+                        break;
+                    }
+                }
+
+                return new Move(p, 1, p, 3);
+            } else if (round == 2) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight + 1, 2);
+            } else if (round == 3) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight - 1, 2);
+            }
+        }
+        isFull = false;
+        return null;
     }
 
     private Move getMove(char[][] board) {
@@ -67,125 +159,251 @@ public class Player2 extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, DEPTH, 0, a, b, true, result);
+        int move = getMoveScoreRecursive(board, DEPTH, 0, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
-    private int getMoveScoreRecursive(char[][] board, int depth, int score, int a, int b, boolean isMax, MoveScore result) {
-        if (depth <= 0) {
-
-//            if (isMax) {
-//                return a > b ? a : b;
-//            } else {
-//                return a > b ? b : a;
-//            }
+    private int getMoveScoreRecursive(char[][] board, int depth, int score, boolean isMax, MoveScore result) {
+//        System.out.println("time" + TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS));
+        if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 2 > getMaxMoveTimeMilliseconds()) {
             return score;
         }
 
-        if (isMax) {
-            int max = Integer.MIN_VALUE;
-            for (int x = 0; x < 8; ++x) {
-                for (int y = 0; y < 8; ++y) {
-                    //max
-                    //isWhite() : true; isLowercase : false;
-                    //isWhite() : false; isLowercase : true;
-                    if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) != isWhite()) {
-                        continue;
+        if (depth <= 0) {
+            return score;
+        }
+
+        ArrayList<MoveScore> minimax = new ArrayList<>();
+        if (round % 2 == 0) {
+            if (isMax) {
+                int max = Integer.MIN_VALUE;
+                for (int x = 0; x < 8; ++x) {
+                    for (int y = 0; y < 8; ++y) {
+                        //max
+                        //isWhite() : true; isLowercase : false;
+                        //isWhite() : false; isLowercase : true;
+                        if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) != isWhite()) {
+                            continue;
+                        }
+
+                        switch (Character.toLowerCase(board[y][x])) {
+                            case 'p':
+                                getPawnMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'n':
+                                getKnightMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'b':
+                                getBishopMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'r':
+                                getRookMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'q':
+                                getBishopMove(board, x, y, max, minimax, depth, isMax, result);
+                                getRookMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'k':
+                                getKingMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            default:
+                                return Integer.MIN_VALUE;
+                        }
+                    }
+                }
+                if (minimax.size() > 0) {
+                    max = Integer.MIN_VALUE;
+                    MoveScore move = null;
+                    for (MoveScore m : minimax) {
+                        if (m.score > max) {
+                            max = m.score;
+                            move = m;
+                        }
                     }
 
-                    switch (Character.toLowerCase(board[y][x])) {
-                        case 'p':
-                            max = Math.max(max, getPawnMove(board, x, y, max, a, b, depth, isMax, result));
-                            break;
-                        case 'n':
-                            max = Math.max(max, getKnightMove(board, x, y, max, a, b, depth, isMax, result));
-                            break;
-                        case 'b':
-                            max = Math.max(max, getBishopMove(board, x, y, max, a, b, depth, isMax, result));
-                            break;
-                        case 'r':
-                            max = Math.max(max, getRookMove(board, x, y, max, a, b, depth, isMax, result));
-                            break;
-                        case 'q':
-                            max = Math.max(max, getBishopMove(board, x, y, max, a, b, depth, isMax, result));
-                            max = Math.max(max, getRookMove(board, x, y, a, max, b, depth, isMax, result));
-                            break;
-                        case 'k':
-                            max = Math.max(max, getKingMove(board, x, y, max, a, b, depth, isMax, result));
-                            break;
-                        default:
-                            return Integer.MIN_VALUE;
-                    }
-                    a = Math.max(a, max);
-                    if (b <= a) {
-                        break;
+                    result.fromX = move.fromX;
+                    result.fromY = move.fromY;
+                    result.toX = move.toX;
+                    result.toY = move.toY;
+                    result.score = move.score;
+                }
+
+                return score;
+            } else {
+                int min = Integer.MAX_VALUE;
+                for (int x = 0; x < 8; ++x) {
+                    for (int y = 0; y < 8; ++y) {
+                        //min
+                        //isWhite() : true; isLowercase : true;
+                        //isWhite() : false; isLowercase : false;
+                        if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) == isWhite()) {
+                            continue;
+                        }
+
+                        switch (Character.toLowerCase(board[y][x])) {
+                            case 'p':
+                                getPawnMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'n':
+                                getKnightMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'b':
+                                getBishopMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'r':
+                                getRookMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'q':
+                                getBishopMove(board, x, y, min, minimax, depth, isMax, result);
+                                getRookMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'k':
+                                getKingMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            default:
+                                return Integer.MIN_VALUE;
+                        }
                     }
                 }
-                if (b <= a) {
-                    break;
+
+                if (minimax.size() > 0) {
+                    min = Integer.MAX_VALUE;
+                    MoveScore move = null;
+                    for (MoveScore m : minimax) {
+                        if (m.score < min) {
+                            min = m.score;
+                            move = m;
+                        }
+                    }
+                    result.fromX = move.fromX;
+                    result.fromY = move.fromY;
+                    result.toX = move.toX;
+                    result.toY = move.toY;
+                    result.score = move.score;
+                    return move.score;
                 }
+
+                return score;
             }
-
-            return max;
         } else {
-            int min = Integer.MAX_VALUE;
-            for (int x = 0; x < 8; ++x) {
-                for (int y = 0; y < 8; ++y) {
-                    //min
-                    //isWhite() : true; isLowercase : true;
-                    //isWhite() : false; isLowercase : false;
-                    if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) == isWhite()) {
-                        continue;
+            if (isMax) {
+                int max = Integer.MIN_VALUE;
+                for (int x = 7; x >= 0; --x) {
+                    for (int y = 7; y >= 0; --y) {
+                        //max
+                        //isWhite() : true; isLowercase : false;
+                        //isWhite() : false; isLowercase : true;
+                        if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) != isWhite()) {
+                            continue;
+                        }
+
+                        switch (Character.toLowerCase(board[y][x])) {
+                            case 'p':
+                                getPawnMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'n':
+                                getKnightMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'b':
+                                getBishopMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'r':
+                                getRookMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'q':
+                                getBishopMove(board, x, y, max, minimax, depth, isMax, result);
+                                getRookMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            case 'k':
+                                getKingMove(board, x, y, max, minimax, depth, isMax, result);
+                                break;
+                            default:
+                                return Integer.MIN_VALUE;
+                        }
+                    }
+                }
+                if (minimax.size() > 0) {
+                    max = Integer.MIN_VALUE;
+                    MoveScore move = null;
+                    for (MoveScore m : minimax) {
+                        if (m.score > max) {
+                            max = m.score;
+                            move = m;
+                        }
                     }
 
-                    switch (Character.toLowerCase(board[y][x])) {
-                        case 'p':
-                            min = Math.min(min, getPawnMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        case 'n':
-                            min = Math.min(min, getKnightMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        case 'b':
-                            min = Math.min(min, getBishopMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        case 'r':
-                            min = Math.min(min, getRookMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        case 'q':
-                            min = Math.min(min, getBishopMove(board, x, y, min, a, b, depth, isMax, result));
-                            min = Math.min(min, getRookMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        case 'k':
-                            min = Math.min(min, getKingMove(board, x, y, min, a, b, depth, isMax, result));
-                            break;
-                        default:
-                            return Integer.MAX_VALUE;
-                    }
-                    b = Math.min(min, b);
+                    result.fromX = move.fromX;
+                    result.fromY = move.fromY;
+                    result.toX = move.toX;
+                    result.toY = move.toY;
+                    result.score = move.score;
+                }
 
-                    if (b <= a) {
-                        break;
+                return score;
+            } else {
+                int min = Integer.MAX_VALUE;
+                for (int x = 0; x < 8; ++x) {
+                    for (int y = 0; y < 8; ++y) {
+                        //min
+                        //isWhite() : true; isLowercase : true;
+                        //isWhite() : false; isLowercase : false;
+                        if (Character.toLowerCase(board[y][x]) == 0 || Character.isLowerCase(board[y][x]) == isWhite()) {
+                            continue;
+                        }
+
+                        switch (Character.toLowerCase(board[y][x])) {
+                            case 'p':
+                                getPawnMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'n':
+                                getKnightMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'b':
+                                getBishopMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'r':
+                                getRookMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'q':
+                                getBishopMove(board, x, y, min, minimax, depth, isMax, result);
+                                getRookMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            case 'k':
+                                getKingMove(board, x, y, min, minimax, depth, isMax, result);
+                                break;
+                            default:
+                                return Integer.MIN_VALUE;
+                        }
                     }
                 }
 
-                if (b <= a) {
-                    break;
+                if (minimax.size() > 0) {
+                    min = Integer.MAX_VALUE;
+                    MoveScore move = null;
+                    for (MoveScore m : minimax) {
+                        if (m.score < min) {
+                            min = m.score;
+                            move = m;
+                        }
+                    }
+                    result.fromX = move.fromX;
+                    result.fromY = move.fromY;
+                    result.toX = move.toX;
+                    result.toY = move.toY;
+                    result.score = move.score;
+                    return move.score;
                 }
+
+                return score;
             }
-
-            return min;
         }
     }
 
     // a < v < b
-    private int getPawnMove(char[][] board, int posX, int posY, int score, int a, int b, int depth, boolean isMax, MoveScore result) {
+    private int getPawnMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         boolean hasMoved = Character.isLowerCase(board[posY][posX]) ? posY != 6 : posY != 1;
         int sign = Character.isLowerCase(board[posY][posX]) ? -1 : 1;
         int i = hasMoved ? 1 : 0;
-//        int score = isMax ? a : b;
-        int bestX = -1;
-        int bestY = -1;
-
 
         while (i < Position.PWAN.length) {
             int x = Position.PWAN[i][0] + posX;
@@ -212,30 +430,13 @@ public class Player2 extends PlayerBase {
             }
 
             int temp = getScore(board, x, y) * (isMax ? 1 : -1);
-            if (isMax) {
-                a = Math.max(a, temp);
-            } else {
-                b = Math.min(b, temp);
-            }
 
-            bestX = x;
-            bestY = y;
-            char c = move(board, posX, posY, bestX, bestY);
-            temp = getMoveScoreRecursive(board, depth - 1, temp, a, b, !isMax, result);
+            char c = move(board, posX, posY, x, y);
+            temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-            if (depth == DEPTH) {
-                int cc = 0;
-            }
-
-            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
-                score = temp;
-                result.score = score;
-                result.fromX = posX;
-                result.fromY = posY;
-                result.toX = bestX;
-                result.toY = bestY;
-            }
-            restore(board, bestX, bestY, posX, posY, c);
+            list.add(new MoveScore(posX, posY, x, y, temp));
+            count++;
+            restore(board, x, y, posX, posY, c);
 
             if (isMax) {
                 if (score < temp) {
@@ -252,7 +453,7 @@ public class Player2 extends PlayerBase {
         return score;
     }
 
-    private int getKnightMove(char[][] board, int posX, int posY, int score, int a, int b, int depth, boolean isMax, MoveScore result) {
+    private int getKnightMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
@@ -269,28 +470,16 @@ public class Player2 extends PlayerBase {
                 continue;
             }
 
-            int temp = getScore(board, x, y);
-
-            if (isMax) {
-                a = Math.max(a, temp);
-            } else {
-                b = Math.min(b, temp);
-            }
+            int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
             bestX = x;
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
-            temp = getMoveScoreRecursive(board, depth - 1, temp, a, b, !isMax, result);
+            temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
+            count++;
 
+            list.add(new MoveScore(posX, posY, x, y, temp));
 
-            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
-                score = temp;
-                result.score = score;
-                result.fromX = posX;
-                result.fromY = posY;
-                result.toX = bestX;
-                result.toY = bestY;
-            }
             restore(board, bestX, bestY, posX, posY, c);
 
             if (isMax) {
@@ -307,7 +496,7 @@ public class Player2 extends PlayerBase {
         return score;
     }
 
-    private int getBishopMove(char[][] board, int posX, int posY, int score, int a, int b, int depth, boolean isMax, MoveScore result) {
+    private int getBishopMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 1;
 //        int score = isMax ? a : b;
@@ -334,27 +523,16 @@ public class Player2 extends PlayerBase {
                     break;
                 }
 
-                int temp = getScore(board, x, y);
-
-                if (isMax) {
-                    a = Math.max(a, temp);
-                } else {
-                    b = Math.min(b, temp);
-                }
+                int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
                 bestX = x;
                 bestY = y;
                 char c = move(board, posX, posY, bestX, bestY);
-                temp = getMoveScoreRecursive(board, depth - 1, temp, a, b, !isMax, result);
+                temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-                if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
-                    score = temp;
-                    result.score = score;
-                    result.fromX = posX;
-                    result.fromY = posY;
-                    result.toX = bestX;
-                    result.toY = bestY;
-                }
+                list.add(new MoveScore(posX, posY, x, y, temp));
+                count++;
+
                 restore(board, bestX, bestY, posX, posY, c);
 
                 if (isMax) {
@@ -378,7 +556,7 @@ public class Player2 extends PlayerBase {
         return score;
     }
 
-    private int getRookMove(char[][] board, int posX, int posY, int score, int a, int b, int depth, boolean isMax, MoveScore result) {
+    private int getRookMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 0;
 //        int score = isMax ? a : b;
@@ -405,27 +583,16 @@ public class Player2 extends PlayerBase {
                     break;
                 }
 
-                int temp = getScore(board, x, y);
-
-                if (isMax) {
-                    a = Math.max(a, temp);
-                } else {
-                    b = Math.min(b, temp);
-                }
+                int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
                 bestX = x;
                 bestY = y;
                 char c = move(board, posX, posY, bestX, bestY);
-                temp = getMoveScoreRecursive(board, depth - 1, temp, a, b, !isMax, result);
+                temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-                if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
-                    score = temp;
-                    result.score = score;
-                    result.fromX = posX;
-                    result.fromY = posY;
-                    result.toX = bestX;
-                    result.toY = bestY;
-                }
+                list.add(new MoveScore(posX, posY, x, y, temp));
+                count++;
+
                 restore(board, bestX, bestY, posX, posY, c);
 
                 if (isMax) {
@@ -450,7 +617,7 @@ public class Player2 extends PlayerBase {
         return score;
     }
 
-    private int getKingMove(char[][] board, int posX, int posY, int score, int a, int b, int depth, boolean isMax, MoveScore result) {
+    private int getKingMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
@@ -467,37 +634,16 @@ public class Player2 extends PlayerBase {
                 continue;
             }
 
-            int temp = getScore(board, x, y);
-
-            if (isMax) {
-                a = Math.max(a, temp);
-            } else {
-                b = Math.min(b, temp);
-            }
-
-            if (x == 3 && y == 3) {
-                int aaa = 0;
-            }
+            int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
             bestX = x;
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
-            temp = getMoveScoreRecursive(board, depth - 1, temp, a, b, !isMax, result);
+            temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
+            list.add(new MoveScore(posX, posY, x, y, temp));
+            count++;
 
-            if (depth == DEPTH) {
-                System.out.print("=====>");
-            }
-            System.out.println("depth:" + depth + ", x,y: (" + x + "," + y + "), a: " + a + ", b:" + b + ", temp:" + temp);
-
-            if (depth == DEPTH && result.score < temp && (posX - bestX != 0 || posY - bestY != 0)) {
-                score = temp;
-                result.score = score;
-                result.fromX = posX;
-                result.fromY = posY;
-                result.toX = bestX;
-                result.toY = bestY;
-            }
             restore(board, bestX, bestY, posX, posY, c);
 
             if (isMax) {
@@ -511,8 +657,6 @@ public class Player2 extends PlayerBase {
             }
         }
 
-        System.out.print("=====>");
-        System.out.println("isMax:" + isMax + ",  depth:" + depth + ", a: " + a + ", b:" + b + ", score:" + score);
         return score;
     }
 
