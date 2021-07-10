@@ -170,11 +170,11 @@ public class Player extends PlayerBase {
     }
 
     private int getMoveScoreRecursive(char[][] board, int depth, int score, boolean isMax, MoveScore result) {
-        if (depth <= 1) {
-            if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 100 > getMaxMoveTimeMilliseconds()) {
-                return score;
-            }
-        }
+//        if (depth <= 1) {
+//            if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 100 > getMaxMoveTimeMilliseconds()) {
+//                return score;
+//            }
+//        }
         if (depth <= 0) {
             return score;
         }
@@ -232,6 +232,11 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
+                    return move.score;
+                }
+
+                if (depth == dep) {
+                    int a = 0;
                 }
 
                 return score;
@@ -289,6 +294,10 @@ public class Player extends PlayerBase {
                     return move.score;
                 }
 
+                if (depth == dep) {
+                    int a = 0;
+                }
+
                 return score;
             }
         } else {
@@ -343,6 +352,7 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
+                    return move.score;
                 }
 
                 return score;
@@ -469,6 +479,7 @@ public class Player extends PlayerBase {
         int bestX = -1;
         int bestY = -1;
 
+
         if (depth == dep) {
             depth -= 1;
         }
@@ -518,6 +529,10 @@ public class Player extends PlayerBase {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
+
+        if (depth == dep) {
+            depth -= 1;
+        }
 
         for (int d = 0; d < 4; ++d) {
             if (d == 1) {
