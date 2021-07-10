@@ -34,7 +34,7 @@ public class Player extends PlayerBase {
         if (isFull) {
             int isQ = 3;
             for (int i = 0; i < 8; ++i) {
-                if (Character.toLowerCase(board[7][i]) == 'q') {
+                if (Character.toLowerCase(board[7][i]) == 'k') {
                     isQ = i;
                     break;
                 }
