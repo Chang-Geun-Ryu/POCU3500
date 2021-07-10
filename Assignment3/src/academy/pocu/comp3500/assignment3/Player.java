@@ -3,12 +3,9 @@ package academy.pocu.comp3500.assignment3;
 import academy.pocu.comp3500.assignment3.chess.Move;
 import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
-import java.util.ArrayList;
-
 public class Player extends PlayerBase {
     private short round = 0;
     private final short DEPTH = 5;
-    static private int count = 0;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -19,10 +16,7 @@ public class Player extends PlayerBase {
     public Move getNextMove(char[][] board) {
         if (round++ == 0) {
         }
-        count = 0;
         Move move = getMove(board);
-
-        System.out.println("count: " + count++);
         return move;
     }
 
@@ -31,10 +25,7 @@ public class Player extends PlayerBase {
         if (round++ == 0) {
 
         }
-        count = 0;
         Move move = getMove(board);
-
-        System.out.println("count: " + count++);
         return move;
     }
 
@@ -93,7 +84,7 @@ public class Player extends PlayerBase {
                         }
                     }
                 }
-                if (minimax != null) {
+                if (minimax.score != Integer.MAX_VALUE) {
                     result.fromX = minimax.fromX;
                     result.fromY = minimax.fromY;
                     result.toX = minimax.toX;
@@ -105,6 +96,7 @@ public class Player extends PlayerBase {
                 return score;
             } else {
                 int min = Integer.MAX_VALUE;
+                minimax.score = Integer.MAX_VALUE;
                 for (int x = 0; x < 8; ++x) {
                     for (int y = 0; y < 8; ++y) {
                         //min
@@ -140,7 +132,7 @@ public class Player extends PlayerBase {
                     }
                 }
 
-                if (minimax != null) {
+                if (minimax.score != Integer.MAX_VALUE) {
                     result.fromX = minimax.fromX;
                     result.fromY = minimax.fromY;
                     result.toX = minimax.toX;
@@ -154,6 +146,7 @@ public class Player extends PlayerBase {
         } else {
             if (isMax) {
                 int max = Integer.MIN_VALUE;
+                minimax.score = Integer.MIN_VALUE;
                 for (int x = 7; x >= 0; --x) {
                     for (int y = 7; y >= 0; --y) {
                         //max
@@ -188,7 +181,7 @@ public class Player extends PlayerBase {
                         }
                     }
                 }
-                if (minimax != null) {
+                if (minimax.score != Integer.MIN_VALUE) {
                     result.fromX = minimax.fromX;
                     result.fromY = minimax.fromY;
                     result.toX = minimax.toX;
@@ -200,6 +193,7 @@ public class Player extends PlayerBase {
                 return score;
             } else {
                 int min = Integer.MAX_VALUE;
+                minimax.score = Integer.MAX_VALUE;
                 for (int x = 0; x < 8; ++x) {
                     for (int y = 0; y < 8; ++y) {
                         //min
@@ -235,7 +229,7 @@ public class Player extends PlayerBase {
                     }
                 }
 
-                if (minimax != null) {
+                if (minimax.score != Integer.MAX_VALUE) {
                     result.fromX = minimax.fromX;
                     result.fromY = minimax.fromY;
                     result.toX = minimax.toX;
@@ -284,7 +278,6 @@ public class Player extends PlayerBase {
             char c = move(board, posX, posY, x, y);
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-            count++;
             restore(board, x, y, posX, posY, c);
 
             if (isMax) {
@@ -334,7 +327,6 @@ public class Player extends PlayerBase {
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
-            count++;
 
 //            list.add(new MoveScore(posX, posY, x, y, temp));
 
@@ -399,7 +391,6 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
 //                list.add(new MoveScore(posX, posY, x, y, temp));
-                count++;
 
                 restore(board, bestX, bestY, posX, posY, c);
 
@@ -469,7 +460,6 @@ public class Player extends PlayerBase {
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
 //                list.add(new MoveScore(posX, posY, x, y, temp));
-                count++;
 
                 restore(board, bestX, bestY, posX, posY, c);
 
@@ -527,12 +517,20 @@ public class Player extends PlayerBase {
             bestX = x;
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
+
+            if (depth == DEPTH) {
+                System.out.println("temp:" + temp);
+            }
+
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
 //            list.add(new MoveScore(posX, posY, x, y, temp));
-            count++;
 
             restore(board, bestX, bestY, posX, posY, c);
+
+            if (depth == DEPTH) {
+                System.out.println("temp:" + temp);
+            }
 
             if (isMax) {
                 if (score < temp) {
