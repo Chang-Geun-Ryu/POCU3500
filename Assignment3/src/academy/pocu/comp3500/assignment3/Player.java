@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 10;
+    private final short DEPTH = 5;
     static private int count = 0;
     private boolean isFull = false;
     private long start = 0;
