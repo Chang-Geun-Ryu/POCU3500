@@ -4,13 +4,12 @@ import academy.pocu.comp3500.assignment3.chess.Move;
 import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private short dep = 5;
+    private final short DEPTH = 4;
     static private int count = 0;
-    private long start = 0;
+    private boolean isFull = false;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -19,32 +18,133 @@ public class Player extends PlayerBase {
 
     @Override
     public Move getNextMove(char[][] board) {
-        start = System.nanoTime();
         if (round++ == 0) {
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
         }
-        Move move = getMove(board);
+        if (isFull) {
+            int isQ = 3;
+            for (int i = 0; i < 8; ++i) {
+                if (Character.toLowerCase(board[7][i]) == 'k') {
+                    isQ = i;
+                    break;
+                }
+            }
 
+            return new Move(isQ, 6, isQ, 4);
+        }
+
+        Move move = getMove(board);
         return move;
     }
 
     @Override
     public Move getNextMove(char[][] board, Move opponentMove) {
-        start = System.nanoTime();
         if (round++ == 0) {
+            count = 0;
+            for (int x = 0; x < 8; ++x) {
+                for (int y = 0; y < 8; ++y) {
+                    if (Character.toLowerCase(board[y][x]) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count >= 32) {
+                isFull = true;
+            }
         }
+
+        if (isFull) {
+            Move move = getMoveOpening(board);
+            if (move != null) {
+                return move;
+            }
+        }
+
+        Move move = getMove(board);
+        return move;
+    }
+
+    private Move getMoveOpening(char[][] board) {
 
         if (isWhite()) {
-            if (round + dep > 27) {
-                dep--;
+            if (round == 2) {
+                int knight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        knight = i;
+                        break;
+                    }
+                }
+                return new Move(knight, 7, knight + 1, 5);
+            } else if (round == 3) {
+                int bishop = 1;
+                int isDir = 0;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'b') {
+                        bishop = i;
+                        if (board[6][i - 1] == 0) {
+                            isDir = -1;
+                            break;
+                        } else if (board[6][i + 1] == 0) {
+                            isDir = 1;
+                            break;
+                        }
+                    }
+                }
+                return new Move(bishop, 7, bishop + isDir * 4, 3);
+            } else if (round == 4) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[7][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 7, isKnight - 1, 5);
             }
         } else {
-            if (round + dep > 26) {
-                dep--;
+            if (round == 1) {
+                int p = 4;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[4][i]) == 'p') {
+                        p = i;
+                        break;
+                    }
+                }
+
+                return new Move(p, 1, p, 3);
+            } else if (round == 2) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight + 1, 2);
+            } else if (round == 3) {
+                int isKnight = 1;
+                for (int i = 0; i < 8; ++i) {
+                    if (Character.toLowerCase(board[0][i]) == 'n') {
+                        isKnight = i;
+                        break;
+                    }
+                }
+                return new Move(isKnight, 0, isKnight - 1, 2);
             }
         }
-        Move move = getMove(board);
-
-        return move;
+        isFull = false;
+        return null;
     }
 
     private Move getMove(char[][] board) {
@@ -53,15 +153,11 @@ public class Player extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, dep, 0, true, result);
+        int move = getMoveScoreRecursive(board, DEPTH, 0, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
     private int getMoveScoreRecursive(char[][] board, int depth, int score, boolean isMax, MoveScore result) {
-        if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 50 > getMaxMoveTimeMilliseconds()) {
-            return score;
-        }
-
         if (depth <= 0) {
             return score;
         }
