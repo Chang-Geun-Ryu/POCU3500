@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private short DEPTH = 5;
+    private short dep = 5;
     static private int count = 0;
     private long start = 0;
 
@@ -34,12 +34,12 @@ public class Player extends PlayerBase {
         }
 
         if (isWhite()) {
-            if (round + DEPTH > 27) {
-                DEPTH--;
+            if (round + dep > 27) {
+                dep--;
             }
         } else {
-            if (round + DEPTH > 26) {
-                DEPTH--;
+            if (round + dep > 26) {
+                dep--;
             }
         }
         Move move = getMove(board);
@@ -53,7 +53,7 @@ public class Player extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, DEPTH, 0, true, result);
+        int move = getMoveScoreRecursive(board, dep, 0, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
