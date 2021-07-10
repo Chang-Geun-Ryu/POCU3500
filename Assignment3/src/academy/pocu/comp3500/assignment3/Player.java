@@ -4,12 +4,16 @@ import academy.pocu.comp3500.assignment3.chess.Move;
 import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 4;
+    private final short DEPTH = 10;
     static private int count = 0;
     private boolean isFull = false;
+    private long start = 0;
+    private long end = 0;
+//    private long duration = //TimeUnit.MILLISECONDS.convert(end - start, TimeUnit.NANOSECONDS);
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -18,6 +22,7 @@ public class Player extends PlayerBase {
 
     @Override
     public Move getNextMove(char[][] board) {
+        start = System.nanoTime();
         if (round++ == 0) {
             count = 0;
             for (int x = 0; x < 8; ++x) {
@@ -49,6 +54,7 @@ public class Player extends PlayerBase {
 
     @Override
     public Move getNextMove(char[][] board, Move opponentMove) {
+        start = System.nanoTime();
         if (round++ == 0) {
             count = 0;
             for (int x = 0; x < 8; ++x) {
@@ -158,6 +164,11 @@ public class Player extends PlayerBase {
     }
 
     private int getMoveScoreRecursive(char[][] board, int depth, int score, boolean isMax, MoveScore result) {
+//        System.out.println("time" + TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS));
+        if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 2 > getMaxMoveTimeMilliseconds()) {
+            return score;
+        }
+
         if (depth <= 0) {
             return score;
         }
