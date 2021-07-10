@@ -5,7 +5,7 @@ import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private final short DEPTH = 5;
+    private final short DEPTH = 4;
 
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
@@ -314,9 +314,6 @@ public class Player extends PlayerBase {
     }
 
     private int getKnightMove(char[][] board, int posX, int posY, int score, MoveScore move, int depth, boolean isMax, MoveScore result) {
-//        int score = isMax ? a : b;
-        int bestX = -1;
-        int bestY = -1;
 
         for (int i = 0; i < Position.KNIGHT.length; ++i) {
             int x = Position.KNIGHT[i][0] + posX;
@@ -332,14 +329,10 @@ public class Player extends PlayerBase {
 
             int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
-            bestX = x;
-            bestY = y;
-            char c = move(board, posX, posY, bestX, bestY);
+            char c = move(board, posX, posY, x, y);
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-//            list.add(new MoveScore(posX, posY, x, y, temp));
-
-            restore(board, bestX, bestY, posX, posY, c);
+            restore(board, x, y, posX, posY, c);
 
             if (isMax) {
                 if (move.score < temp) {
@@ -368,9 +361,6 @@ public class Player extends PlayerBase {
     private int getBishopMove(char[][] board, int posX, int posY, int score, MoveScore move, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 1;
-//        int score = isMax ? a : b;
-        int bestX = -1;
-        int bestY = -1;
 
         for (int d = 0; d < 4; ++d) {
             if (d == 1) {
@@ -394,14 +384,10 @@ public class Player extends PlayerBase {
 
                 int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
-                bestX = x;
-                bestY = y;
-                char c = move(board, posX, posY, bestX, bestY);
+                char c = move(board, posX, posY, x, y);
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-//                list.add(new MoveScore(posX, posY, x, y, temp));
-
-                restore(board, bestX, bestY, posX, posY, c);
+                restore(board, x, y, posX, posY, c);
 
                 if (isMax) {
                     if (move.score < temp) {
@@ -437,9 +423,6 @@ public class Player extends PlayerBase {
     private int getRookMove(char[][] board, int posX, int posY, int score, MoveScore move, int depth, boolean isMax, MoveScore result) {
         int xIncrement = 1;
         int yIncrement = 0;
-//        int score = isMax ? a : b;
-        int bestX = -1;
-        int bestY = -1;
 
         for (int d = 0; d < 4; ++d) {
             if (d == 1) {
@@ -463,14 +446,10 @@ public class Player extends PlayerBase {
 
                 int temp = getScore(board, x, y) * (isMax ? 1 : -1);
 
-                bestX = x;
-                bestY = y;
-                char c = move(board, posX, posY, bestX, bestY);
+                char c = move(board, posX, posY, x, y);
                 temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
-//                list.add(new MoveScore(posX, posY, x, y, temp));
-
-                restore(board, bestX, bestY, posX, posY, c);
+                restore(board, x, y, posX, posY, c);
 
                 if (isMax) {
                     if (move.score < temp) {
