@@ -4,13 +4,14 @@ import academy.pocu.comp3500.assignment3.chess.Move;
 import academy.pocu.comp3500.assignment3.chess.PlayerBase;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Player extends PlayerBase {
     private short round = 0;
-    private short dep = 4;
+    private short dep = 5;
     static private int count = 0;
     private boolean isFull = false;
-
+    private long start = 0;
     public Player(boolean isWhite, int maxMoveTimeMilliseconds) {
         super(isWhite, maxMoveTimeMilliseconds);
     }
@@ -49,6 +50,7 @@ public class Player extends PlayerBase {
 
     @Override
     public Move getNextMove(char[][] board, Move opponentMove) {
+        start = System.nanoTime();
         if (round++ == 0) {
             count = 0;
             for (int x = 0; x < 8; ++x) {
@@ -79,7 +81,6 @@ public class Player extends PlayerBase {
                 dep = 1;
             }
         }
-
 
         Move move = getMove(board);
         return move;
@@ -169,6 +170,11 @@ public class Player extends PlayerBase {
     }
 
     private int getMoveScoreRecursive(char[][] board, int depth, int score, boolean isMax, MoveScore result) {
+        if (depth <= 1) {
+            if (TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + 100 > getMaxMoveTimeMilliseconds()) {
+                return score;
+            }
+        }
         if (depth <= 0) {
             return score;
         }
@@ -400,11 +406,14 @@ public class Player extends PlayerBase {
     }
 
     // a < v < b
-    private int getPawnMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth,
-                            boolean isMax, MoveScore result) {
+    private int getPawnMove(char[][] board, int posX, int posY, int score, ArrayList<MoveScore> list, int depth, boolean isMax, MoveScore result) {
         boolean hasMoved = Character.isLowerCase(board[posY][posX]) ? posY != 6 : posY != 1;
         int sign = Character.isLowerCase(board[posY][posX]) ? -1 : 1;
         int i = hasMoved ? 1 : 0;
+
+        if (depth == dep) {
+            depth -= 1;
+        }
 
         while (i < Position.PWAN.length) {
             int x = Position.PWAN[i][0] + posX;
@@ -459,6 +468,10 @@ public class Player extends PlayerBase {
 //        int score = isMax ? a : b;
         int bestX = -1;
         int bestY = -1;
+
+        if (depth == dep) {
+            depth -= 1;
+        }
 
         for (int i = 0; i < Position.KNIGHT.length; ++i) {
             int x = Position.KNIGHT[i][0] + posX;
