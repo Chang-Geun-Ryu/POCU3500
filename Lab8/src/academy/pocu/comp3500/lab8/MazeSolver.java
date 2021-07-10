@@ -2,7 +2,6 @@ package academy.pocu.comp3500.lab8;
 
 import academy.pocu.comp3500.lab8.maze.Point;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
