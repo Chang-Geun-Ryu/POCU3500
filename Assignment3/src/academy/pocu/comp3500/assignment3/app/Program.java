@@ -24,7 +24,7 @@ public class Program {
         if (IS_WHITE_KEYBOARD_PLAYER) {
             whitePlayer = new KeyboardPlayer(true);
         } else {
-            whitePlayer = new Player3(true, MAX_MOVE_TIME_MILLISECONDS);
+            whitePlayer = new Player(true, MAX_MOVE_TIME_MILLISECONDS);
         }
         if (IS_BLACK_KEYBOARD_PLAYER) {
             blackPlayer = new KeyboardPlayer(false);

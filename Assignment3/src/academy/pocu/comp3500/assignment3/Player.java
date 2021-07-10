@@ -33,8 +33,14 @@ public class Player extends PlayerBase {
         if (round++ == 0) {
         }
 
-        if (round + DEPTH > 26) {
-            DEPTH--;
+        if (isWhite()) {
+            if (round + DEPTH > 27) {
+                DEPTH--;
+            }
+        } else {
+            if (round + DEPTH > 26) {
+                DEPTH--;
+            }
         }
         Move move = getMove(board);
 
