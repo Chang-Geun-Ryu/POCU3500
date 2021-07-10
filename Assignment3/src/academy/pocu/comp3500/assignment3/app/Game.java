@@ -325,41 +325,42 @@ final class Game {
         final char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
 
 //        test
-//        board[4][4] = 'k';
-//        board[3][3] = 'K';
+        board[6][4] = 'k';
+        board[7][3] = 'q';
+        board[3][3] = 'K';
         // White pieces
-        int y = BOARD_SIZE - 1;
-        board[y][0] = 'r';
-        board[y][1] = 'n';
-        board[y][2] = 'b';
-        board[y][3] = 'k';
-        board[y][4] = 'q';
-        board[y][5] = 'b';
-        board[y][6] = 'n';
-        board[y][7] = 'r';
-
-        // White pawns
-        y -= 1;
-        for (int x = 0; x < BOARD_SIZE; ++x) {
-            board[y][x] = 'p';
-        }
-
-        // Black pawns
-        y = 1;
-        for (int x = 0; x < BOARD_SIZE; ++x) {
-            board[y][x] = 'P';
-        }
-
-        // Black pieces
-        y = 0;
-        board[y][0] = 'R';
-        board[y][1] = 'N';
-        board[y][2] = 'B';
-        board[y][3] = 'K';
-        board[y][4] = 'Q';
-        board[y][5] = 'B';
-        board[y][6] = 'N';
-        board[y][7] = 'R';
+//        int y = BOARD_SIZE - 1;
+//        board[y][0] = 'r';
+//        board[y][1] = 'n';
+//        board[y][2] = 'b';
+//        board[y][3] = 'k';
+//        board[y][4] = 'q';
+//        board[y][5] = 'b';
+//        board[y][6] = 'n';
+//        board[y][7] = 'r';
+//
+//        // White pawns
+//        y -= 1;
+//        for (int x = 0; x < BOARD_SIZE; ++x) {
+//            board[y][x] = 'p';
+//        }
+//
+//        // Black pawns
+//        y = 1;
+//        for (int x = 0; x < BOARD_SIZE; ++x) {
+//            board[y][x] = 'P';
+//        }
+//
+//        // Black pieces
+//        y = 0;
+//        board[y][0] = 'R';
+//        board[y][1] = 'N';
+//        board[y][2] = 'B';
+//        board[y][3] = 'K';
+//        board[y][4] = 'Q';
+//        board[y][5] = 'B';
+//        board[y][6] = 'N';
+//        board[y][7] = 'R';
 
         return board;
     }

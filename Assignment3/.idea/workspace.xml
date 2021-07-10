@@ -4,6 +4,7 @@
     <list default="true" id="bf3a79f5-3bee-41ae-a331-6c3973b3b9c1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/app/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/src/academy/pocu/comp3500/lab8/MazeSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/src/academy/pocu/comp3500/lab8/MazeSolver.java" afterDir="false" />
     </list>
@@ -87,8 +88,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
+          <line>540</line>
+          <option name="timeStamp" value="211" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/assignment3/Player.java</url>
           <line>237</line>
-          <option name="timeStamp" value="210" />
+          <option name="timeStamp" value="212" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

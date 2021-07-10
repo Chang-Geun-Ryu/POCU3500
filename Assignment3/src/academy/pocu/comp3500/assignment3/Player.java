@@ -199,7 +199,7 @@ public class Player extends PlayerBase {
                 return score;
             } else {
                 int min = Integer.MAX_VALUE;
-                result.score = Integer.MAX_VALUE;
+                minimax.score = Integer.MAX_VALUE;
                 for (int x = 0; x < 8; ++x) {
                     for (int y = 0; y < 8; ++y) {
                         //min
@@ -527,19 +527,19 @@ public class Player extends PlayerBase {
             bestY = y;
             char c = move(board, posX, posY, bestX, bestY);
 
-            if (depth == DEPTH) {
-                System.out.println("temp:" + temp);
-            }
+//            if (depth == DEPTH) {
+//                System.out.println("temp:" + temp);
+//            }
 
             temp = getMoveScoreRecursive(board, depth - 1, temp, !isMax, result);
 
 //            list.add(new MoveScore(posX, posY, x, y, temp));
 
             restore(board, bestX, bestY, posX, posY, c);
-
-            if (depth == DEPTH) {
-                System.out.println("temp:" + temp);
-            }
+//
+//            if (depth == DEPTH) {
+//                System.out.println("temp:" + temp);
+//            }
 
             if (isMax) {
                 if (move.score < temp) {
