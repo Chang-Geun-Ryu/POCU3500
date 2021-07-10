@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Player4 extends PlayerBase {
     private short round = 0;
-    private short DEPTH = 23;
+    private final short DEPTH = 23;
     static private int count = 0;
     private boolean isFull = false;
     private long start = 0;
@@ -157,7 +157,7 @@ public class Player4 extends PlayerBase {
         int a = Integer.MIN_VALUE;
         int b = Integer.MAX_VALUE;
 
-        --DEPTH;
+//        --DEPTH;
         System.out.println(" ===============   Dep: " + DEPTH);
 //        if (round - (25 - DEPTH)  <= 0) {
 //            DEPTH - 25 - round
