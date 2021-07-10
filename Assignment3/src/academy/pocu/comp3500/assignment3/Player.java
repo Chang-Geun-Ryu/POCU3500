@@ -226,7 +226,9 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
+                    if (round > 15) {
+                        return move.score;
+                    }
                 }
 
                 return score;
@@ -281,7 +283,9 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
+                    if (round <= 15) {
+                        return move.score;
+                    }
                 }
 
                 return score;
@@ -338,7 +342,9 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
+                    if (round > 15) {
+                        return move.score;
+                    }
                 }
 
                 return score;
@@ -393,7 +399,9 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    return move.score;
+                    if (round >= 15) {
+                        return move.score;
+                    }
                 }
 
                 return score;
