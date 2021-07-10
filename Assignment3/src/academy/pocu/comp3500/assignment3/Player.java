@@ -215,7 +215,7 @@ public class Player extends PlayerBase {
                     max = Integer.MIN_VALUE;
                     MoveScore move = null;
                     for (MoveScore m : minimax) {
-                        if (m.score >= max) {
+                        if (m.score > max) {
                             max = m.score;
                             move = m;
                         }
@@ -226,9 +226,6 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    if (round > 15) {
-                        return move.score;
-                    }
                 }
 
                 return score;
@@ -273,7 +270,7 @@ public class Player extends PlayerBase {
                     min = Integer.MAX_VALUE;
                     MoveScore move = null;
                     for (MoveScore m : minimax) {
-                        if (m.score <= min) {
+                        if (m.score < min) {
                             min = m.score;
                             move = m;
                         }
@@ -283,9 +280,7 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    if (round <= 15) {
-                        return move.score;
-                    }
+                    return move.score;
                 }
 
                 return score;
@@ -331,7 +326,7 @@ public class Player extends PlayerBase {
                     max = Integer.MIN_VALUE;
                     MoveScore move = null;
                     for (MoveScore m : minimax) {
-                        if (m.score >= max) {
+                        if (m.score > max) {
                             max = m.score;
                             move = m;
                         }
@@ -342,9 +337,6 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    if (round > 15) {
-                        return move.score;
-                    }
                 }
 
                 return score;
@@ -389,7 +381,7 @@ public class Player extends PlayerBase {
                     min = Integer.MAX_VALUE;
                     MoveScore move = null;
                     for (MoveScore m : minimax) {
-                        if (m.score <= min) {
+                        if (m.score < min) {
                             min = m.score;
                             move = m;
                         }
@@ -399,9 +391,7 @@ public class Player extends PlayerBase {
                     result.toX = move.toX;
                     result.toY = move.toY;
                     result.score = move.score;
-                    if (round >= 15) {
-                        return move.score;
-                    }
+                    return move.score;
                 }
 
                 return score;
