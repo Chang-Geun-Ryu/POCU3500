@@ -35,7 +35,7 @@ public class Player extends PlayerBase {
 
         MoveScore result = new MoveScore();
         result.score = Integer.MIN_VALUE;
-        int move = getMoveScoreRecursive(board, DEPTH, 0, true, result);
+        int move = getMoveScoreRecursive(board, DEPTH, Integer.MIN_VALUE, true, result);
         return new Move(result.fromX, result.fromY, result.toX, result.toY);
     }
 
@@ -92,6 +92,9 @@ public class Player extends PlayerBase {
                     result.score = minimax.score;
                     return minimax.score;
                 }
+//                if (max == Integer.MAX_VALUE) {
+//                    return max;
+//                }
 
                 return score;
             } else {
@@ -140,6 +143,9 @@ public class Player extends PlayerBase {
                     result.score = minimax.score;
                     return minimax.score;
                 }
+//                if (min != Integer.MAX_VALUE) {
+//                    return min;
+//                }
 
                 return score;
             }
@@ -193,7 +199,7 @@ public class Player extends PlayerBase {
                 return score;
             } else {
                 int min = Integer.MAX_VALUE;
-                minimax.score = Integer.MAX_VALUE;
+                result.score = Integer.MAX_VALUE;
                 for (int x = 0; x < 8; ++x) {
                     for (int y = 0; y < 8; ++y) {
                         //min
@@ -237,6 +243,9 @@ public class Player extends PlayerBase {
                     result.score = minimax.score;
                     return minimax.score;
                 }
+//                if (min != Integer.MAX_VALUE) {
+//                    return min;
+//                }
 
                 return score;
             }
@@ -281,7 +290,7 @@ public class Player extends PlayerBase {
             restore(board, x, y, posX, posY, c);
 
             if (isMax) {
-                if (score < temp) {
+                if (move.score < temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
@@ -290,7 +299,7 @@ public class Player extends PlayerBase {
                     move.toY = y;
                 }
             } else {
-                if (score > temp) {
+                if (move.score > temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
@@ -333,7 +342,7 @@ public class Player extends PlayerBase {
             restore(board, bestX, bestY, posX, posY, c);
 
             if (isMax) {
-                if (score < temp) {
+                if (move.score < temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
@@ -342,7 +351,7 @@ public class Player extends PlayerBase {
                     move.toY = y;
                 }
             } else {
-                if (score > temp) {
+                if (move.score > temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
@@ -395,7 +404,7 @@ public class Player extends PlayerBase {
                 restore(board, bestX, bestY, posX, posY, c);
 
                 if (isMax) {
-                    if (score < temp) {
+                    if (move.score < temp) {
                         score = temp;
                         move.score = temp;
                         move.fromX = posX;
@@ -404,7 +413,7 @@ public class Player extends PlayerBase {
                         move.toY = y;
                     }
                 } else {
-                    if (score > temp) {
+                    if (move.score > temp) {
                         score = temp;
                         move.score = temp;
                         move.fromX = posX;
@@ -464,7 +473,7 @@ public class Player extends PlayerBase {
                 restore(board, bestX, bestY, posX, posY, c);
 
                 if (isMax) {
-                    if (score < temp) {
+                    if (move.score < temp) {
                         score = temp;
                         move.score = temp;
                         move.fromX = posX;
@@ -473,7 +482,7 @@ public class Player extends PlayerBase {
                         move.toY = y;
                     }
                 } else {
-                    if (score > temp) {
+                    if (move.score > temp) {
                         score = temp;
                         move.score = temp;
                         move.fromX = posX;
@@ -533,7 +542,7 @@ public class Player extends PlayerBase {
             }
 
             if (isMax) {
-                if (score < temp) {
+                if (move.score < temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
@@ -542,7 +551,7 @@ public class Player extends PlayerBase {
                     move.toY = y;
                 }
             } else {
-                if (score > temp) {
+                if (move.score > temp) {
                     score = temp;
                     move.score = temp;
                     move.fromX = posX;
