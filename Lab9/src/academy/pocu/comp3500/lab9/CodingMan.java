@@ -17,30 +17,31 @@ public class CodingMan {
 
         int preClripIndex = 0;
         int clipCount = 1;
+        int partStart = clips[0].getStartTime();
+        int partEnd = clips[0].getEndTime();
 
-        time -= clips[preClripIndex].getEndTime() - clips[preClripIndex].getStartTime();
+        if (time <= partEnd) {
+            return clipCount;
+        }
 
         for (int i = 1; i < clips.length; ++i) {
-            if (time <= 0) {
-                return clipCount;
-            }
 
-            if (clips[preClripIndex].getStartTime() >= clips[i].getStartTime()) {
-                time += clips[preClripIndex].getEndTime() - clips[preClripIndex].getStartTime();
-                --clipCount;
-            }
-
-            if (clips[preClripIndex].getEndTime() < clips[i].getStartTime()) {
+            if (partEnd < clips[i].getStartTime()) {
                 continue;
             }
 
-            time -= clips[i].getEndTime() - (clips[i].getStartTime() > clips[preClripIndex].getEndTime() ? clips[i].getStartTime() : clips[preClripIndex].getEndTime());
-            ++clipCount;
-            preClripIndex = i;
-//            if (clips[i].getStartTime() <= clips[preClripIndex].getStartTime() && clips[i].getEndTime() >= clips[preClripIndex].getEndTime()) {
-//                time += clips[preClripIndex].getEndTime() - clips[preClripIndex].getStartTime();
-//                time -= clips[i].getEndTime() - clips[i].getStartTime();
-//            } else
+            if (partStart >= clips[i].getStartTime() && partEnd <= clips[i].getEndTime()) {
+                partEnd = clips[i].getEndTime();
+                continue;
+            }
+
+            partStart = partEnd + 1;
+            partEnd = clips[i].getEndTime();
+            clipCount += 1;
+
+            if (time <= partEnd) {
+                return clipCount;
+            }
         }
 
         return time <= 0 ? clipCount : -1;
