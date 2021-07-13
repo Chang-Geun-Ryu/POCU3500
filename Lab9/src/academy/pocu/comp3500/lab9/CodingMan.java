@@ -1,7 +1,8 @@
 package academy.pocu.comp3500.lab9;
 
-import academy.pocu.comp3500.lab9.data.Task;
 import academy.pocu.comp3500.lab9.data.VideoClip;
+
+import java.util.Stack;
 
 public class CodingMan {
     public static int findMinClipsCount(final VideoClip[] clips, int time) {
@@ -11,36 +12,33 @@ public class CodingMan {
 
         quickSort(clips);
 
-        int preClripIndex = 0;
-        int clipCount = 1;
-        int partStart = clips[0].getStartTime();
-        int partEnd = clips[0].getEndTime();
+        Stack<VideoClip> stack = new Stack<>();
+        stack.push(clips[0]);
 
-        if (time <= partEnd) {
-            return clipCount;
+        if (stack.peek().getStartTime() == 0 && stack.peek().getEndTime() >= time) {
+            return stack.size();
         }
 
         for (int i = 1; i < clips.length; ++i) {
+            while (stack.size() > 0 && stack.peek().getStartTime() >= clips[i].getStartTime()) {
+                stack.pop();
+            }
 
-            if (partEnd < clips[i].getStartTime()) {
+            if (stack.size() == 0) {
+                stack.push(clips[i]);
                 continue;
             }
 
-            if (partStart >= clips[i].getStartTime() && partEnd <= clips[i].getEndTime()) {
-                partEnd = clips[i].getEndTime();
-                continue;
+            if (stack.peek().getEndTime() >= clips[i].getStartTime() && stack.peek().getEndTime() < time) {
+                stack.push(clips[i]);
             }
 
-            partStart = partEnd + 1;
-            partEnd = clips[i].getEndTime();
-            clipCount += 1;
-
-            if (time <= partEnd) {
-                return clipCount;
+            if (stack.size() == 1 && stack.peek().getEndTime() >= time) {
+                return 1;
             }
         }
 
-        return time <= partEnd ? clipCount : -1;
+        return stack.peek().getEndTime() >= time ? stack.size() : -1;
     }
 
 

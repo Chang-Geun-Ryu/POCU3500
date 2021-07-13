@@ -155,12 +155,12 @@ public class Program {
                     new VideoClip(0, 5),
                     new VideoClip(5, 10),
                     new VideoClip(10, 15),
-                    new VideoClip(10, 16),
+                    new VideoClip(15, 17),
             };
 
             int count = CodingMan.findMinClipsCount(clips, 16);
 
-            assert (count == 3);
+            assert (count == 4);
         }
     }
 }
