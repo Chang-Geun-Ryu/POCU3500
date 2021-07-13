@@ -11,10 +11,6 @@ public class CodingMan {
 
         quickSort(clips);
 
-        if (clips[clips.length - 1].getEndTime() - clips[0].getStartTime() < time) {
-            return -1;
-        }
-
         int preClripIndex = 0;
         int clipCount = 1;
         int partStart = clips[0].getStartTime();
@@ -44,7 +40,7 @@ public class CodingMan {
             }
         }
 
-        return time <= 0 ? clipCount : -1;
+        return time <= partEnd ? clipCount : -1;
     }
 
 
