@@ -161,6 +161,19 @@ public class Program {
             int count = CodingMan.findMinClipsCount(clips, 16);
 
             assert (count == 4);
+
+            clips = new VideoClip[]{
+                    new VideoClip(1, 2),
+                    new VideoClip(1, 4),
+                    new VideoClip(4, 10),
+                    new VideoClip(3, 11),
+                    new VideoClip(2, 14),
+                    new VideoClip(1, 15),
+            };
+
+            count = CodingMan.findMinClipsCount(clips, 15);
+
+            assert (count == 5);
         }
     }
 }

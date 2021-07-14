@@ -67,34 +67,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java</url>
-          <line>162</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java</url>
-          <line>110</line>
-          <option name="timeStamp" value="35" />
+          <line>173</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -103,6 +83,8 @@
         <watch expression="clips[i]" language="JAVA" />
         <watch expression="clips[i].getStartTime()" language="JAVA" />
         <watch expression="clips[preClripIndex].getEndTime()" language="JAVA" />
+        <watch expression="stack.peek().getEndTime()" language="JAVA" />
+        <watch expression="clips[i].getStartTime()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
