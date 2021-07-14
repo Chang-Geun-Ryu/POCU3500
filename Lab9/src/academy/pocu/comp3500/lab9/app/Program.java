@@ -178,5 +178,23 @@ public class Program {
 
             assert (count == -1);
         }
+
+        {
+            {
+                VideoClip[] clips = new VideoClip[]{
+                        new VideoClip(0, 3),
+                        new VideoClip(1, 4),
+                        new VideoClip(0, 5),
+                        new VideoClip(3, 6),
+                        new VideoClip(4, 7),
+                        new VideoClip(3, 9),
+                        new VideoClip(4, 10),
+                        new VideoClip(5, 11),
+                        new VideoClip(8, 11),
+                };
+                int count = CodingMan.findMinClipsCount(clips, 11);
+                assert (2 == count);
+            }
+        }
     }
 }

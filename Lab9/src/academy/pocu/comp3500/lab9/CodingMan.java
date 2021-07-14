@@ -13,6 +13,7 @@ public class CodingMan {
 
         quickSort(clips);
 
+        int preEnd = clips[0].getEndTime();
         LinkedList<VideoClip> list = new LinkedList<>();
         list.add(clips[0]);
 
@@ -30,10 +31,17 @@ public class CodingMan {
             } else if (list.getLast().getEndTime() >= clips[i].getEndTime()) {
                 continue;
             }
+            else if (preEnd != list.getLast().getEndTime() && list.getLast().getStartTime() < clips[i].getStartTime() && preEnd >= clips[i].getStartTime()) {
+                list.removeLast();
+            }
+
+            if (list.getLast().getEndTime() != clips[i].getStartTime()) {
+                preEnd = list.getLast().getEndTime();
+            }
 
             list.addLast(clips[i]);
 
-            if (list.getFirst().getStartTime() == 0 && list.getLast().getEndTime() >= time) {
+            if (list.getLast().getEndTime() >= time) {
                 return list.size();
             }
         }
