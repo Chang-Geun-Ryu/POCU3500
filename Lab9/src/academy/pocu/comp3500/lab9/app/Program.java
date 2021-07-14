@@ -152,15 +152,15 @@ public class Program {
         }
         {
             VideoClip[] clips = new VideoClip[]{
-                    new VideoClip(0, 5),
-                    new VideoClip(5, 10),
-                    new VideoClip(10, 15),
-                    new VideoClip(15, 17),
+                    new VideoClip(0, 14),
+                    new VideoClip(0, 10),
+                    new VideoClip(0, 15),
+                    new VideoClip(0, 17),
             };
 
             int count = CodingMan.findMinClipsCount(clips, 16);
 
-            assert (count == 4);
+            assert (count == 1);
 
             clips = new VideoClip[]{
                     new VideoClip(1, 2),
@@ -173,7 +173,7 @@ public class Program {
 
             count = CodingMan.findMinClipsCount(clips, 15);
 
-            assert (count == 5);
+            assert (count == -1);
         }
     }
 }

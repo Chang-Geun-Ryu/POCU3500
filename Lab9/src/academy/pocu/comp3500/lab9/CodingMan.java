@@ -20,27 +20,22 @@ public class CodingMan {
             return list.size();
         }
 
-        for (int i = 1; i < clips.length; ++i) {
-            while (list.size() > 0 && list.getLast().getStartTime() >= clips[i].getStartTime()) {
-                list.removeLast();
-            }
-
-            if (list.size() == 0) {
-                list.addLast(clips[i]);
-                continue;
-            }
-
-            if (list.getLast().getEndTime() >= clips[i].getStartTime() && list.getLast().getEndTime() < time) {
-                list.addLast(clips[i]);
-            }
-
-            if (list.size() == 1 && list.getLast().getEndTime() >= time) {
-                return 1;
-            }
-        }
-
         if (list.getFirst().getStartTime() != 0) {
             return -1;
+        }
+
+        for (int i = 1; i < clips.length; ++i) {
+            if (list.getLast().getStartTime() == clips[i].getStartTime()) {
+                continue;
+            } else if (list.getLast().getEndTime() < clips[i].getStartTime()) {
+                return -1;
+            }
+
+            list.addLast(clips[i]);
+
+            if (list.getFirst().getStartTime() == 0 && list.getLast().getEndTime() >= time) {
+                return list.size();
+            }
         }
 
         return list.getLast().getEndTime() >= time ? list.size() : -1;
@@ -66,12 +61,12 @@ public class CodingMan {
         int i = left - 1;
 
         for (int index = left; index < right; ++index) {
-            if (clips[right].getEndTime() > clips[index].getEndTime()) {
+//            if (clips[right].getEndTime() > clips[index].getEndTime()) {
+            if (clips[right].getStartTime() > clips[index].getStartTime()) {
+                swap(clips, ++i, index);
+            } else if (clips[right].getStartTime() == clips[index].getStartTime() && clips[right].getEndTime() - clips[right].getStartTime() < clips[index].getEndTime() - clips[index].getStartTime()) {
                 swap(clips, ++i, index);
             }
-//            else if (clips[right].getStartTime() == clips[index].getEndTime() && clips[right].getEndTime() - clips[right].getStartTime() > clips[index].getEndTime() - clips[index].getStartTime()) {
-//                swap(clips, ++i, index);
-//            }
         }
 
         swap(clips, ++i, right);
@@ -119,5 +114,44 @@ public class CodingMan {
         }
 
         return stack.peek().getEndTime() >= time ? stack.size() : -1;
+    }
+    public static int findMinClipsCount2(final VideoClip[] clips, int time) {
+        if (clips.length <= 0) {
+            return -1;
+        }
+
+        quickSort(clips);
+
+        LinkedList<VideoClip> list = new LinkedList<>();
+        list.add(clips[0]);
+
+        if (list.getLast().getStartTime() == 0 && list.getLast().getEndTime() >= time) {
+            return list.size();
+        }
+
+        for (int i = 1; i < clips.length; ++i) {
+            while (list.size() > 0 && list.getLast().getStartTime() >= clips[i].getStartTime()) {
+                list.removeLast();
+            }
+
+            if (list.size() == 0) {
+                list.addLast(clips[i]);
+                continue;
+            }
+
+            if (list.getLast().getEndTime() >= clips[i].getStartTime() && list.getLast().getEndTime() < time) {
+                list.addLast(clips[i]);
+            }
+
+            if (list.size() == 1 && list.getLast().getEndTime() >= time) {
+                return 1;
+            }
+        }
+
+        if (list.getFirst().getStartTime() != 0) {
+            return -1;
+        }
+
+        return list.getLast().getEndTime() >= time ? list.size() : -1;
     }
 }
