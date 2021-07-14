@@ -154,13 +154,16 @@ public class Program {
             VideoClip[] clips = new VideoClip[]{
                     new VideoClip(0, 14),
                     new VideoClip(0, 10),
+                    new VideoClip(1, 3),
+                    new VideoClip(2, 10),
                     new VideoClip(0, 15),
                     new VideoClip(0, 17),
+                    new VideoClip(5, 20),
             };
 
-            int count = CodingMan.findMinClipsCount(clips, 16);
+            int count = CodingMan.findMinClipsCount(clips, 20);
 
-            assert (count == 1);
+            assert (count == 2);
 
             clips = new VideoClip[]{
                     new VideoClip(1, 2),

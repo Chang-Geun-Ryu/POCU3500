@@ -67,21 +67,22 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="41" />
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="academy.pocu.comp3500.lab9.data.VideoClip" memberName="startTime" />
+        <PinnedItemInfo parentTag="academy.pocu.comp3500.lab9.data.VideoClip" memberName="endTime" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="clips[right].getStartTime()" language="JAVA" />
-        <watch expression="clips[index].getStartTime()" language="JAVA" />
+        <watch expression="clips[i].getStartTime()" language="JAVA" />
+        <watch expression="clips[i].getEndTime()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
