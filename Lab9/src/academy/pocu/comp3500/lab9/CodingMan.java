@@ -25,10 +25,10 @@ public class CodingMan {
         }
 
         for (int i = 1; i < clips.length; ++i) {
-            if (list.getLast().getStartTime() == clips[i].getStartTime() || list.getLast().getEndTime() >= clips[i].getEndTime()) {
+            if (list.getLast().getEndTime() < clips[i].getStartTime()) {
+                break;
+            } else if (list.getLast().getStartTime() == clips[i].getStartTime() || list.getLast().getEndTime() >= clips[i].getEndTime()) {
                 continue;
-            } else if (list.getLast().getEndTime() < clips[i].getStartTime()) {
-                return -1;
             }
 
             list.addLast(clips[i]);
@@ -38,11 +38,7 @@ public class CodingMan {
             }
         }
 
-        if (list.getFirst().getStartTime() != 0) {
-            return -1;
-        }
-
-        return list.getLast().getEndTime() >= time ? list.size() : -1;
+        return -1;
     }
 
 
