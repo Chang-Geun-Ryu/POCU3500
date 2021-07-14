@@ -30,8 +30,7 @@ public class CodingMan {
                 break;
             } else if (list.getLast().getEndTime() >= clips[i].getEndTime()) {
                 continue;
-            }
-            else if (preEnd != list.getLast().getEndTime() && list.getLast().getStartTime() < clips[i].getStartTime() && preEnd >= clips[i].getStartTime()) {
+            } else if (preEnd != list.getLast().getEndTime() && list.getLast().getStartTime() < clips[i].getStartTime() && preEnd >= clips[i].getStartTime()) {
                 list.removeLast();
             }
 
