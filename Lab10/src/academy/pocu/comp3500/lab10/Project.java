@@ -3,6 +3,7 @@ package academy.pocu.comp3500.lab10;
 import academy.pocu.comp3500.lab10.project.Task;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class Project {
                     visitTasks);
         }
 
+//        if (includeMaintenance) {
+//            return visitTasks;
+//        }
+
 
         for (var t : tasks) {
             for (var transpose : t.getPredecessors()) {
@@ -31,9 +36,12 @@ public class Project {
         HashMap<String, Task> discoveredMap = new HashMap<>();
         LinkedList<LinkedList<String>> result1 = new LinkedList<>();
         LinkedList<String> result = new LinkedList<>();
+        Iterator<String> iterator = visitTasks.descendingIterator();
         for (var taskName : visitTasks) {
+//        while (iterator.hasNext()) {
+//            Task t = transposeTasks.get(iterator.next());
             Task t = transposeTasks.get(taskName);
-            if (discoveredMap.containsKey(taskName)) {
+            if (discoveredMap.containsKey(t.getTitle())) {
                 continue;
             }
 
@@ -43,15 +51,11 @@ public class Project {
                     discoveredMap,
                     list);
 
-            if (includeMaintenance == false && list.size() > 1) {
-                continue;
-            }
-
             if (includeMaintenance) {
 //                result.addAll(list);
                 result.addAll(0, list);
-            } else {
-                result.addFirst(taskName);
+            } else if (list.size() == 1){
+                result.addFirst(t.getTitle());
             }
 
         }

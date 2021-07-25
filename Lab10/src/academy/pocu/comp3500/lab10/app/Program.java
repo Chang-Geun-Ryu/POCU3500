@@ -11,9 +11,9 @@ public class Program {
     public static void main(String[] args) {
         {
             Task[] tasks = createTasks3();
-            List<String> schedule = Project.findSchedule(tasks, true);
-
-            assert (schedule.size() == tasks.length);
+//            List<String> schedule = Project.findSchedule(tasks, true);
+//
+//            assert (schedule.size() == tasks.length);
 //            assert (schedule.get(6).equals("6"));
 //            assert (schedule.get(5).equals("1"));
 //            assert (schedule.get(4).equals("4"));
