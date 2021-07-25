@@ -22,11 +22,6 @@ public class Project {
                     visitTasks);
         }
 
-//        if (includeMaintenance) {
-//            return visitTasks;
-//        }
-
-
         for (var t : tasks) {
             for (var transpose : t.getPredecessors()) {
                 transposeTasks.get(transpose.getTitle()).addPredecessor(transposeTasks.get(t.getTitle()));
@@ -34,12 +29,9 @@ public class Project {
         }
 
         HashMap<String, Task> discoveredMap = new HashMap<>();
-        LinkedList<LinkedList<String>> result1 = new LinkedList<>();
         LinkedList<String> result = new LinkedList<>();
-        Iterator<String> iterator = visitTasks.descendingIterator();
+        LinkedList<LinkedList<String>> lists = new LinkedList<>();
         for (var taskName : visitTasks) {
-//        while (iterator.hasNext()) {
-//            Task t = transposeTasks.get(iterator.next());
             Task t = transposeTasks.get(taskName);
             if (discoveredMap.containsKey(t.getTitle())) {
                 continue;
@@ -51,13 +43,36 @@ public class Project {
                     discoveredMap,
                     list);
 
-            if (includeMaintenance) {
-//                result.addAll(list);
-                result.addAll(0, list);
-            } else if (list.size() == 1){
-                result.addFirst(t.getTitle());
+            lists.addFirst(list);
+
+        }
+
+        discoveredMap.clear();
+        for (var list : lists) {
+            if (includeMaintenance == false && list.size() > 1) {
+                continue;
             }
 
+            if (list.size() > 1) {
+                String startCircle = null;
+                for (var s : list) {
+                    for (var t : discovered.get(s).getPredecessors()) {
+                        if (list.contains(t.getTitle()) == false) {
+                            startCircle = s;
+                        }
+                    }
+                }
+                list.clear();
+                Task t = transposeTasks.get(startCircle);
+                topologicalSortRecursive(t,
+                        discoveredMap,
+                        list);
+
+                result.addAll(list);
+            } else {
+                discovered.put(list.getLast(), transposeTasks.get(list.getLast()));
+                result.addAll(list);
+            }
         }
 
 

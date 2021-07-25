@@ -3,12 +3,89 @@ package academy.pocu.comp3500.lab10.app;
 import academy.pocu.comp3500.lab10.Project;
 import academy.pocu.comp3500.lab10.project.Task;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Program {
 
     public static void main(String[] args) {
+        {
+            Task a = new Task("A", 12);
+            Task b = new Task("B", 7);
+            Task c = new Task("C", 10);
+            Task d = new Task("D", 9);
+            Task e = new Task("E", 8);
+            Task f = new Task("F", 11);
+            Task g = new Task("G", 14);
+            b.addPredecessor(a);
+            c.addPredecessor(b, e);
+            d.addPredecessor(c);
+            e.addPredecessor(d);
+            f.addPredecessor(a);
+            g.addPredecessor(b, f);
+            Task[] tasks = new Task[]{g, d, c, f, a, b, e};
+            List<String> schedule = Project.findSchedule(tasks, true);
+            assert (schedule.size() == 7);
+            assert (schedule.get(0).equals("A"));
+            assert (schedule.indexOf("A") < schedule.indexOf("B"));
+            assert (schedule.indexOf("A") < schedule.indexOf("F"));
+            assert (schedule.indexOf("B") < schedule.indexOf("G"));
+            assert (schedule.indexOf("F") < schedule.indexOf("G"));
+            assert (schedule.indexOf("B") < schedule.indexOf("C"));
+            assert (schedule.indexOf("C") < schedule.indexOf("D"));
+            assert (schedule.indexOf("D") < schedule.indexOf("E"));
+        }
+        {
+            Task a = new Task("A", 12);
+            Task b = new Task("B", 7);
+            Task c = new Task("C", 10);
+            Task d = new Task("D", 9);
+            Task e = new Task("E", 8);
+            Task f = new Task("F", 11);
+            Task g = new Task("G", 14);
+            b.addPredecessor(a);
+            c.addPredecessor(b, e);
+            d.addPredecessor(c);
+            e.addPredecessor(d);
+            f.addPredecessor(a);
+            g.addPredecessor(b, f);
+            Task[] tasks = new Task[]{a, b, c, d, e, f, g};
+            for (int i = 0; i < 10; ++i) {
+                Collections.shuffle(Arrays.asList(tasks));
+                List<String> schedule = Project.findSchedule(tasks, true);
+                assert (schedule.size() == 7);
+                assert (schedule.get(0).equals("A"));
+                assert (schedule.indexOf("A") < schedule.indexOf("B"));
+                assert (schedule.indexOf("A") < schedule.indexOf("F"));
+                assert (schedule.indexOf("B") < schedule.indexOf("G"));
+                assert (schedule.indexOf("F") < schedule.indexOf("G"));
+                assert (schedule.indexOf("B") < schedule.indexOf("C"));
+                assert (schedule.indexOf("C") < schedule.indexOf("D"));
+                assert (schedule.indexOf("D") < schedule.indexOf("E"));
+            }
+        }
+        {
+            Task a = new Task("A", 1);
+            Task b = new Task("B", 2);
+            Task c = new Task("C", 3);
+            Task d = new Task("D", 4);
+
+            b.addPredecessor(a, d);
+            c.addPredecessor(b);
+            d.addPredecessor(c);
+
+            Task[] tasks = new Task[]{c, a, b, d};
+
+            List<String> schedule = Project.findSchedule(tasks, true);
+
+            assert (schedule.size() == 4);
+            assert (schedule.get(0).equals("A"));
+            assert (schedule.get(1).equals("B"));
+            assert (schedule.get(2).equals("C"));
+            assert (schedule.get(3).equals("D"));
+        }
         {
             Task[] tasks = createTasks3();
 //            List<String> schedule = Project.findSchedule(tasks, true);
@@ -49,36 +126,36 @@ public class Program {
 //            assert (schedule.get(3).equals("G"));
 //        }
 //
-        {
-            Task a = new Task("A", 15);
-            Task b = new Task("B", 12);
-            Task c = new Task("C", 11);
-
-            c.addPredecessor(b);
-            b.addPredecessor(a);
-
-            Task[] tasks = new Task[]{b, c, a};
-
-            List<String> schedule = Project.findSchedule(tasks, false);
-
-            assert (schedule.size() == 3);
-            assert (schedule.get(0).equals("A"));
-            assert (schedule.get(1).equals("B"));
-            assert (schedule.get(2).equals("C"));
-        }
-        {
-            Task[] tasks = createTasks();
-
-            List<String> schedule = Project.findSchedule(tasks, false);
-
-            assert (schedule.size() == 6);
-            assert (schedule.get(0).equals("A"));
-            assert (schedule.get(1).equals("B"));
-            assert (schedule.get(2).equals("C"));
-            assert (schedule.get(3).equals("E"));
-            assert (schedule.get(4).equals("F"));
-            assert (schedule.get(5).equals("I"));
-        }
+//        {
+//            Task a = new Task("A", 15);
+//            Task b = new Task("B", 12);
+//            Task c = new Task("C", 11);
+//
+//            c.addPredecessor(b);
+//            b.addPredecessor(a);
+//
+//            Task[] tasks = new Task[]{b, c, a};
+//
+//            List<String> schedule = Project.findSchedule(tasks, false);
+//
+//            assert (schedule.size() == 3);
+//            assert (schedule.get(0).equals("A"));
+//            assert (schedule.get(1).equals("B"));
+//            assert (schedule.get(2).equals("C"));
+//        }
+//        {
+//            Task[] tasks = createTasks();
+//
+//            List<String> schedule = Project.findSchedule(tasks, false);
+//
+//            assert (schedule.size() == 6);
+//            assert (schedule.get(0).equals("A"));
+//            assert (schedule.get(1).equals("B"));
+//            assert (schedule.get(2).equals("C"));
+//            assert (schedule.get(3).equals("E"));
+//            assert (schedule.get(4).equals("F"));
+//            assert (schedule.get(5).equals("I"));
+//        }
         {
             Task[] tasks = createTasks();
 
