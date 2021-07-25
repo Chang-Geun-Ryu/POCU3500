@@ -9,11 +9,11 @@ import java.util.List;
 public class Program {
 
     public static void main(String[] args) {
-//        {
-//            Task[] tasks = createTasks3();
-//            List<String> schedule = Project.findSchedule(tasks, true);
-//
-//            assert (schedule.size() == tasks.length);
+        {
+            Task[] tasks = createTasks3();
+            List<String> schedule = Project.findSchedule(tasks, true);
+
+            assert (schedule.size() == tasks.length);
 //            assert (schedule.get(6).equals("6"));
 //            assert (schedule.get(5).equals("1"));
 //            assert (schedule.get(4).equals("4"));
@@ -21,7 +21,7 @@ public class Program {
 //            assert (schedule.get(2).equals("0"));
 //            assert (schedule.get(1).equals("3"));
 //            assert (schedule.get(0).equals("2"));
-//        }
+        }
 //        {
 //            Task[] tasks = createTasks1();
 //
@@ -37,18 +37,18 @@ public class Program {
 ////            assert (schedule.get(3).equals("G"));
 //
 //        }
-        {
-            Task[] tasks = createTasks1();
-
-            List<String> schedule = Project.findSchedule(tasks, false);
-
-            assert (schedule.size() == 4);
-            assert (schedule.get(0).equals("A"));
-            assert (schedule.get(1).equals("B"));
-            assert (schedule.get(2).equals("F"));
-            assert (schedule.get(3).equals("G"));
-        }
-
+//        {
+//            Task[] tasks = createTasks1();
+//
+//            List<String> schedule = Project.findSchedule(tasks, false);
+//
+//            assert (schedule.size() == 4);
+//            assert (schedule.get(0).equals("A"));
+//            assert (schedule.get(1).equals("B"));
+//            assert (schedule.get(2).equals("F"));
+//            assert (schedule.get(3).equals("G"));
+//        }
+//
         {
             Task a = new Task("A", 15);
             Task b = new Task("B", 12);
@@ -113,25 +113,25 @@ public class Program {
             assert (schedule.indexOf("D") < schedule.indexOf("G"));
             assert (schedule.indexOf("G") < schedule.indexOf("H"));
         }
-        {
-            Task a = new Task("A", 15);
-            Task b = new Task("B", 12);
-            Task c = new Task("C", 11);
-
-            c.addPredecessor(b);
-            b.addPredecessor(a);
-            a.addPredecessor(c);
-
-            Task[] tasks = new Task[]{b, c, a};
-
-            List<String> schedule = Project.findSchedule(tasks, false);
-
-//            assert (schedule.size() == 0);
-
-            schedule = Project.findSchedule(tasks, true);
-
-//            assert (schedule.size() == 3);
-        }
+//        {
+//            Task a = new Task("A", 15);
+//            Task b = new Task("B", 12);
+//            Task c = new Task("C", 11);
+//
+//            c.addPredecessor(b);
+//            b.addPredecessor(a);
+//            a.addPredecessor(c);
+//
+//            Task[] tasks = new Task[]{b, c, a};
+//
+//            List<String> schedule = Project.findSchedule(tasks, false);
+//
+////            assert (schedule.size() == 0);
+//
+//            schedule = Project.findSchedule(tasks, true);
+//
+////            assert (schedule.size() == 3);
+//        }
         {
             Task a = new Task("A", 12);
             Task b = new Task("B", 7);
@@ -257,7 +257,7 @@ public class Program {
 
 
         return new Task[]{
-                a, b, c, d, e, f, g,
+                c, a, b, d, e, f, g,
         };
     }
 }

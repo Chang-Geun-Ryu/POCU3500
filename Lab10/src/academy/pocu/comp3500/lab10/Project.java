@@ -29,8 +29,8 @@ public class Project {
         }
 
         HashMap<String, Task> discoveredMap = new HashMap<>();
-//        LinkedList<LinkedList<String>> result = new LinkedList<>();
-        LinkedList<String> result = null;
+        LinkedList<LinkedList<String>> result1 = new LinkedList<>();
+        LinkedList<String> result = new LinkedList<>();
         for (var taskName : visitTasks) {
             Task t = transposeTasks.get(taskName);
             if (discoveredMap.containsKey(taskName)) {
@@ -47,13 +47,13 @@ public class Project {
                 continue;
             }
 
-            if (result == null) {
-                result = list;
+            if (includeMaintenance) {
+//                result.addAll(list);
+                result.addAll(0, list);
             } else {
-                list.addAll(result);
-                result = list;
+                result.addFirst(taskName);
             }
-//            result.addFirst(list);
+
         }
 
 
