@@ -6,40 +6,36 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Project {
+public class Project1 {
     public static List<String> findSchedule(final Task[] tasks, final boolean includeMaintenance) {
         HashMap<String, Task> discovered = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
-        HashMap<String, Task> transposeTasks = new HashMap<>();
+
         for (var t : tasks) {
-            transposeTasks.put(t.getTitle(), new Task(t.getTitle(), 0));
             if (discovered.containsKey(t.getTitle())) {
                 continue;
             }
-            topologicalSortRecursive(t,
+
+            discovered.put(t.getTitle(), new Task(t.getTitle(), 0));
+
+            kosarajusRecursive(t,
                     discovered,
                     visitTasks);
         }
 
-
-        for (var t : tasks) {
-            for (var transpose : t.getPredecessors()) {
-                transposeTasks.get(transpose.getTitle()).addPredecessor(transposeTasks.get(t.getTitle()));
-            }
-        }
-
         HashMap<String, Task> discoveredMap = new HashMap<>();
-//        LinkedList<LinkedList<String>> result = new LinkedList<>();
         LinkedList<String> result = null;
         for (var taskName : visitTasks) {
-            Task t = transposeTasks.get(taskName);
             if (discoveredMap.containsKey(taskName)) {
                 continue;
             }
+            Task task = discovered.get(taskName);
+
+            discoveredMap.put(taskName, task);
 
             LinkedList<String> list = new LinkedList<>();
 
-            topologicalSortRecursive(t,
+            topologicalSortRecursive(task,
                     discoveredMap,
                     list);
 
@@ -53,11 +49,32 @@ public class Project {
                 list.addAll(result);
                 result = list;
             }
-//            result.addFirst(list);
         }
 
-
         return result;
+    }
+
+    private static void kosarajusRecursive(Task task, HashMap<String, Task> discovered, LinkedList<String> visitTask) {
+        for (var t : task.getPredecessors()) {
+            if (discovered.containsKey(t.getTitle())) {
+                if (discovered.containsKey(task.getTitle())) {
+                    discovered.get(t.getTitle()).addPredecessor(discovered.get(task.getTitle()));
+                } else {
+                    discovered.get(t.getTitle()).addPredecessor(new Task(task.getTitle(), 0));
+                }
+                continue;
+            }
+
+            Task tempT = new Task(t.getTitle(), 0);
+            tempT.addPredecessor(task);
+            discovered.put(t.getTitle(), tempT);
+
+            kosarajusRecursive(t,
+                    discovered,
+                    visitTask);
+        }
+
+        visitTask.addFirst(task.getTitle());
     }
 
     private static void topologicalSortRecursive(Task task, HashMap<String, Task> discovered, LinkedList<String> visitTask) {
