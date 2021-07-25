@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Node.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" afterDir="false" />
@@ -100,6 +101,16 @@
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java</url>
           <line>44</line>
           <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="122" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

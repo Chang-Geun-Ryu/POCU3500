@@ -3,7 +3,6 @@ package academy.pocu.comp3500.lab10;
 import academy.pocu.comp3500.lab10.project.Task;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +41,9 @@ public class Project {
 
             if (includeMaintenance == false && list.size() > 1) {
                 continue;
-            } else if (result == null) {
+            }
+
+            if (result == null) {
                 result = list;
             } else {
                 list.addAll(result);
