@@ -21,56 +21,6 @@ public final class Project {
         }
     }
 
-    private LinkedList<LinkedList<String>> korsajus(Task task) {
-        LinkedList<String> visitTasks = new LinkedList<>();
-        HashMap<String, Task> discovered = new HashMap<>();
-        LinkedList<LinkedList<String>> cycleLists = new LinkedList<>();
-//
-//        topologicalSortRecursive(task,
-//                discovered,
-//                visitTasks);
-//
-//        discovered.clear();
-//        HashMap<String, Task> discoveredMap = new HashMap<>();
-//        for (var taskName : visitTasks) {
-//            Task transposeTask = transposeMap.get(taskName);
-//            if (discoveredMap.containsKey(transposeTask.getTitle())) {
-//                continue;
-//            }
-//
-//            LinkedList<String> list = new LinkedList<>();
-//
-//            topologicalSortRecursive(transposeTask,
-//                    discoveredMap,
-//                    list);
-//
-//
-//            if (list.size() > 1) {
-//                String startCircle = null;
-//                for (var s : list) {
-//                    for (var t : taskMap.get(s).getPredecessors()) {
-//                        if (list.contains(t.getTitle()) == false) {
-//                            startCircle = s;
-//                            break;
-//                        }
-//                    }
-//                    if (startCircle != null) {
-//                        break;
-//                    }
-//                }
-//
-//                list.clear();
-//                topologicalSortRecursive(transposeMap.get(startCircle),
-//                        discovered,
-//                        list);
-//
-//                cycleLists.addFirst(list);
-//            }
-//        }
-
-        return cycleLists;
-    }
-
     private void topologicalSortRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Task> searchMap, LinkedList<String> visitTask) {
         discovered.put(task.getTitle(), task);
 
@@ -92,72 +42,23 @@ public final class Project {
         visitTask.addFirst(task.getTitle());
     }
 
-//    public int findTotalManMonths1(final String task) {
-//        if (taskMap.containsKey(task) == false) {
-//            return -1;
-//        }
-//
-//        int manMonths = 0;
-//
-//        LinkedList<String> visitTasks = new LinkedList<>();
-//        HashMap<String, Task> discovered = new HashMap<>();
-//        LinkedList<LinkedList<String>> cycleLists = new LinkedList<>();
-//
-//        topologicalSortRecursive(taskMap.get(task),
-//                discovered,
-//                null,
-//                visitTasks);
-//
-//        discovered.clear();
-//        HashMap<String, Task> discoveredMap = new HashMap<>();
-//        for (var taskName : visitTasks) {
-//            Task transposeTask = transposeMap.get(taskName);
-//            if (task == transposeTask.getTitle()) {
-//                manMonths += transposeTask.getEstimate();
-//                discoveredMap.put(transposeTask.getTitle(), transposeTask);
-//                LinkedList<String> list = new LinkedList<>();
-//                list.add(transposeTask.getTitle());
-//                cycleLists.addFirst(list);
-//                continue;
-//            }
-//            if (discoveredMap.containsKey(transposeTask.getTitle())) {
-//                continue;
-//            }
-//
-//            LinkedList<String> list = new LinkedList<>();
-//
-//            topologicalSortRecursive(transposeTask,
-//                    discoveredMap,
-//                    list);
-//
-//            cycleLists.addFirst(list);
-//
-//            if (list.size() == 1) {
-//                manMonths += taskMap.get(list.getFirst()).getEstimate();
-//            }
-//        }
-//        return manMonths;
-//    }
-
-    public int findTotalManMonths(final String task) {
-        HashMap<String, Task> discovered = new HashMap<>();
+    private LinkedList<LinkedList<String>> getSCC(final String task)  {
+        HashMap<String, Task> searchChild = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
-        int manMonth = 0;
 
         topologicalSortRecursive(taskMap.get(task),
-                discovered,
+                searchChild,
                 null,
                 visitTasks);
 
         HashMap<String, Task> discoveredMap = new HashMap<>();
-        LinkedList<String> result = new LinkedList<>();
         LinkedList<LinkedList<String>> lists = new LinkedList<>();
         for (var taskName : visitTasks) {
             Task t = transposeMap.get(taskName);
             if (discoveredMap.containsKey(t.getTitle())) {
                 continue;
             }
-            if (discovered.containsKey(t.getTitle()) == false) {
+            if (searchChild.containsKey(t.getTitle()) == false) {
                 continue;
             }
 
@@ -165,11 +66,19 @@ public final class Project {
 
             topologicalSortRecursive(t,
                     discoveredMap,
-                    discovered,
+                    searchChild,
                     list);
 
             lists.addFirst(list);
+        }
+        return lists;
+    }
 
+    public int findTotalManMonths(final String task) {
+        var lists = getSCC(task);
+        int manMonth = 0;
+
+        for (var list : lists) {
             if (list.size() == 1) {
                 manMonth += taskMap.get(list.getFirst()).getEstimate();
             }
