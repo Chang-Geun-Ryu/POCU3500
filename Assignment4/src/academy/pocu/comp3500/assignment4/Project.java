@@ -42,7 +42,7 @@ public final class Project {
         visitTask.addFirst(task.getTitle());
     }
 
-    private LinkedList<LinkedList<String>> getSCC(final String task)  {
+    private LinkedList<LinkedList<String>> getScc(final String task)  {
         HashMap<String, Task> searchChild = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
 
@@ -75,7 +75,7 @@ public final class Project {
     }
 
     public int findTotalManMonths(final String task) {
-        var lists = getSCC(task);
+        var lists = getScc(task);
         int manMonth = 0;
 
         for (var list : lists) {
@@ -88,9 +88,51 @@ public final class Project {
     }
 
     public int findMinDuration(final String task) {
-        System.out.println("findMinDuration ///////////////////////////============> " + task);
-        return 0;
+        var lists = getScc(task);
+        HashMap<String, Task> circleTask = new HashMap<>();
+
+        for (var list : lists) {
+            if (list.size() > 1) {
+                for (var name : list) {
+                    circleTask.put(name, taskMap.get(name));
+                }
+            }
+        }
+
+        HashMap<String, Task> discovered = new HashMap<>();
+        int duration = getDurationRecursive(taskMap.get(task),
+                discovered,
+                circleTask);
+
+        return duration;
     }
+
+    private int getDurationRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Task> circleMap) {
+        discovered.put(task.getTitle(), task);
+
+        int max = 0;
+
+        for (var t : task.getPredecessors()) {
+//            if (discovered.containsKey(t.getTitle())) {
+//                continue;
+//            }
+
+            if (circleMap.containsKey(t.getTitle())) {
+                continue;
+            }
+
+            int temp = getDurationRecursive(t,
+                    discovered,
+                    circleMap);
+
+            if (temp > max) {
+                max = temp;
+            }
+        }
+
+        return  max + task.getEstimate();
+    }
+
 
     public int findMaxBonusCount(final String task) {
         return -1;

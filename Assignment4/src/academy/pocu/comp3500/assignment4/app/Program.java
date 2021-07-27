@@ -16,6 +16,7 @@ public class Program {
 
             int manMonths2 = project.findTotalManMonths("E");
             assert (manMonths1 == 4);
+            int minDuration1 = project.findMinDuration("E");
 
         }
         Task[] tasks = createTasks();
