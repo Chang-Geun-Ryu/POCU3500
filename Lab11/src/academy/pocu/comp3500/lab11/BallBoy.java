@@ -53,7 +53,7 @@ public class BallBoy {
             nodeMap.put(s, points[i - 1]);
 
             double sqrt = Math.sqrt(Math.pow(points[i - 1].getX(), 2) + Math.pow(points[i - 1].getY(), 2));
-            edgeList.add(new Edge("0", s, sqrt));
+            edgeList.add(new Edge("0", s, (int) sqrt));
         }
 
         for (int i = 0; i < points.length; ++i) {
@@ -63,7 +63,7 @@ public class BallBoy {
                 double y = Math.pow(points[i].getY() - points[j].getY(), 2);
                 double sqrt = Math.sqrt(x + y);
                 String ss = String.format("%d", j + 1);
-                edgeList.add(new Edge(s, ss, sqrt));
+                edgeList.add(new Edge(s, ss, (int) sqrt));
             }
         }
     }
