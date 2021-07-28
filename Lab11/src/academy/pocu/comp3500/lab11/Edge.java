@@ -27,6 +27,6 @@ public final class Edge implements Comparable<Edge> {
 
     @Override
     public int compareTo(Edge e) {
-        return (int) (this.weight - e.weight);
+        return (int) (this.weight * 1000 - e.weight * 1000);
     }
 }

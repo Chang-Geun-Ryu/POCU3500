@@ -17,7 +17,7 @@ public class BallBoy {
         createNode(points, nodeMap, edgeList);
 
         // mst 생성
-        Kruskal(nodeMap, edgeList.toArray(new Edge[0]), treeMap);
+        kruskal(nodeMap, edgeList.toArray(new Edge[0]), treeMap);
 
         // 순회
         preorderTraverseRecursive(treeMap, "0", nodeMap, list);
@@ -51,7 +51,7 @@ public class BallBoy {
         }
     }
 
-    private static void Kruskal(final HashMap<String, Point> nodes, final Edge[] edges, HashMap<String, ArrayList<String>> treeMap) {
+    private static void kruskal(final HashMap<String, Point> nodes, final Edge[] edges, HashMap<String, ArrayList<String>> treeMap) {
         DisjointSet set = new DisjointSet(nodes.keySet().toArray(new String[0]));
 
 //        ArrayList<Edge> mst = new ArrayList<>(edges.length);
