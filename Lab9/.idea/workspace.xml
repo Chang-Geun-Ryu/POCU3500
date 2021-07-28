@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30066375-1191-426f-93c8-15bc0bc11e73" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/app/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +65,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -78,12 +82,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>34</line>
+          <line>33</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab9/CodingMan.java</url>
-          <line>38</line>
+          <line>37</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>

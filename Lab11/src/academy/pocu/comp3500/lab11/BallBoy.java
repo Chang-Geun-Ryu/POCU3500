@@ -32,15 +32,15 @@ public class BallBoy {
 //            list.add(nodeMap.get("0"));
         }
 
-        for (int i = 0; i < list.size(); ++i) {
-            String s = list.get(i);
-            if (i != list.size() - 1 && discovered.containsKey(s)) {
-                continue;
-            }
-
-            discovered.put(s, nodeMap.get(s));
-            result.add(nodeMap.get(s));
-        }
+//        for (int i = 0; i < list.size(); ++i) {
+//            String s = list.get(i);
+//            if (i != list.size() - 1 && discovered.containsKey(s)) {
+//                continue;
+//            }
+//
+//            discovered.put(s, nodeMap.get(s));
+//            result.add(nodeMap.get(s));
+//        }
 
         return result;
     }

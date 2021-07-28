@@ -68,11 +68,11 @@ public class Project {
                         discoveredMap,
                         list);
 
-                result.addAll(list);
             } else {
                 discovered.put(list.getLast(), transposeTasks.get(list.getLast()));
-                result.addAll(list);
             }
+
+            result.addAll(list);
         }
 
 

@@ -14,11 +14,6 @@ public final class Project {
             taskMap.put(t.getTitle(), t);
             transposeMap.put(t.getTitle(), new Task(t.getTitle(), t.getEstimate()));
         }
-        for (var t : tasks) {
-            for (var transpose : t.getPredecessors()) {
-                transposeMap.get(transpose.getTitle()).addPredecessor(transposeMap.get(t.getTitle()));
-            }
-        }
     }
 
     private void topologicalSortRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Task> searchMap, LinkedList<String> visitTask) {
@@ -42,7 +37,13 @@ public final class Project {
         visitTask.addFirst(task.getTitle());
     }
 
-    private LinkedList<LinkedList<String>> getScc(final String task)  {
+    private LinkedList<LinkedList<String>> getScc(final String task) {
+        for (var t : taskMap.values()) {
+            for (var transpose : t.getPredecessors()) {
+                transposeMap.get(transpose.getTitle()).addPredecessor(transposeMap.get(t.getTitle()));
+            }
+        }
+
         HashMap<String, Task> searchChild = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
 
@@ -109,14 +110,9 @@ public final class Project {
 
     private int getDurationRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Task> circleMap) {
         discovered.put(task.getTitle(), task);
-
         int max = 0;
 
         for (var t : task.getPredecessors()) {
-//            if (discovered.containsKey(t.getTitle())) {
-//                continue;
-//            }
-
             if (circleMap.containsKey(t.getTitle())) {
                 continue;
             }
@@ -130,9 +126,8 @@ public final class Project {
             }
         }
 
-        return  max + task.getEstimate();
+        return max + task.getEstimate();
     }
-
 
     public int findMaxBonusCount(final String task) {
         return -1;

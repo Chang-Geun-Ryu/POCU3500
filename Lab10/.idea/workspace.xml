@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9436f87f-87b4-4dc9-b651-1562f65508b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/src/academy/pocu/comp3500/assignment4/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab8/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Lab9/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab9/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -72,6 +70,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -110,21 +109,6 @@
           <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/app/Program.java</url>
           <line>29</line>
           <option name="timeStamp" value="167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="170" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="174" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/pocu/comp3500/lab10/Project.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="175" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
