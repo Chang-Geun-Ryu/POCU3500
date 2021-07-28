@@ -63,7 +63,7 @@ public class BallBoy {
                 double y = Math.pow(points[i].getY() - points[j].getY(), 2);
                 double sqrt = Math.sqrt(x + y);
                 String ss = String.format("%d", j + 1);
-                edgeList.add(new Edge(s, ss, (int) (sqrt * 1000.f)));
+                edgeList.add(new Edge(s, ss, (int) (sqrt * 10000.f)));
             }
         }
     }
