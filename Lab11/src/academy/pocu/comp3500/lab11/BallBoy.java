@@ -14,7 +14,7 @@ public class BallBoy {
         HashMap<String, Point> nodeMap = new HashMap<>();
         ArrayList<Edge> edgeList = new ArrayList<>();
         HashMap<String, ArrayList<String>> treeMap = new HashMap<>();
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Point> list = new ArrayList<>();
         HashMap<String, Point> discovered = new HashMap<>();
         ArrayList<Point> result = new ArrayList<>();
 
@@ -27,9 +27,9 @@ public class BallBoy {
 
 
         // 순회
-        preorderTraverseRecursive(treeMap, "0", nodeMap, list);
+        preorderTraverseRecursive(treeMap, "0", nodeMap, discovered, list);
         if (list.get(list.size() - 1).toString().hashCode() != nodeMap.get("0").toString().hashCode()) {
-//            list.add(nodeMap.get("0"));
+            list.add(nodeMap.get("0"));
         }
 
 //        for (int i = 0; i < list.size(); ++i) {
@@ -42,7 +42,7 @@ public class BallBoy {
 //            result.add(nodeMap.get(s));
 //        }
 
-        return result;
+        return list;
     }
 
     private static void createNode(final Point[] points, HashMap<String, Point> nodeMap, ArrayList<Edge> edgeList) {
@@ -108,12 +108,20 @@ public class BallBoy {
         return mst;
     }
 
-    private static void preorderTraverseRecursive(HashMap<String, ArrayList<String>> treeMap, String parent, HashMap<String, Point> nodeMap, ArrayList<String> traverseList) {
-        traverseList.add(parent);
+    private static void preorderTraverseRecursive(HashMap<String, ArrayList<String>> treeMap, String parent, HashMap<String, Point> nodeMap, HashMap<String, Point> discovered, ArrayList<Point> traverseList) {
+        if (discovered.containsKey(parent) == false) {
+            traverseList.add(nodeMap.get(parent));
+            discovered.put(parent, nodeMap.get(parent));
+        }
+
         if (treeMap.containsKey(parent)) {
             for (var name : treeMap.get(parent)) {
-                preorderTraverseRecursive(treeMap, name, nodeMap, traverseList);
-                traverseList.add(parent);
+                preorderTraverseRecursive(treeMap, name, nodeMap, discovered, traverseList);
+
+                if (discovered.containsKey(parent) == false) {
+                    traverseList.add(nodeMap.get(parent));
+                    discovered.put(parent, nodeMap.get(parent));
+                }
             }
         }
     }
