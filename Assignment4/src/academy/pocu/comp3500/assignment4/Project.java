@@ -213,11 +213,11 @@ public final class Project {
         int min = Integer.MAX_VALUE;
         while (route.containsKey(temp)) {
             min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
-            System.out.print(temp + "<--");
+//            System.out.print(temp + "<--");
             temp = route.get(temp);
         }
         min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
-        System.out.println(temp + " : " + min);
+//        System.out.println(temp + " : " + min);
         temp = dest;
         while (route.containsKey(temp)) {
             nodeMap.get(temp).addFlowVolume(min);
