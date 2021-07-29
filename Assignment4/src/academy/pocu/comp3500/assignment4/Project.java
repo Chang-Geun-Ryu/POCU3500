@@ -8,16 +8,12 @@ import java.util.LinkedList;
 
 public final class Project {
     private HashMap<String, Task> taskMap = new HashMap<>();
-    private HashMap<String, Node> transposeMap = new HashMap<>();
-    private ArrayList<String> startList = new ArrayList<>();
+    private HashMap<String, Task> transposeMap = new HashMap<>();
 
     public Project(final Task[] tasks) {
         for (var t : tasks) {
             taskMap.put(t.getTitle(), t);
-            transposeMap.put(t.getTitle(), new Node(t.getTitle(), t.getEstimate()));
-            if (t.getPredecessors().size() < 1) {
-                startList.add(t.getTitle());
-            }
+            transposeMap.put(t.getTitle(), new Task(t.getTitle(), t.getEstimate()));
         }
         for (var t : taskMap.values()) {
             for (var transpose : t.getPredecessors()) {
@@ -47,27 +43,6 @@ public final class Project {
         visitTask.addFirst(task.getTitle());
     }
 
-    private void nodeTopologicalSortRecursive(Node node, HashMap<String, Node> discovered, HashMap<String, Task> searchMap, LinkedList<String> visitTask) {
-        discovered.put(node.getTitle(), node);
-
-        for (var t : node.getPredecessors()) {
-            if (discovered.containsKey(t.getTitle())) {
-                continue;
-            }
-
-            if (searchMap != null && searchMap.containsKey(t.getTitle()) == false) {
-                continue;
-            }
-
-            nodeTopologicalSortRecursive(t,
-                    discovered,
-                    searchMap,
-                    visitTask);
-        }
-
-        visitTask.addFirst(node.getTitle());
-    }
-
     private LinkedList<LinkedList<String>> getScc(final String task) {
         HashMap<String, Task> searchChild = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
@@ -77,10 +52,10 @@ public final class Project {
                 null,
                 visitTasks);
 
-        HashMap<String, Node> discoveredMap = new HashMap<>();
+        HashMap<String, Task> discoveredMap = new HashMap<>();
         LinkedList<LinkedList<String>> lists = new LinkedList<>();
         for (var taskName : visitTasks) {
-            Node t = transposeMap.get(taskName);
+            Task t = transposeMap.get(taskName);
             if (discoveredMap.containsKey(t.getTitle())) {
                 continue;
             }
@@ -90,7 +65,7 @@ public final class Project {
 
             LinkedList<String> list = new LinkedList<>();
 
-            nodeTopologicalSortRecursive(t,
+            topologicalSortRecursive(t,
                     discoveredMap,
                     searchChild,
                     list);
@@ -157,61 +132,116 @@ public final class Project {
     public int findMaxBonusCount(final String task) {
         LinkedList<String> queue = new LinkedList<>();
         HashMap<String, String> route = new HashMap<>();
-        HashMap<String, Node> discovered = new HashMap<>();
+        HashMap<String, Task> discovered = new HashMap<>();
+        HashMap<String, Node> nodeMap = new HashMap<>();
         boolean isFind = true;
+        ArrayList<String> startList = new ArrayList<>();
 
-//        for (var s : startList) {
-//            while (isFind) {
-//                route.clear();
-//                discovered.clear();
-//                isFind = bfs(s, queue, route, discovered, task);
-//            }
-//            isFind = true;
-//        }
+        findStartRecursive(taskMap.get(task), discovered, nodeMap, startList);
 
-        return -1;
+        for (var s : startList) {
+            while (isFind) {
+                route.clear();
+                discovered.clear();
+                isFind = bfs(s, queue, route, discovered, nodeMap, task);
+            }
+            isFind = true;
+        }
+
+        return nodeMap.get(task).canBackVolume();
     }
 
-    private boolean bfs(String start, LinkedList<String> queue, HashMap<String, String> route, HashMap<String, Node> discovered, String destinationTask) {
+    private boolean bfs(String start, LinkedList<String> queue, HashMap<String, String> route, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, String destinationTask) {
         queue.addFirst(start);
+        discovered.put(start, transposeMap.get(start));
+
         while (queue.size() > 0) {
             String pop = queue.removeFirst();
 
             if (destinationTask == pop) {
-                String temp = destinationTask;
-                int min = Integer.MAX_VALUE;
-                while (route.containsKey(temp)) {
-                    min = Math.min(transposeMap.get(temp).canFlowVolume(), min);
-                    temp = route.get(temp);
-                }
-                min = Math.min(transposeMap.get(temp).canFlowVolume(), min);
-
-                temp = destinationTask;
-                while (route.containsKey(temp)) {
-                    transposeMap.get(temp).addFlowVolume(min);
-                    temp = route.get(temp);
-                }
-                transposeMap.get(temp).addFlowVolume(min);
-
-                System.out.println(start + " --> " + destinationTask + " : " + min);
+                addCalc(destinationTask, route, nodeMap);
                 return true;
             }
 
-            for (var t : transposeMap.get(pop).getPredecessors()) {
-                if (discovered.containsKey(t.getTitle())) {
-                    continue;
-                }
+            if (nodeMap.get(pop).canFlowVolume() > 0) {
+                for (var t : transposeMap.get(pop).getPredecessors()) {
+                    if (discovered.containsKey(t.getTitle())) {
+                        continue;
+                    }
 
-                if (t.canFlowVolume() < 1) {
-                    continue;
-                }
+                    if (nodeMap.containsKey(t.getTitle()) == false) {
+                        continue;
+                    }
 
-                route.put(t.getTitle(), pop);
-                queue.addLast(t.getTitle());
-                discovered.put(t.getTitle(), t);
+                    if (nodeMap.get(t.getTitle()).canFlowVolume() < 1) {
+                        continue;
+                    }
+
+                    route.put(t.getTitle(), pop);
+                    queue.addLast(t.getTitle());
+                    discovered.put(t.getTitle(), t);
+                }
+            }
+            if (nodeMap.get(pop).canBackVolume() > 0) {
+                for (var t : taskMap.get(pop).getPredecessors()) {
+                    if (discovered.containsKey(t.getTitle())) {
+                        continue;
+                    }
+                    if (nodeMap.containsKey(t.getTitle()) == false) {
+                        continue;
+                    }
+                    if (nodeMap.get(t.getTitle()).canBackVolume() < 1) {
+                        continue;
+                    }
+
+                    route.put(t.getTitle(), pop);
+                    queue.addLast(t.getTitle());
+                    discovered.put(t.getTitle(), t);
+                }
             }
         }
 
         return false;
     }
+
+    private void addCalc(String dest, HashMap<String, String> route, HashMap<String, Node> nodeMap) {
+        String temp = dest;
+        int min = Integer.MAX_VALUE;
+        while (route.containsKey(temp)) {
+            min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
+            temp = route.get(temp);
+        }
+        min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
+
+        temp = dest;
+        while (route.containsKey(temp)) {
+            nodeMap.get(temp).addFlowVolume(min);
+            temp = route.get(temp);
+        }
+        nodeMap.get(temp).addFlowVolume(min);
+
+//        System.out.println(temp + " --> " + dest + " : " + min);
+    }
+
+
+    private void findStartRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, ArrayList<String> startList) {
+        discovered.put(task.getTitle(), task);
+
+        for (var t : task.getPredecessors()) {
+            if (discovered.containsKey(t.getTitle())) {
+                continue;
+            }
+
+            findStartRecursive(t,
+                    discovered,
+                    nodeMap,
+                    startList);
+        }
+
+        if (task.getPredecessors().size() < 1) {
+            startList.add(task.getTitle());
+        }
+        nodeMap.put(task.getTitle(), new Node(transposeMap.get(task.getTitle())));
+    }
+
 }
