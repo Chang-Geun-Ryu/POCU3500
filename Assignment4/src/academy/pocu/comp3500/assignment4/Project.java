@@ -2,17 +2,27 @@ package academy.pocu.comp3500.assignment4;
 
 import academy.pocu.comp3500.assignment4.project.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public final class Project {
     private HashMap<String, Task> taskMap = new HashMap<>();
-    private HashMap<String, Task> transposeMap = new HashMap<>();
+    private HashMap<String, Node> transposeMap = new HashMap<>();
+    private ArrayList<String> startList = new ArrayList<>();
 
     public Project(final Task[] tasks) {
         for (var t : tasks) {
             taskMap.put(t.getTitle(), t);
-            transposeMap.put(t.getTitle(), new Task(t.getTitle(), t.getEstimate()));
+            transposeMap.put(t.getTitle(), new Node(t.getTitle(), t.getEstimate()));
+            if (t.getPredecessors().size() < 1) {
+                startList.add(t.getTitle());
+            }
+        }
+        for (var t : taskMap.values()) {
+            for (var transpose : t.getPredecessors()) {
+                transposeMap.get(transpose.getTitle()).addPredecessor(transposeMap.get(t.getTitle()));
+            }
         }
     }
 
@@ -37,13 +47,28 @@ public final class Project {
         visitTask.addFirst(task.getTitle());
     }
 
-    private LinkedList<LinkedList<String>> getScc(final String task) {
-        for (var t : taskMap.values()) {
-            for (var transpose : t.getPredecessors()) {
-                transposeMap.get(transpose.getTitle()).addPredecessor(transposeMap.get(t.getTitle()));
+    private void nodeTopologicalSortRecursive(Node node, HashMap<String, Node> discovered, HashMap<String, Task> searchMap, LinkedList<String> visitTask) {
+        discovered.put(node.getTitle(), node);
+
+        for (var t : node.getPredecessors()) {
+            if (discovered.containsKey(t.getTitle())) {
+                continue;
             }
+
+            if (searchMap != null && searchMap.containsKey(t.getTitle()) == false) {
+                continue;
+            }
+
+            nodeTopologicalSortRecursive(t,
+                    discovered,
+                    searchMap,
+                    visitTask);
         }
 
+        visitTask.addFirst(node.getTitle());
+    }
+
+    private LinkedList<LinkedList<String>> getScc(final String task) {
         HashMap<String, Task> searchChild = new HashMap<>();
         LinkedList<String> visitTasks = new LinkedList<>();
 
@@ -52,10 +77,10 @@ public final class Project {
                 null,
                 visitTasks);
 
-        HashMap<String, Task> discoveredMap = new HashMap<>();
+        HashMap<String, Node> discoveredMap = new HashMap<>();
         LinkedList<LinkedList<String>> lists = new LinkedList<>();
         for (var taskName : visitTasks) {
-            Task t = transposeMap.get(taskName);
+            Node t = transposeMap.get(taskName);
             if (discoveredMap.containsKey(t.getTitle())) {
                 continue;
             }
@@ -65,7 +90,7 @@ public final class Project {
 
             LinkedList<String> list = new LinkedList<>();
 
-            topologicalSortRecursive(t,
+            nodeTopologicalSortRecursive(t,
                     discoveredMap,
                     searchChild,
                     list);
@@ -130,6 +155,53 @@ public final class Project {
     }
 
     public int findMaxBonusCount(final String task) {
+        LinkedList<String> queue = new LinkedList<>();
+        HashMap<String, String> route = new HashMap<>();
+        HashMap<String, Node> discovered = new HashMap<>();
+        boolean isFind = true;
+
+        for (var s : startList) {
+            while (isFind) {
+                route.clear();
+                discovered.clear();
+                isFind = bfs(s, queue, route, discovered, task);
+            }
+            isFind = true;
+        }
+
         return -1;
+    }
+
+    private boolean bfs(String start, LinkedList<String> queue, HashMap<String, String> route, HashMap<String, Node> discovered, String destinationTask) {
+        queue.addFirst(start);
+        while (queue.size() > 0) {
+            String pop = queue.removeFirst();
+
+            if (destinationTask == pop) {
+                String temp = destinationTask;
+                int min = Integer.MAX_VALUE;
+                while (route.containsKey(temp)) {
+                    min = Math.min(transposeMap.get(temp).getEstimate(), min);
+                    temp = route.get(temp);
+                }
+                min = Math.min(transposeMap.get(temp).getEstimate(), min);
+
+
+                System.out.println(start + " --> " + destinationTask + " : " + min);
+                return true;
+            }
+
+            for (var t : transposeMap.get(pop).getPredecessors()) {
+                if (discovered.containsKey(t.getTitle() + "trans")) {
+                    continue;
+                }
+
+                route.put(t.getTitle(), pop);
+                queue.addLast(t.getTitle());
+                discovered.put(t.getTitle() + "trans", t);
+            }
+        }
+
+        return false;
     }
 }
