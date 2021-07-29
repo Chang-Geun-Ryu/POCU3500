@@ -36,6 +36,11 @@ public class Program {
         int minDuration2 = project.findMinDuration("ms2");
         assert (minDuration2 == 32);
 
+        int bonusCount3 = project.findMaxBonusCount("A");
+        assert (bonusCount3 == 3);
+        int bonusCount4 = project.findMaxBonusCount("B");
+        assert (bonusCount4 == 5);
+
         int bonusCount1 = project.findMaxBonusCount("ms1");
         assert (bonusCount1 == 6);
 

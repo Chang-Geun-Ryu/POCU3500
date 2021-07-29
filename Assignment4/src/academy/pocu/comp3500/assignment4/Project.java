@@ -159,8 +159,7 @@ public final class Project {
             String pop = queue.removeFirst();
 
             if (destinationTask == pop) {
-                addCalc(destinationTask, route, nodeMap);
-                return true;
+                return addCalc(destinationTask, route, nodeMap);
             }
 
             if (nodeMap.get(pop).canFlowVolume() > 0) {
@@ -204,15 +203,20 @@ public final class Project {
         return false;
     }
 
-    private void addCalc(String dest, HashMap<String, String> route, HashMap<String, Node> nodeMap) {
+    private boolean addCalc(String dest, HashMap<String, String> route, HashMap<String, Node> nodeMap) {
+        if (route.size() < 1) {
+            nodeMap.get(dest).addFlowVolume(nodeMap.get(dest).getEstimate());
+            return false;
+        }
         String temp = dest;
         int min = Integer.MAX_VALUE;
         while (route.containsKey(temp)) {
             min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
+            System.out.print(temp + "<--");
             temp = route.get(temp);
         }
         min = Math.min(nodeMap.get(temp).canFlowVolume(), min);
-
+        System.out.println(temp + " : " + min);
         temp = dest;
         while (route.containsKey(temp)) {
             nodeMap.get(temp).addFlowVolume(min);
@@ -221,6 +225,7 @@ public final class Project {
         nodeMap.get(temp).addFlowVolume(min);
 
 //        System.out.println(temp + " --> " + dest + " : " + min);
+        return true;
     }
 
 
