@@ -16,7 +16,6 @@ public class BallBoy {
         HashMap<String, ArrayList<String>> treeMap = new HashMap<>();
         ArrayList<Point> list = new ArrayList<>();
         HashMap<String, Point> discovered = new HashMap<>();
-        ArrayList<Point> result = new ArrayList<>();
 
         createNode(points, nodeMap, edgeList);
 
