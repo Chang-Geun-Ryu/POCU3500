@@ -3,21 +3,18 @@ package academy.pocu.comp3500.assignment4;
 import academy.pocu.comp3500.assignment4.project.Task;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Node {
     private final String title;
     private final ArrayList<Node> predecessors = new ArrayList<>(64);
     private int estimate;
-    private int flowEdge;
-    private int backEdge;
+    private int flowVolume;
 
     public Node(final String title, final int estimate) {
         this.title = title;
         this.estimate = estimate;
-        this.flowEdge = 0;
-        this.backEdge = 0;
+        this.flowVolume = 0;
     }
 
     public String getTitle() {
@@ -35,10 +32,28 @@ public class Node {
     }
 
     public List<Node> getPredecessors() {
-        return Collections.unmodifiableList(this.predecessors);
+        return this.predecessors;
     }
 
     public int getEstimate() {
         return this.estimate;
+    }
+
+    public int canFlowVolume() {
+        return this.estimate - this.flowVolume;
+    }
+
+    public void addFlowVolume(int flowVolume) {
+        this.flowVolume += flowVolume;
+        assert (this.estimate >= this.flowVolume);
+    }
+
+    public int canBackVolume() {
+        return this.flowVolume;
+    }
+
+    public void addBackVolume(int backVolume) {
+        this.flowVolume -= backVolume;
+        assert (this.flowVolume >= 0);
     }
 }

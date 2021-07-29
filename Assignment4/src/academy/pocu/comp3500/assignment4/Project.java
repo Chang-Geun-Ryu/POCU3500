@@ -160,14 +160,14 @@ public final class Project {
         HashMap<String, Node> discovered = new HashMap<>();
         boolean isFind = true;
 
-        for (var s : startList) {
-            while (isFind) {
-                route.clear();
-                discovered.clear();
-                isFind = bfs(s, queue, route, discovered, task);
-            }
-            isFind = true;
-        }
+//        for (var s : startList) {
+//            while (isFind) {
+//                route.clear();
+//                discovered.clear();
+//                isFind = bfs(s, queue, route, discovered, task);
+//            }
+//            isFind = true;
+//        }
 
         return -1;
     }
@@ -181,24 +181,34 @@ public final class Project {
                 String temp = destinationTask;
                 int min = Integer.MAX_VALUE;
                 while (route.containsKey(temp)) {
-                    min = Math.min(transposeMap.get(temp).getEstimate(), min);
+                    min = Math.min(transposeMap.get(temp).canFlowVolume(), min);
                     temp = route.get(temp);
                 }
-                min = Math.min(transposeMap.get(temp).getEstimate(), min);
+                min = Math.min(transposeMap.get(temp).canFlowVolume(), min);
 
+                temp = destinationTask;
+                while (route.containsKey(temp)) {
+                    transposeMap.get(temp).addFlowVolume(min);
+                    temp = route.get(temp);
+                }
+                transposeMap.get(temp).addFlowVolume(min);
 
                 System.out.println(start + " --> " + destinationTask + " : " + min);
                 return true;
             }
 
             for (var t : transposeMap.get(pop).getPredecessors()) {
-                if (discovered.containsKey(t.getTitle() + "trans")) {
+                if (discovered.containsKey(t.getTitle())) {
+                    continue;
+                }
+
+                if (t.canFlowVolume() < 1) {
                     continue;
                 }
 
                 route.put(t.getTitle(), pop);
                 queue.addLast(t.getTitle());
-                discovered.put(t.getTitle() + "trans", t);
+                discovered.put(t.getTitle(), t);
             }
         }
 
