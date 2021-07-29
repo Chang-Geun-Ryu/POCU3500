@@ -8,7 +8,6 @@ public class Program {
     public static void main(String[] args) {
 
         {
-
             Task[] tasks = E03_ParallelTasks1();
             Project project = new Project(tasks);
             int bonusCount2 = project.findMaxBonusCount("6");
