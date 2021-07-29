@@ -8,6 +8,14 @@ public class Program {
     public static void main(String[] args) {
 
         {
+
+            Task[] tasks = E03_ParallelTasks1();
+            Project project = new Project(tasks);
+            int bonusCount2 = project.findMaxBonusCount("6");
+            assert (bonusCount2 == 3);
+        }
+
+        {
             Task[] tasks = createTasks1();
             Project project = new Project(tasks);
 
@@ -116,4 +124,33 @@ public class Program {
 
         return tasks;
     }
+
+    private static Task[] E03_ParallelTasks1() {
+        Task a = new Task("0", 2);
+        Task b = new Task("1", 1);
+        Task c = new Task("2", 3);
+        Task d = new Task("3", 5);
+        Task e = new Task("4", 7);
+        Task f = new Task("5", 2);
+        Task g = new Task("6", 11);
+
+        b.addPredecessor(a);
+        c.addPredecessor(b);
+        d.addPredecessor(c);
+        f.addPredecessor(b, e);
+        g.addPredecessor(d, f);
+
+        Task[] tasks = new Task[]{
+                a, b, c, d, e, f, g
+        };
+
+        return tasks;
+    }
+//           a 0    62e717f4-997e-42f6-8e54-226db16b8225           2
+//           b 1    b923e897-6c74-49ab-838b-364b9a3e5225           1                       0 a
+//           c 2    b809d2a7-fdfe-4ef4-9e07-9adb015a987d           3                       1 b
+//           d 3    66ed2dbd-dc4a-4f51-8962-93ad7f3fe6af           5                       2 c
+//           e 4    3e8cfaa3-8dd9-4bd0-a389-23ffd74ad1a5           7
+//           f 5    88f6f348-080c-4bad-aee9-37103f3898c0           2                    1, 4 b, e
+//           g 6    aebcccc5-a9f5-4248-955c-2646b8554758          11                    3, 5 d, f
 }

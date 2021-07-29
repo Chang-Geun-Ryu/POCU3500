@@ -135,25 +135,26 @@ public final class Project {
         HashMap<String, Task> discovered = new HashMap<>();
         HashMap<String, Node> nodeMap = new HashMap<>();
         boolean isFind = true;
-        ArrayList<String> startList = new ArrayList<>();
+        LinkedList<String> startList = new LinkedList<>();
 
         findStartRecursive(taskMap.get(task), discovered, nodeMap, startList);
 
-        for (var s : startList) {
-            while (isFind) {
-                route.clear();
-                discovered.clear();
-                isFind = bfs(s, queue, route, discovered, nodeMap, task);
+        discovered.clear();
+        while (isFind) {
+            for (var s : startList) {
+                queue.addFirst(s);
+                discovered.put(s, transposeMap.get(s));
             }
-            isFind = true;
+            isFind = bfs(queue, route, discovered, nodeMap, task);
+            route.clear();
+            discovered.clear();
+            queue.clear();
         }
 
         return nodeMap.get(task).canBackVolume();
     }
 
-    private boolean bfs(String start, LinkedList<String> queue, HashMap<String, String> route, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, String destinationTask) {
-        queue.addFirst(start);
-        discovered.put(start, transposeMap.get(start));
+    private boolean bfs(LinkedList<String> queue, HashMap<String, String> route, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, String destinationTask) {
 
         while (queue.size() > 0) {
             String pop = queue.removeFirst();
@@ -229,7 +230,7 @@ public final class Project {
     }
 
 
-    private void findStartRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, ArrayList<String> startList) {
+    private void findStartRecursive(Task task, HashMap<String, Task> discovered, HashMap<String, Node> nodeMap, LinkedList<String> startList) {
         discovered.put(task.getTitle(), task);
 
         for (var t : task.getPredecessors()) {
@@ -244,7 +245,7 @@ public final class Project {
         }
 
         if (task.getPredecessors().size() < 1) {
-            startList.add(task.getTitle());
+            startList.addFirst(task.getTitle());
         }
         nodeMap.put(task.getTitle(), new Node(transposeMap.get(task.getTitle())));
     }
