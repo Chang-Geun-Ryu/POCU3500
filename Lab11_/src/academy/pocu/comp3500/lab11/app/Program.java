@@ -15,7 +15,11 @@ public class Program {
             };
 
             List<Point> path = BallBoy.findPath(points);
-// [0, 0], [3, 4], [0, 0]
+            // [0, 0], [3, 4], [0, 0]
+
+            int a = 0;
+
+
         }
         {
             Point[] points = {
@@ -25,8 +29,9 @@ public class Program {
             };
 
             List<Point> path = BallBoy.findPath(points);
-        }
 
+            int a = 1;
+        }
         String startPoint = new Point(0, 0).toString();
 
         {
