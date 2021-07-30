@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ac46a82-47d1-483c-8f67-62628423368a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lab11/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab11/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lab11/src/academy/pocu/comp3500/lab11/BallBoy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab11/src/academy/pocu/comp3500/lab11/BallBoy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lab11/src/academy/pocu/comp3500/lab11/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab11/src/academy/pocu/comp3500/lab11/Edge.java" afterDir="false" />
-    </list>
+    <list default="true" id="7ac46a82-47d1-483c-8f67-62628423368a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
